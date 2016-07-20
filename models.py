@@ -23,7 +23,14 @@ class Applicant(BaseModel):
     def find_missing_app_code(cls):
         return Applicant.select().where(Applicant.application_code >> None)
 
+    @classmethod
+    def finding_city(cls):
+        applicants = cls.find_missing_app_code()
+        for applicant in applicants:
+            applicant.school = City.select(City.school_near).where(City.name == applicant.city)
+
 
 class City(BaseModel):
     name = CharField()
     school_near = ForeignKeyField(School, related_name='schools')
+
