@@ -41,6 +41,24 @@ class Applicant(BaseModel):
         from code_gener import pw
         pw()
 
+    @classmethod
+    def find_missing_interview_slot(cls):
+        return Applicant.select().where(Applicant.interview_slot >> None)
+
+    @classmethod
+    def assign_interview_slot(cls):
+        applicants = cls.find_missing_interview_slot()
+        for applicant in applicants:
+            applicant.set_interview_slot()
+
+    def set_interview_slot(self):
+        query = Interview.select().where(Interview.free == True and Interview.mentor.school == self.school)
+        slot = [i for i in query][0]
+        slot.free = False
+        slot.save()
+        self.interview_slot = slot
+        self.save()
+
 
 class City(BaseModel):
     name = CharField()
