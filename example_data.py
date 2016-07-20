@@ -61,26 +61,30 @@ mentors = [
     {'first_name': 'Hrosic', 'last_name': 'Czukor', 'school': 'Krakkó'}
 ]
 
+
 def add_mentors():
     for mentor in mentors:
-        Mentor.create(first_name=mentor['first_name'], last_name=mentor['last_name'], school=School.select().where(School.location == mentor['school']))
+        Mentor.create(first_name=mentor['first_name'], last_name=mentor['last_name'],
+                      school=School.select().where(School.location == mentor['school']))
 
 interview_slots = [
-    {'start': '2016-09-01 11:00:00', 'end': '2016-09-01 11:20:00', 'mentor': 'Miki', 'free': 'True' },
-    {'start': '2016-09-01 11:30:00', 'end': '2016-09-01 11:50:00', 'mentor': 'Miki', 'free': 'True' },
-    {'start': '2016-09-01 13:00:00', 'end': '2016-09-01 13:20:00', 'mentor': 'Tomi', 'free': 'False' },
-    {'start': '2016-09-01 13:30:00', 'end': '2016-09-01 13:50:00', 'mentor': 'Miki', 'free': 'True' },
-    {'start': '2016-09-02 11:00:00', 'end': '2016-09-01 11:20:00', 'mentor': 'Zoli', 'free': 'True' },
-    {'start': '2016-09-02 11:30:00', 'end': '2016-09-01 11:50:00', 'mentor': 'Zoli', 'free': 'True' },
-    {'start': '2016-09-02 13:00:00', 'end': '2016-09-01 13:20:00', 'mentor': 'Zoli', 'free': 'False' },
-    {'start': '2016-09-02 11:00:00', 'end': '2016-09-01 11:20:00', 'mentor': 'Miki', 'free': 'True' },
-    {'start': '2016-09-03 11:00:00', 'end': '2016-09-01 11:20:00', 'mentor': 'Hrosic', 'free': 'True' },
-    {'start': '2016-09-03 11:30:00', 'end': '2016-09-01 11:50:00', 'mentor': 'Hrosic', 'free': 'False' },
-    {'start': '2016-09-04 11:00:00', 'end': '2016-09-01 11:20:00', 'mentor': 'Hrosic', 'free': 'True' },
-    {'start': '2016-09-04 11:00:00', 'end': '2016-09-01 11:20:00', 'mentor': 'Miki', 'free': 'True' },
+    {'start': '2016-09-01 11:00:00', 'end': '2016-09-01 11:20:00', 'mentor': 'Miki', 'free': True},
+    {'start': '2016-09-01 11:30:00', 'end': '2016-09-01 11:50:00', 'mentor': 'Miki', 'free': True},
+    {'start': '2016-09-01 13:00:00', 'end': '2016-09-01 13:20:00', 'mentor': 'Tomi', 'free': False},
+    {'start': '2016-09-01 13:30:00', 'end': '2016-09-01 13:50:00', 'mentor': 'Miki', 'free': True},
+    {'start': '2016-09-02 11:00:00', 'end': '2016-09-01 11:20:00', 'mentor': 'Zoli', 'free': True},
+    {'start': '2016-09-02 11:30:00', 'end': '2016-09-01 11:50:00', 'mentor': 'Zoli', 'free': True},
+    {'start': '2016-09-02 13:00:00', 'end': '2016-09-01 13:20:00', 'mentor': 'Zoli', 'free': False},
+    {'start': '2016-09-02 11:00:00', 'end': '2016-09-01 11:20:00', 'mentor': 'Miki', 'free': True},
+    {'start': '2016-09-03 11:00:00', 'end': '2016-09-01 11:20:00', 'mentor': 'Hrosic', 'free': True},
+    {'start': '2016-09-03 11:30:00', 'end': '2016-09-01 11:50:00', 'mentor': 'Hrosic', 'free': False},
+    {'start': '2016-09-04 11:00:00', 'end': '2016-09-01 11:20:00', 'mentor': 'Hrosic', 'free': True},
+    {'start': '2016-09-04 11:00:00', 'end': '2016-09-01 11:20:00', 'mentor': 'Miki', 'free': True},
 ]
+
 
 def interview():
     for interview_slot in interview_slots:
         Interview.create(start=interview_slot['start'], end=interview_slot['end'],
-                         mentor=Mentor.select().where(Mentor.first_name ==interview_slot['mentor']), free=interview_slot['free'])
+                         mentor=Mentor.select().where(Mentor.first_name == interview_slot['mentor']),
+                         free=interview_slot['free'])
