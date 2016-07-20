@@ -1,5 +1,5 @@
 from models import *
-import subprocess
+
 
 def print_applicant_table():
     for applicant in Applicant.select():
@@ -10,8 +10,6 @@ def print_applicant_table():
                  applicant.city,
                  applicant.school))
 
-x = subprocess.call('python /home/cave/Documents/Python/CC_School_system/python-school-system-with-orm-sf/build.py',
-                    shell=True)
 print_applicant_table()
 input()
 Applicant.set_app_code()

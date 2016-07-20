@@ -23,12 +23,12 @@ class Applicant(BaseModel):
         return Applicant.select().where(Applicant.application_code >> None)
 
     @classmethod
-    def find_missing_app_school(cls):
+    def find_missing_school(cls):
         return Applicant.select().where(Applicant.school >> None)
 
     @classmethod
     def finding_city(cls):
-        applicants = cls.find_missing_app_school()
+        applicants = cls.find_missing_school()
         for applicant in applicants:
             applicant.set_city()
 
