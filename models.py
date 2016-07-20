@@ -1,6 +1,7 @@
 from peewee import *
 from connect import db
 
+
 class BaseModel(Model):
     """A base model that will use our Postgresql database"""
     class Meta:
@@ -9,6 +10,9 @@ class BaseModel(Model):
 
 class School(BaseModel):
     location = CharField()
+
+    def __str__(self):
+        return self.location
 
 
 class Applicant(BaseModel):
@@ -45,4 +49,3 @@ class Applicant(BaseModel):
 class City(BaseModel):
     name = CharField()
     school_near = ForeignKeyField(School, related_name='schools')
-
