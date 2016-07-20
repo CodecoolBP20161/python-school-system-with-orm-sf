@@ -1,0 +1,1 @@
+db = PostgresqlDatabase('', user='', password='')
