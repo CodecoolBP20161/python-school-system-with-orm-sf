@@ -1,9 +1,8 @@
 from peewee import *
+from connect import db
 
-# Configure your database connection here
-# database name = should be your username on your laptop
-# database user = should be your username on your laptop
-db = PostgresqlDatabase('', user='', password='')
+
+
 
 
 class BaseModel(Model):
