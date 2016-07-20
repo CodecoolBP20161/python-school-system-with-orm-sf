@@ -31,7 +31,11 @@ class Applicant(BaseModel):
     def finding_city(cls):
         applicants = cls.find_missing_app_school()
         for applicant in applicants:
-            applicant.school = City.select(City.school_near).where(City.name == applicant.city)
+            applicant.set_city()
+
+    def set_city(self):
+        self.school = City.select(City.school_near).where(City.name == self.city)
+        self.save()
 
 
 class City(BaseModel):
