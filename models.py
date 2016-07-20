@@ -1,7 +1,6 @@
 from peewee import *
 from connect import db
 
-
 class BaseModel(Model):
     """A base model that will use our Postgresql database"""
     class Meta:
