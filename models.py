@@ -28,7 +28,7 @@ class Applicant(BaseModel):
 
     @classmethod
     def finding_city(cls):
-        applicants = cls.find_missing_app_school()
+        applicants = cls.find_missing_school()
         for applicant in applicants:
             applicant.set_city()
 
