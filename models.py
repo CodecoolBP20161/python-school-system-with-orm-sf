@@ -1,6 +1,6 @@
 from peewee import *
 from connect import db
-
+from code_gener import pw
 
 class BaseModel(Model):
     """A base model that will use our Postgresql database"""
@@ -36,6 +36,10 @@ class Applicant(BaseModel):
     def set_city(self):
         self.school = City.select(City.school_near).where(City.name == self.city)
         self.save()
+
+    @classmethod
+    def set_app_code(cls):
+        pw()
 
 
 class City(BaseModel):
