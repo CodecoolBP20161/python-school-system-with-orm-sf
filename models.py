@@ -27,6 +27,18 @@ class Applicant(BaseModel):
     def find_missing_app_school(cls):
         return Applicant.select().where(Applicant.school >> None)
 
+    @classmethod
+    def finding_city(cls):
+        applicants = cls.find_missing_app_school()
+        for applicant in applicants:
+            applicant.set_city()
+
+    def set_city(self):
+        self.school = City.select(City.school_near).where(City.name == self.city)
+        self.save()
+
+
 class City(BaseModel):
     name = CharField()
     school_near = ForeignKeyField(School, related_name='schools')
+
