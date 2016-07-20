@@ -37,6 +37,11 @@ class Applicant(BaseModel):
         self.school = City.select(City.school_near).where(City.name == self.city)
         self.save()
 
+    @classmethod
+    def set_app_code(cls):
+        from code_gener import pw
+        pw()
+
 
 class City(BaseModel):
     name = CharField()

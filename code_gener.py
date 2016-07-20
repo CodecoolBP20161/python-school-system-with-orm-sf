@@ -1,6 +1,5 @@
 import random
 import string
-from peewee import *
 from models import *
 
 
