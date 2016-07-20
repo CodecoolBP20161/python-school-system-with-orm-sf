@@ -1,9 +1,14 @@
 from peewee import *
 
-# Configure your database connection here
-# database name = should be your username on your laptop
-# database user = should be your username on your laptop
-db = PostgresqlDatabase('cave', user='cave', password='123456789')
+
+def connect_to_db():
+    import getpass
+    db_name = input('DB name: ')
+    db_user = input('DB user: ')
+    db_password = getpass.getpass('DB user password: ')
+    return PostgresqlDatabase(db_name, user=db_user, password=db_password)
+
+db = connect_to_db()
 
 
 class BaseModel(Model):
@@ -17,14 +22,13 @@ class School(BaseModel):
 
 
 class Applicant(BaseModel):
-    application_code = CharField(default='None')
+    application_code = CharField(null=True)
     first_name = CharField()
     last_name = CharField()
     city = CharField()
-    school = ForeignKeyField(School, default='None', related_name='applicants')
+    school = ForeignKeyField(School, related_name='applicants', null=True)
 
 
 class City(BaseModel):
     name = CharField()
     school_near = ForeignKeyField(School, related_name='schools')
-
