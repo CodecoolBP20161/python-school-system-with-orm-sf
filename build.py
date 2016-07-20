@@ -5,8 +5,8 @@ from example_data import *
 
 db.connect()
 
-db.drop_tables([Applicant, City, School], safe=True)
-db.create_tables([Applicant, City, School], safe=True)
+db.drop_tables([Applicant, City, School, Mentor, Interview], safe=True)
+db.create_tables([Applicant, City, School, Mentor, Interview], safe=True)
 add_schools()
 add_applicants()
 add_cities()
