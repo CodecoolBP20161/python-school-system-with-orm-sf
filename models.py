@@ -23,6 +23,9 @@ class Applicant(BaseModel):
     def find_missing_app_code(cls):
         return Applicant.select().where(Applicant.application_code >> None)
 
+    @classmethod
+    def find_missing_app_school(cls):
+        return Applicant.select().where(Applicant.school >> None)
 
 class City(BaseModel):
     name = CharField()
