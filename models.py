@@ -1,14 +1,5 @@
 from peewee import *
-
-
-def connect_to_db():
-    import getpass
-    db_name = input('DB name: ')
-    db_user = input('DB user: ')
-    db_password = getpass.getpass('DB user password: ')
-    return PostgresqlDatabase(db_name, user=db_user, password=db_password)
-
-db = connect_to_db()
+from connect import db
 
 
 class BaseModel(Model):
@@ -27,6 +18,10 @@ class Applicant(BaseModel):
     last_name = CharField()
     city = CharField()
     school = ForeignKeyField(School, related_name='applicants', null=True)
+
+    @classmethod
+    def find_missing_app_code(cls):
+        return Applicant.select().where(Applicant.application_code >> None)
 
 
 class City(BaseModel):
