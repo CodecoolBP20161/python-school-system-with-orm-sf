@@ -3,7 +3,7 @@ from peewee import *
 # Configure your database connection here
 # database name = should be your username on your laptop
 # database user = should be your username on your laptop
-db = PostgresqlDatabase('cave', user='cave', password='123456789')
+db = PostgresqlDatabase('', user='', password='')
 
 
 class BaseModel(Model):
@@ -21,10 +21,13 @@ class Applicant(BaseModel):
     first_name = CharField()
     last_name = CharField()
     city = CharField()
-    school = ForeignKeyField(School, default='None', related_name='applicants')
+    school = ForeignKeyField(School,null = True, related_name='applicants')
+
+    @classmethod
+    def find_missing_app_code():
+        return Applicant.select().where(Applicant.application_code >> None)
 
 
 class City(BaseModel):
     name = CharField()
     school_near = ForeignKeyField(School, related_name='schools')
-
