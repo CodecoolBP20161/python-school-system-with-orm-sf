@@ -70,12 +70,17 @@ class Applicant(BaseModel):
             applicant.set_interview_slot()
 
     def set_interview_slot(self):
-        query = Interview.select().where(Interview.free == True and Interview.mentor.school == self.school)
-        slot = [i for i in query][0]
-        slot.free = False
-        slot.save()
-        self.interview_slot = slot
-        self.save()
+        query = (Interview.select(Interview, Mentor)
+                 .join(Mentor)
+                 .where(Interview.free == True and Mentor.school == self.school))
+        try:
+            slot = [i for i in query][0]
+            slot.free = False
+            slot.save()
+            self.interview_slot = slot
+            self.save()
+        except IndexError:
+            print('Not enough interview slots!')
 
 
 class City(BaseModel):
