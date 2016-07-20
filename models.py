@@ -24,8 +24,12 @@ class Applicant(BaseModel):
         return Applicant.select().where(Applicant.application_code >> None)
 
     @classmethod
+    def find_missing_app_school(cls):
+        return Applicant.select().where(Applicant.school >> None)
+
+    @classmethod
     def finding_city(cls):
-        applicants = cls.find_missing_app_code()
+        applicants = cls.find_missing_app_school()
         for applicant in applicants:
             applicant.school = City.select(City.school_near).where(City.name == applicant.city)
 
