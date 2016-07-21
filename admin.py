@@ -16,7 +16,7 @@ def filter_by_mentor_name():
         if applicants:
             return applicants
         else:
-            return ('No associated applicants found to the given mentor!')
+            print('No associated applicants found to the given mentor!')
     except ValueError as error:
         print('Please provide the full name of the mentor separated with a space!', error)
 
@@ -64,7 +64,6 @@ def filter_by_personal_data():
 
 def filter_by_time():
     """Filter applicants by their interview start time"""
-
     a = [int(x) for x in input('Please type the correct start time (correct form: yyyy m d h m s): ').split()]
     input_len = len(a)
     if input_len<6:
