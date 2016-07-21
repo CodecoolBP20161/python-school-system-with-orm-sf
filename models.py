@@ -86,3 +86,10 @@ class Applicant(BaseModel):
 class City(BaseModel):
     name = CharField()
     school_near = ForeignKeyField(School, related_name='schools')
+
+
+class Status(BaseModel):
+    status = CharField()
+
+class Email(BaseModel):
+    address = CharField()
