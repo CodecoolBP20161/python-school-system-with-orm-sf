@@ -18,13 +18,13 @@ def filter_by_mentor_name(mentor):
 def applicant_by_school_location():
     choice = input("Choose a city where you want to see the students of the local school.\n[BP/ MI/ KR/ LA]: ")
     if choice == "BP":
-        return list(Applicant.select(Applicant.first_name, Applicant.last_name).where(Applicant.school == 1))
+        return Applicant.select(Applicant.first_name, Applicant.last_name).where(Applicant.school == 1)
     elif choice == "MI":
-        return list(Applicant.select(Applicant.first_name, Applicant.last_name).where(Applicant.school == 2))
+        return Applicant.select(Applicant.first_name, Applicant.last_name).where(Applicant.school == 2)
     elif choice == "KR":
-        return list(Applicant.select(Applicant.first_name, Applicant.last_name).where(Applicant.school == 3))
+        return Applicant.select(Applicant.first_name, Applicant.last_name).where(Applicant.school == 3)
     elif choice == "LA":
-        return list(Applicant.select(Applicant.first_name, Applicant.last_name).where(Applicant.school == 4))
+        return Applicant.select(Applicant.first_name, Applicant.last_name).where(Applicant.school == 4)
 
 
 def applicant_by_location():
