@@ -12,7 +12,10 @@ def applicant_by_school_location():
     elif choice == "LA":
         return list(Applicant.select(Applicant.first_name, Applicant.last_name).where(Applicant.school == 4))
 
-applicant_by_school_location()
+
+def applicant_by_location():
+    choice = input("Enter a city where you want to search applicants: ")
+    return list(Applicant.select(Applicant.first_name, Applicant.last_name).where(Applicant.city == choice))
 
 
 def filter_by_personal_data(first_name, last_name, city, email, status):
