@@ -1,6 +1,7 @@
 from models import *
 
 
+
 def filter_by_mentor_name():
     """Filter applicants by their mentor name"""
     mentor = input('Give me the mentor name: ')
@@ -30,6 +31,9 @@ def applicant_by_school_location():
         return list(Applicant.select(Applicant.first_name, Applicant.last_name).where(Applicant.school == 4))
 
 
+def applicant_by_location():
+    choice = input("Enter a city where you want to search applicants: ")
+    return list(Applicant.select(Applicant.first_name, Applicant.last_name).where(Applicant.city == choice))
 
 
 def filter_by_personal_data(first_name, last_name, city, email, status):

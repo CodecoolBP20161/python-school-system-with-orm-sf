@@ -38,6 +38,8 @@ class Applicant(BaseModel):
     city = CharField()
     school = ForeignKeyField(School, related_name='applicants', null=True)
     interview_slot = ForeignKeyField(Interview, related_name='applicants', null=True)
+    status = CharField()
+    email = CharField()
 
     @classmethod
     def find_missing_app_code(cls):
@@ -91,8 +93,3 @@ class City(BaseModel):
     school_near = ForeignKeyField(School, related_name='schools')
 
 
-class Status(BaseModel):
-    status = CharField()
-
-class Email(BaseModel):
-    address = CharField()

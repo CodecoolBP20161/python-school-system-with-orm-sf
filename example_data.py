@@ -16,22 +16,24 @@ def add_schools():
         School.create(location=school['location'])
 
 applicants = [
-    {'first_name': 'Kata', 'last_name': 'Kiss', 'city': 'Budapest'},
-    {'first_name': 'Zoltán', 'last_name': 'Nagy', 'city': 'Debrecen'},
-    {'first_name': 'László', 'last_name': 'Közepes', 'city': 'Eger'},
-    {'first_name': 'Ryan', 'last_name': 'Gostling', 'city': 'Los Angeles'},
-    {'first_name': 'Lilla', 'last_name': 'Lila', 'city': 'Székesfehérvár'},
-    {'first_name': 'Alina', 'last_name': 'Kolowa', 'city': 'Krakkó'},
-    {'first_name': 'Tibor', 'last_name': 'Valami', 'city': 'Dabas'},
-    {'first_name': 'Max', 'last_name': 'Well', 'city': 'New York'},
-    {'first_name': 'Marek', 'last_name': 'Saro', 'city': 'Varsó'},
-    {'first_name': 'Miklós', 'last_name': 'Siklós', 'city': 'Miskolc'}
+    {'first_name': 'Kata', 'last_name': 'Kiss', 'city': 'Budapest', 'status': 'accepted', 'email': 'kata.ki@gmail.com'},
+    {'first_name': 'Zoltán', 'last_name': 'Nagy', 'city': 'Debrecen','status': 'accepted', 'email': 'zolika@gmail.com'},
+    {'first_name': 'László', 'last_name': 'Közepes', 'city': 'Eger','status': 'rejected', 'email': 'laci.ko@gmail.com'},
+    {'first_name': 'Ryan', 'last_name': 'Gostling', 'city': 'Los Angeles','status': 'in progress','email':'r@gmail.com'},
+    {'first_name': 'Lilla', 'last_name': 'Lila', 'city': 'Székesfehérvár','status': 'in progress', 'email':'l@hotmail.com'},
+    {'first_name': 'Alina', 'last_name': 'Kolowa', 'city': 'Krakkó','status': 'rejected', 'email': 'alina@hotmail.com'},
+    {'first_name': 'Tibor', 'last_name': 'Valami', 'city': 'Dabas','status': 'rejected', 'email': 'tibi@freemail.com'},
+    {'first_name': 'Max', 'last_name': 'Well', 'city': 'New York','status': 'accepted', 'email': 'maxy@gmail.com'},
+    {'first_name': 'Marek', 'last_name': 'Saro', 'city': 'Varsó','status': 'accepted', 'email':'saro@gmail.com'},
+    {'first_name': 'Miklós', 'last_name': 'Siklós', 'city': 'Miskolc','status': 'in progress', 'email': 'mi@gmail.com'}
 ]
 
 
 def add_applicants():
     for applicant in applicants:
-        Applicant.create(first_name=applicant['first_name'], last_name=applicant['last_name'], city=applicant['city'])
+        Applicant.create(first_name=applicant['first_name'], last_name=applicant['last_name'], city=applicant['city'],
+                         status=applicant['status'], email=applicant['email'])
+
 
 
 cities = [
