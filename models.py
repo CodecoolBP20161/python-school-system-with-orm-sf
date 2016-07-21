@@ -51,6 +51,7 @@ class Applicant(BaseModel):
 
     @classmethod
     def finding_city(cls):
+        """Find closest school for applicants"""
         applicants = cls.find_missing_school()
         for applicant in applicants:
             applicant.set_city()
@@ -61,6 +62,7 @@ class Applicant(BaseModel):
 
     @classmethod
     def set_app_code(cls):
+        """Set application code for applicants"""
         from code_gener import pw
         pw()
 
@@ -70,6 +72,7 @@ class Applicant(BaseModel):
 
     @classmethod
     def assign_interview_slot(cls):
+        """Find interview slot for applicant"""
         applicants = cls.find_missing_interview_slot()
         for applicant in applicants:
             applicant.set_interview_slot()
