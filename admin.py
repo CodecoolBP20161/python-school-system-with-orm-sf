@@ -29,7 +29,10 @@ def applicant_by_school_location():
 
 def applicant_by_location():
     choice = input("Enter a city where you want to search applicants: ")
-    return Applicant.select(Applicant.first_name, Applicant.last_name).where(Applicant.city == choice)
+    x = Applicant.select(Applicant.first_name, Applicant.last_name).where(Applicant.city == choice)
+    if len(x) == 0:
+        print("Sorry we didn't find this city in our system. Please try a new one.")
+        applicant_by_location()
 
 
 def applicant_by_status():
