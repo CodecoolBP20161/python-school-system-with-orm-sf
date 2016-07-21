@@ -63,7 +63,7 @@ def filter_by_personal_data():
 
 
 def filter_by_time():
-    """Filter applicants by their interview stadatetime.datetime(a[0], a[1], a[2], a[3], a[4], a[5])rt time"""
+    """Filter applicants by their interview start time"""
 
     a = [int(x) for x in input('Please type the correct start time (correct form: yyyy m d h m s): ').split()]
     input_len = len(a)
