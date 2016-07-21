@@ -1,8 +1,9 @@
 from models import *
 
 
-
-def filter_by_mentor_name(mentor):
+def filter_by_mentor_name():
+    """Filter applicants by their mentor name"""
+    mentor = input('Give me the mentor name: ')
     try:
         first, last = mentor.split()
     except ValueError as error:
@@ -17,6 +18,7 @@ def filter_by_mentor_name(mentor):
 
 
 def applicant_by_school_location():
+    """Filter applicants by their school location"""
     choice = input("Choose a city where you want to see the students of the local school.\n[BP/ MI/ KR/ LA]: ")
     if choice == "BP":
         return list(Applicant.select(Applicant.first_name, Applicant.last_name).where(Applicant.school == 1))
@@ -31,8 +33,15 @@ def applicant_by_school_location():
 
 
 def filter_by_personal_data(first_name, last_name, city, email, status):
+    """Filter applicants by their personal data"""
+    print('Give the input what you wants, or leave it blank!')
+    first_name =
+    last_name =
+    city =
+    email =
+    status =
     return Applicant.select().where((Applicant.first_name.contains(first_name)),
                                     (Applicant.last_name.contains(last_name)),
                                     (Applicant.city.contains(city)),
                                     (Applicant.email.contains(email)),
-                                    (Applicant.email.contains(status)))
+                                    (Applicant.status.contains(status)))
