@@ -4,15 +4,24 @@ import admin
 
 TITLES = ['id', 'first_name', 'last_name', 'city', 'school', 'application_code', 'interview_slot', 'status', 'email']
 
+
 def print_query(object_list, titles):
     import itertools as IT
 
     data_frame = OrderedDict()
-    print(data_frame)
     for i in range(len(titles)):
         datas = []
         for obj in object_list:
-            datas.append(obj.__dict__['_data'][titles[i]])
+            if titles[i] == 'interview_slot':
+                interview_start = [iv for iv in Interview.select()
+                                                         .where(Interview.id == obj.__dict__['_data'][titles[i]])][0]
+                datas.append(interview_start.start)
+            elif titles[i] == 'school':
+                school_location = [iv for iv in School.select()
+                                                      .where(School.id == obj.__dict__['_data'][titles[i]])][0]
+                datas.append(school_location.location)
+            else:
+                datas.append(obj.__dict__['_data'][titles[i]])
         data_frame[titles[i]] = datas
 
     matrix = zip(*[value if isinstance(value, list) else IT.repeat(value) for key, value in data_frame.items()])
@@ -22,8 +31,8 @@ def print_query(object_list, titles):
 
 
 def select_all_applicants():
-    """Select all aplicants"""
-    pass
+    """Show all applicants"""
+    return [i for i in Applicant.select()]
 
 
 def call_submenu():
