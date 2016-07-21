@@ -63,7 +63,8 @@ def filter_by_personal_data():
 
 
 def filter_by_time():
-    a = [int(x) for x in input('Please type the start time (correct form: yyyy m d h m s)').split()]
+    """Filter applicants by their interview start time"""
+    a = [int(x) for x in input('Please type the correct start time (correct form: yyyy m d h m s): ').split()]
     if len(a)<6:
         i = len(a)
         for i in range(6):

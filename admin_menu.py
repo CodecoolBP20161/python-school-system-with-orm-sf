@@ -53,7 +53,7 @@ admin_applicants_menu = OrderedDict([
     ('1', admin.filter_by_mentor_name),
     ('2', admin.applicant_by_school_location),
     ('3', admin.filter_by_personal_data),
-    ('4', admin.filter_by_personal_data)
+    ('4', admin.filter_by_time)
 ])
 
 admin_menu = OrderedDict([
