@@ -14,12 +14,19 @@ def print_query(object_list, titles):
         for obj in object_list:
             if titles[i] == 'interview_slot':
                 interview_start = [iv for iv in Interview.select()
-                                                         .where(Interview.id == obj.__dict__['_data'][titles[i]])][0]
-                datas.append(interview_start.start)
+                                                         .where(Interview.id == obj.__dict__['_data'][titles[i]])]
+                if interview_start:
+                    datas.append(interview_start[0].start)
+                else:
+                    datas.append('None')
+
             elif titles[i] == 'school':
                 school_location = [iv for iv in School.select()
-                                                      .where(School.id == obj.__dict__['_data'][titles[i]])][0]
-                datas.append(school_location.location)
+                                                      .where(School.id == obj.__dict__['_data'][titles[i]])]
+                if school_location:
+                    datas.append(school_location[0].location)
+                else:
+                    datas.append('None')
             else:
                 datas.append(obj.__dict__['_data'][titles[i]])
         data_frame[titles[i]] = datas
@@ -32,7 +39,7 @@ def print_query(object_list, titles):
 
 def select_all_applicants():
     """Show all applicants"""
-    return [i for i in Applicant.select()]
+    return Applicant.select()
 
 
 def call_submenu():
