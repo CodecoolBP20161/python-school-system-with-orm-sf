@@ -27,6 +27,9 @@ class Interview(BaseModel):
     mentor = ForeignKeyField(Mentor, related_name='interviews')
     free = BooleanField(default=True)
 
+    def __str__(self):
+        return str(self.id)
+
 
 class Applicant(BaseModel):
     application_code = CharField(null=True)
@@ -72,7 +75,7 @@ class Applicant(BaseModel):
     def set_interview_slot(self):
         query = (Interview.select(Interview, Mentor)
                  .join(Mentor)
-                 .where(Interview.free == True and Mentor.school == self.school))
+                 .where(Interview.free, Mentor.school == self.school))
         try:
             slot = [i for i in query][0]
             slot.free = False
@@ -86,3 +89,10 @@ class Applicant(BaseModel):
 class City(BaseModel):
     name = CharField()
     school_near = ForeignKeyField(School, related_name='schools')
+
+
+class Status(BaseModel):
+    status = CharField()
+
+class Email(BaseModel):
+    address = CharField()
