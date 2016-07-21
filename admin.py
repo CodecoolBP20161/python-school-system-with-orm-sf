@@ -1,4 +1,5 @@
 from models import *
+import datetime
 
 
 def filter_by_mentor_name():
@@ -35,7 +36,15 @@ def applicant_by_school_location():
 
 def applicant_by_location():
     choice = input("Enter a city where you want to search applicants: ")
-    return list(Applicant.select(Applicant.first_name, Applicant.last_name).where(Applicant.city == choice))
+    x = Applicant.select(Applicant.first_name, Applicant.last_name).where(Applicant.city == choice)
+    if len(x) == 0:
+        print("Sorry we didn't find this city in our system. Please try a new one.")
+        applicant_by_location()
+
+
+def applicant_by_status():
+    choice = input("Enter a status [accepted/ rejected/ in progress]: ")
+    return Applicant.select(Applicant.first_name, Applicant.last_name).where(Applicant.status == choice)
 
 
 def filter_by_personal_data():
@@ -51,4 +60,14 @@ def filter_by_personal_data():
                                     (Applicant.city.contains(city)),
                                     (Applicant.email.contains(email)),
                                     (Applicant.status.contains(status)))
+
+
+def filter_by_time():
+    a = [int(x) for x in input('Please type the start time (correct form: yyyy m d h m s)').split()]
+    if len(a)<6:
+        i = len(a)
+        for i in range(6):
+            a.append(1)
+    time = datetime.datetime(a[0], a[1], a[2], a[3], a[4], a[5])
+    return Applicant.select(Interview, Applicant).join(Interview).where(Interview.start == time)
 
