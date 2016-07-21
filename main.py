@@ -1,5 +1,5 @@
 from models import *
-
+from admin_menu import *
 
 def print_applicant_table():
     for applicant in Applicant.select():
@@ -21,3 +21,9 @@ print_applicant_table()
 input()
 Applicant.assign_interview_slot()
 print_applicant_table()
+
+
+menu = True
+while menu:
+    menu_loop(admin_menu)
+    menu = False
