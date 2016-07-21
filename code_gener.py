@@ -33,6 +33,7 @@ def solution():
 def pw():
     for i in applicant:
         i.application_code = solution()
+        i.status = 'in progress'
         i.save()
 
 

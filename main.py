@@ -3,13 +3,14 @@ from admin_menu import *
 
 def print_applicant_table():
     for applicant in Applicant.select():
-        print('\napplication code: %s\nfirst name: %s\nlast_name: %s\ncity: %s\nschool: %s\ninterview: %s'
+        print('\napplication code: %s\nfirst name: %s\nlast_name: %s\ncity: %s\nschool: %s\ninterview: %s\nstatus: %s'
               % (applicant.application_code,
                  applicant.first_name,
                  applicant.last_name,
                  applicant.city,
                  applicant.school,
-                 applicant.interview_slot))
+                 applicant.interview_slot,
+                 applicant.status))
 
 print_applicant_table()
 input()
