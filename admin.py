@@ -1,4 +1,5 @@
 from models import *
+import datetime
 
 
 def filter_by_mentor_name(mentor):
@@ -43,3 +44,14 @@ def filter_by_personal_data(first_name, last_name, city, email, status):
                                     (Applicant.city.contains(city)),
                                     (Applicant.email.contains(email)),
                                     (Applicant.email.contains(status)))
+
+
+def filter_by_time():
+    a = [int(x) for x in input('Please type the start time (correct form: yyyy m d h m s)').split()]
+    if len(a)<6:
+        i = len(a)
+        for i in range(6):
+            a.append(1)
+    time = datetime.datetime(a[0], a[1], a[2], a[3], a[4], a[5])
+    return Applicant.select(Interview, Applicant).join(Interview).where(Interview.start == time)
+
