@@ -3,7 +3,7 @@ from models import *
 
 def print_applicant_table():
     for applicant in Applicant.select():
-        print('application code: %s\nfirst name: %s\nlast_name: %s\ncity: %s\nschool: %s\ninterview: %s'
+        print('\napplication code: %s\nfirst name: %s\nlast_name: %s\ncity: %s\nschool: %s\ninterview: %s'
               % (applicant.application_code,
                  applicant.first_name,
                  applicant.last_name,
