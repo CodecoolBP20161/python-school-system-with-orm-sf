@@ -157,3 +157,15 @@ def interview_by_school():
         print("Sorry we didn't find this school in our system. Please try a new one.")
         interview_by_school()
     return interviews
+
+
+def interview_by_mentor():
+    choice_first_name = input(" Please enter the first name of the mentor:  ")
+    choice_last_name = input("Please enter the last name of the mentor:   ")
+    mentor = Interview.select().join(Mentor).where(Mentor.first_name == choice_first_name,
+                                                      Mentor.last_name == choice_last_name,
+                                                      Interview.free == False)
+    if len(mentor) == 0:
+        print("sorry we didn't have mentor with this name")
+        interview_by_mentor()
+    return mentor
