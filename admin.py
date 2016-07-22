@@ -35,15 +35,8 @@ def applicant_by_school_location():
         return list(Applicant.select().where(Applicant.school == 4))
 
 
-def applicant_by_location():
-    choice = input("Enter a city where you want to search applicants: ")
-    applicant_list = Applicant.select(Applicant.first_name, Applicant.last_name).where(Applicant.city == choice)
-    if len(applicant_list) == 0:
-        print("Sorry we didn't find this city in our system. Please try a new one.")
-        applicant_by_location()
-
-
 def applicant_by_status():
+    """Filter applicants by status"""
     choice = input("Enter a status [accepted/ rejected/ in progress]: ")
     return Applicant.select(Applicant.first_name, Applicant.last_name).where(Applicant.status == choice)
 
@@ -55,12 +48,10 @@ def filter_by_personal_data():
     last_name = input('Enter last name (if you want): ')
     city = input('Enter city where the applicant live (if you want): ')
     email = input('Enter email (if you want): ')
-    status = input('Enter status (if you want): ')
     return Applicant.select().where((Applicant.first_name.contains(first_name)),
                                     (Applicant.last_name.contains(last_name)),
                                     (Applicant.city.contains(city)),
-                                    (Applicant.email.contains(email)),
-                                    (Applicant.status.contains(status)))
+                                    (Applicant.email.contains(email)))
 
 
 def filter_by_time():
@@ -73,7 +64,6 @@ def filter_by_time():
         for i in range(6):
             a.append(1)
     time = datetime.datetime(a[0], a[1], a[2], a[3], a[4], a[5])
-    return Applicant.select(Interview, Applicant).join(Interview).where(Interview.start == time)
     if input_len == 1:
         return [i for i in Applicant.select(Interview, Applicant).join(Interview).where(Interview.start.year == time.year)]
     elif input_len == 2:
@@ -110,6 +100,7 @@ def filter_by_time():
 
 
 def interview_by_application_code():
+    """Filter interviews by applicant app_code"""
     app_code = input('Please enter an applicatin code!: ')
     return Interview.select().join(Applicant).where(Applicant.application_code == app_code)
 
@@ -163,3 +154,7 @@ def interview_by_school():
     choice = input(
         "Enter a city where you want to search the scheduled interviews: ")
     return Interview.select().join(Mentor).join(School).where(School.location == choice)
+
+
+def interview_by_mentor():
+    pass
