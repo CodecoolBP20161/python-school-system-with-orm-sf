@@ -104,3 +104,11 @@ def filter_by_time():
                                                            Interview.start.minute == time.minute,
                                                            Interview.start.second == time.second
                                                            )]
+
+
+
+
+
+
+def interview_by_application_code(app_code):
+    return Interview.select().join(Applicant).where(Applicant.application_code == app_code)
