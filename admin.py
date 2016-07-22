@@ -65,19 +65,11 @@ def filter_by_personal_data():
 def filter_by_time():
     """Filter applicants by their interview start time"""
     a = [int(x) for x in input('Please type the correct start time (correct form: yyyy m d h m s): ').split()]
-    if len(a)<6:
+    input_len = len(a)
+    if len(a) < 6:
         i = len(a)
         for i in range(6):
             a.append(1)
-<<<<<<< HEAD
-    time = datetime.datetime(a[0], a[1], a[2], a[3], a[4], a[5])
-    return Applicant.select(Interview, Applicant).join(Interview).where(Interview.start == time)
-
-
-def interview_by_school():
-    choice = input("Enter a city where you want to search the scheduled interviews: ")
-    return Interview.select().join(Mentor).join(School).where(School.location == choice)
-=======
         time = datetime.datetime(a[0], a[1], a[2], a[3], a[4], a[5])
     if input_len == 1:
         return [i for i in Applicant.select(Interview, Applicant).join(Interview).where(Interview.start.year == time.year)]
@@ -114,10 +106,18 @@ def interview_by_school():
                                                            )]
 
 
-
-
-
-
 def interview_by_application_code(app_code):
     return Interview.select().join(Applicant).where(Applicant.application_code == app_code)
->>>>>>> 846ae7d8ecd80a92a680880947c9a170a7ae1425
+
+
+def interview_by_school():
+    choice = input("Enter a city where you want to search the scheduled interviews: ")
+    return Interview.select().join(Mentor).join(School).where(School.location == choice)
+
+
+
+def interview_by_time():
+    pass
+
+def interview_by_mentor():
+    pass
