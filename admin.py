@@ -112,3 +112,50 @@ def filter_by_time():
 
 def interview_by_application_code(app_code):
     return Interview.select().join(Applicant).where(Applicant.application_code == app_code)
+
+
+
+
+
+def interview_by_time():
+    """Filter interviews by their interview start time"""
+    a = [int(x) for x in input('Please type the correct start time (correct form: yyyy m d h m s): ').split()]
+    input_len = len(a)
+    if input_len<6:
+        i = input_len
+        for i in range(6):
+            a.append(1)
+        time = datetime.datetime(a[0], a[1], a[2], a[3], a[4], a[5])
+    if input_len == 1:
+        return [i for i in Interview.select().where(Interview.start.year == time.year)]
+    elif input_len == 2:
+        return [i for i in Interview.select().where(Interview.start.year == time.year,
+                                                                                        Interview.start.month == time.month)]
+    elif input_len == 3:
+        return [i for i in Interview.select().where(Interview.start.year == time.year,
+                                                                                        Interview.start.month == time.month,
+                                                                                        Interview.start.day == time.day)]
+    elif input_len == 4:
+        return [i for i in Interview.select()
+                                    .where(Interview.start.year == time.year,
+                                                           Interview.start.month == time.month,
+                                                           Interview.start.day == time.day,
+                                                           Interview.start.hour == time.hour
+                                                           )]
+    elif input_len == 5:
+        return [i for i in Interview.select()
+                                    .where(Interview.start.year == time.year,
+                                                           Interview.start.month == time.month,
+                                                           Interview.start.day == time.day,
+                                                           Interview.start.hour == time.hour,
+                                                           Interview.start.minute == time.minute
+                                                           )]
+    elif input_len == 6:
+        return [i for i in Interview.select()
+                                    .where(Interview.start.year == time.year,
+                                                           Interview.start.month == time.month,
+                                                           Interview.start.day == time.day,
+                                                           Interview.start.hour == time.hour,
+                                                           Interview.start.minute == time.minute,
+                                                           Interview.start.second == time.second
+                                                           )]
