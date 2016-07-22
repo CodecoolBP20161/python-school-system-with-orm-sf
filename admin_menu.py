@@ -25,6 +25,14 @@ def print_query(object_list, titles):
                     datas.append(school_location[0].location)
                 else:
                     datas.append('None')
+
+            elif titles[i] == 'mentor':
+                mentor_name = [iv for iv in Mentor.select()
+                    .where(Mentor.id == obj.__dict__['_data'][titles[i]])]
+                if mentor_name:
+                    datas.append(mentor_name[0].first_name)
+                else:
+                    datas.append('None')
             else:
                 datas.append(obj.__dict__['_data'][titles[i]])
         data_frame[titles[i]] = datas

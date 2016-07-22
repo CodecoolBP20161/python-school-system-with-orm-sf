@@ -4,15 +4,15 @@ import datetime
 
 def filter_by_mentor_name():
     """Filter applicants by their mentor name"""
-    mentor = input('Give me the full mentor name (case sensitive): ')
+    mentor = input('Give me the full mentor name: ')
     try:
         first, last = mentor.split()
         applicants = (Applicant.select()
                       .join(Interview)
                       .join(Mentor)
-                      .where(Applicant.interview_slot != False,
-                             Mentor.first_name == first,
-                             Mentor.last_name == last))
+                      .where(~(Applicant.interview_slot >> None),
+                             Mentor.first_name.contains(first),
+                             Mentor.last_name.contains(last)))
         if applicants:
             return applicants
         else:
@@ -158,7 +158,7 @@ def interview_by_school():
     interviews = Interview.select().join(Mentor).join(School).where(Interview.free == False, School.location == choice)
     if len(interviews) == 0:
         print("Sorry we didn't find this school in our system. Please try a new one.")
-        interview_by_school()
+        return interview_by_school()
     return interviews
 
 
@@ -166,10 +166,10 @@ def interview_by_mentor():
     """Filter interviews by mentor name"""
     choice_first_name = input(" Please enter the first name of the mentor:  ")
     choice_last_name = input("Please enter the last name of the mentor:   ")
-    mentor = Interview.select().join(Mentor).where(Mentor.first_name == choice_first_name,
-                                                      Mentor.last_name == choice_last_name,
+    mentor = Interview.select().join(Mentor).where(Mentor.first_name.contains(choice_first_name),
+                                                      Mentor.last_name.contains(choice_last_name),
                                                       Interview.free == False)
     if len(mentor) == 0:
         print("sorry we didn't have mentor with this name")
-        interview_by_mentor()
+        return interview_by_mentor()
     return mentor
