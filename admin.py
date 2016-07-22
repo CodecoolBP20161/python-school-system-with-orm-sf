@@ -16,7 +16,7 @@ def filter_by_mentor_name():
         if applicants:
             return applicants
         else:
-            print('No associated applicants found to the given mentor!')
+            return ('No associated applicants found to the given mentor!')
     except ValueError as error:
         print('Please provide the full name of the mentor separated with a space!', error)
 
@@ -37,9 +37,8 @@ def applicant_by_school_location():
 
 def applicant_by_location():
     choice = input("Enter a city where you want to search applicants: ")
-    x = Applicant.select(Applicant.first_name, Applicant.last_name).where(
-        Applicant.city == choice)
-    if len(x) == 0:
+    applicant_list = Applicant.select(Applicant.first_name, Applicant.last_name).where(Applicant.city == choice)
+    if len(applicant_list) == 0:
         print("Sorry we didn't find this city in our system. Please try a new one.")
         applicant_by_location()
 
@@ -73,6 +72,8 @@ def filter_by_time():
         i = input_len
         for i in range(6):
             a.append(1)
+    time = datetime.datetime(a[0], a[1], a[2], a[3], a[4], a[5])
+    return Applicant.select(Interview, Applicant).join(Interview).where(Interview.start == time)
         time = datetime.datetime(a[0], a[1], a[2], a[3], a[4], a[5])
     if input_len == 1:
         return [i for i in Applicant.select(Interview, Applicant).join(Interview).where(Interview.start.year == time.year)]
@@ -158,4 +159,8 @@ def interview_by_time():
                                            Interview.start.second == time.second
                                            )]
 
-print(interview_by_application_code())
+
+def interview_by_school():
+    choice = input(
+        "Enter a city where you want to search the scheduled interviews: ")
+    return Interview.select().join(Mentor).join(School).where(School.location == choice)
