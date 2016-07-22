@@ -36,6 +36,7 @@ def applicant_by_school_location():
 
 
 def applicant_by_status():
+    """Filter applicants by their status"""
     choice = input("Enter a status [accepted/ rejected/ in progress]: ")
     return Applicant.select(Applicant.first_name, Applicant.last_name).where(Applicant.status == choice)
 
@@ -101,6 +102,7 @@ def filter_by_time():
 
 
 def interview_by_application_code():
+    """Filter interviews by applicants app_code"""
     app_code = input('Please enter an applicatin code!: ')
     return Interview.select().join(Applicant).where(Applicant.application_code == app_code)
 
@@ -151,6 +153,7 @@ def interview_by_time():
 
 
 def interview_by_school():
+    """Filter interviews by school"""
     choice = input("Enter a city where you want to search the scheduled interviews: ")
     interviews = Interview.select().join(Mentor).join(School).where(Interview.free == False, School.location == choice)
     if len(interviews) == 0:
@@ -160,6 +163,7 @@ def interview_by_school():
 
 
 def interview_by_mentor():
+    """Filter interviews by mentor name"""
     choice_first_name = input(" Please enter the first name of the mentor:  ")
     choice_last_name = input("Please enter the last name of the mentor:   ")
     mentor = Interview.select().join(Mentor).where(Mentor.first_name == choice_first_name,
