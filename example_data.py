@@ -72,16 +72,20 @@ def add_mentors():
 interview_slots = [
     {'start': '2016-09-01 11:00:00', 'end': '2016-09-01 11:20:00', 'mentor': 'Miki', 'free': True},
     {'start': '2016-09-01 11:30:00', 'end': '2016-09-01 11:50:00', 'mentor': 'Miki', 'free': True},
-    {'start': '2016-09-01 13:00:00', 'end': '2016-09-01 13:20:00', 'mentor': 'Tomi', 'free': False},
+    {'start': '2016-09-01 13:00:00', 'end': '2016-09-01 13:20:00', 'mentor': 'Tomi', 'free': True},
     {'start': '2016-09-01 13:30:00', 'end': '2016-09-01 13:50:00', 'mentor': 'Miki', 'free': True},
     {'start': '2016-09-02 11:00:00', 'end': '2016-09-02 11:20:00', 'mentor': 'Zoli', 'free': True},
     {'start': '2016-09-02 11:30:00', 'end': '2016-09-02 11:50:00', 'mentor': 'Zoli', 'free': True},
-    {'start': '2016-09-02 13:00:00', 'end': '2016-09-02 13:20:00', 'mentor': 'Zoli', 'free': False},
+    {'start': '2016-09-02 13:00:00', 'end': '2016-09-02 13:20:00', 'mentor': 'Zoli', 'free': True},
     {'start': '2016-09-02 11:00:00', 'end': '2016-09-02 11:20:00', 'mentor': 'Miki', 'free': True},
     {'start': '2016-09-03 11:00:00', 'end': '2016-09-03 11:20:00', 'mentor': 'Hrosic', 'free': True},
-    {'start': '2016-09-03 11:30:00', 'end': '2016-09-03 11:50:00', 'mentor': 'Hrosic', 'free': False},
+    {'start': '2016-09-03 11:30:00', 'end': '2016-09-03 11:50:00', 'mentor': 'Hrosic', 'free': True},
     {'start': '2016-09-04 11:00:00', 'end': '2016-09-04 11:20:00', 'mentor': 'Hrosic', 'free': True},
     {'start': '2016-09-04 11:00:00', 'end': '2016-09-04 11:20:00', 'mentor': 'Miki', 'free': True},
+    {'start': '2016-09-04 11:40:00', 'end': '2016-09-04 12:00:00', 'mentor': 'Tomi', 'free': True},
+    {'start': '2016-09-05 13:00:00', 'end': '2016-09-05 13:20:00', 'mentor': 'Dani', 'free': True},
+    {'start': '2016-09-05 13:30:00', 'end': '2016-09-05 13:50:00', 'mentor': 'Dani', 'free': True},
+    {'start': '2016-09-06 11:00:00', 'end': '2016-09-06 11:20:00', 'mentor': 'Tomi', 'free': True}
 ]
 
 
