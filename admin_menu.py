@@ -79,7 +79,8 @@ admin_applicants_menu = OrderedDict([
     ('1', admin.filter_by_mentor_name),
     ('2', admin.applicant_by_school_location),
     ('3', admin.filter_by_personal_data),
-    ('4', admin.filter_by_time)
+    ('4', admin.filter_by_time),
+    ('5', admin.applicant_by_status)
 ])
 
 admin_menu = OrderedDict([
@@ -91,7 +92,7 @@ admin_menu = OrderedDict([
 
 admin_interview_menu = OrderedDict([
     ('1', admin.interview_by_school),
-    ('2', admin.interview_by_applicant),
+    ('2', admin.interview_by_application_code),
     ('3', admin.interview_by_mentor),
-    ('4', admin.interview_by_date)
+    ('4', admin.interview_by_time)
 ])
