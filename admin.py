@@ -23,7 +23,8 @@ def filter_by_mentor_name():
 
 def applicant_by_school_location():
     """Filter applicants by their school location"""
-    choice = input("Choose a city where you want to see the students of the local school.\n[BP/ MI/ KR/ LA]: ")
+    choice = input(
+        "Choose a city where you want to see the students of the local school.\n[BP/ MI/ KR/ LA]: ")
     if choice == "BP":
         return list(Applicant.select().where(Applicant.school == 1))
     elif choice == "MI":
@@ -36,7 +37,8 @@ def applicant_by_school_location():
 
 def applicant_by_location():
     choice = input("Enter a city where you want to search applicants: ")
-    x = Applicant.select(Applicant.first_name, Applicant.last_name).where(Applicant.city == choice)
+    x = Applicant.select(Applicant.first_name, Applicant.last_name).where(
+        Applicant.city == choice)
     if len(x) == 0:
         print("Sorry we didn't find this city in our system. Please try a new one.")
         applicant_by_location()
@@ -64,9 +66,10 @@ def filter_by_personal_data():
 
 def filter_by_time():
     """Filter applicants by their interview start time"""
-    a = [int(x) for x in input('Please type the correct start time (correct form: yyyy m d h m s): ').split()]
+    a = [int(x) for x in input(
+        'Please type the correct start time (correct form: yyyy m d h m s): ').split()]
     input_len = len(a)
-    if input_len<6:
+    if input_len < 6:
         i = input_len
         for i in range(6):
             a.append(1)
@@ -106,22 +109,16 @@ def filter_by_time():
                                                            )]
 
 
-
-
-
-
 def interview_by_application_code(app_code):
     return Interview.select().join(Applicant).where(Applicant.application_code == app_code)
 
 
-
-
-
 def interview_by_time():
     """Filter interviews by their interview start time"""
-    a = [int(x) for x in input('Please type the correct start time (correct form: yyyy m d h m s): ').split()]
+    a = [int(x) for x in input(
+        'Please type the correct start time (correct form: yyyy m d h m s): ').split()]
     input_len = len(a)
-    if input_len<6:
+    if input_len < 6:
         i = input_len
         for i in range(6):
             a.append(1)
@@ -130,32 +127,32 @@ def interview_by_time():
         return [i for i in Interview.select().where(Interview.start.year == time.year)]
     elif input_len == 2:
         return [i for i in Interview.select().where(Interview.start.year == time.year,
-                                                                                        Interview.start.month == time.month)]
+                                                    Interview.start.month == time.month)]
     elif input_len == 3:
         return [i for i in Interview.select().where(Interview.start.year == time.year,
-                                                                                        Interview.start.month == time.month,
-                                                                                        Interview.start.day == time.day)]
+                                                    Interview.start.month == time.month,
+                                                    Interview.start.day == time.day)]
     elif input_len == 4:
         return [i for i in Interview.select()
                                     .where(Interview.start.year == time.year,
-                                                           Interview.start.month == time.month,
-                                                           Interview.start.day == time.day,
-                                                           Interview.start.hour == time.hour
-                                                           )]
+                                           Interview.start.month == time.month,
+                                           Interview.start.day == time.day,
+                                           Interview.start.hour == time.hour
+                                           )]
     elif input_len == 5:
         return [i for i in Interview.select()
                                     .where(Interview.start.year == time.year,
-                                                           Interview.start.month == time.month,
-                                                           Interview.start.day == time.day,
-                                                           Interview.start.hour == time.hour,
-                                                           Interview.start.minute == time.minute
-                                                           )]
+                                           Interview.start.month == time.month,
+                                           Interview.start.day == time.day,
+                                           Interview.start.hour == time.hour,
+                                           Interview.start.minute == time.minute
+                                           )]
     elif input_len == 6:
         return [i for i in Interview.select()
                                     .where(Interview.start.year == time.year,
-                                                           Interview.start.month == time.month,
-                                                           Interview.start.day == time.day,
-                                                           Interview.start.hour == time.hour,
-                                                           Interview.start.minute == time.minute,
-                                                           Interview.start.second == time.second
-                                                           )]
+                                           Interview.start.month == time.month,
+                                           Interview.start.day == time.day,
+                                           Interview.start.hour == time.hour,
+                                           Interview.start.minute == time.minute,
+                                           Interview.start.second == time.second
+                                           )]
