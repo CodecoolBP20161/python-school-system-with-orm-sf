@@ -2,8 +2,6 @@ from models import *
 from collections import OrderedDict
 import admin
 
-TITLES = ['id', 'first_name', 'last_name', 'city', 'school', 'application_code', 'interview_slot', 'status', 'email']
-
 
 def print_query(object_list, titles):
     import itertools as IT
@@ -42,9 +40,19 @@ def select_all_applicants():
     return Applicant.select()
 
 
-def call_submenu():
+def select_all_interviews():
+    """Show all interview slots"""
+    return Interview.select()
+
+
+def call_applicant_submenu():
     """Select applicants by filters"""
     menu_loop(admin_applicants_menu)
+
+def call_interview_submenu():
+    """Select interviews by filters"""
+    menu_loop(admin_interview_menu)
+
 
 
 def menu_loop(menu):
@@ -60,7 +68,9 @@ def menu_loop(menu):
             obj_list = menu[choice]()
             print('')
             try:
-                print_query(obj_list, TITLES)
+                titles = []
+                titles.extend(obj_list[0].__dict__['_data'].keys())
+                print_query(obj_list, titles)
             except:
                 pass
 
@@ -74,5 +84,14 @@ admin_applicants_menu = OrderedDict([
 
 admin_menu = OrderedDict([
     ('1', select_all_applicants),
-    ('2', call_submenu)
+    ('2', select_all_interviews),
+    ('3', call_applicant_submenu),
+    ('4', call_interview_submenu)
+])
+
+admin_interview_menu = OrderedDict([
+    ('1', admin.interview_by_school),
+    ('2', admin.interview_by_applicant),
+    ('3', admin.interview_by_mentor),
+    ('4', admin.interview_by_date)
 ])
