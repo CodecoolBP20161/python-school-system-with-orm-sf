@@ -109,7 +109,8 @@ def filter_by_time():
                                                            )]
 
 
-def interview_by_application_code(app_code):
+def interview_by_application_code():
+    app_code = input('Please enter an applicatin code!: ')
     return Interview.select().join(Applicant).where(Applicant.application_code == app_code)
 
 
@@ -156,3 +157,5 @@ def interview_by_time():
                                            Interview.start.minute == time.minute,
                                            Interview.start.second == time.second
                                            )]
+
+print(interview_by_application_code())
