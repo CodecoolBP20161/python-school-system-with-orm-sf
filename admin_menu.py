@@ -1,6 +1,7 @@
 from models import *
 from collections import OrderedDict
 import admin
+from tabulate import tabulate
 
 
 def print_query(object_list, titles):
@@ -36,11 +37,7 @@ def print_query(object_list, titles):
             else:
                 datas.append(obj.__dict__['_data'][titles[i]])
         data_frame[titles[i]] = datas
-
-    matrix = zip(*[value if isinstance(value, list) else IT.repeat(value) for key, value in data_frame.items()])
-    print(''.join(['{:15}'.format(key) for key in data_frame.keys()]))
-    for row in matrix:
-        print(''.join(['{:15}'.format(str(item)) for item in row]))
+    print(tabulate(data_frame, headers='keys'))
 
 
 def select_all_applicants():
