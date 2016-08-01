@@ -83,6 +83,7 @@ class Applicant(BaseModel):
 
     def set_interview_slot(self):
         query = (Interview.select(Interview, Mentor)
+                 .join(AssignMentor)
                  .join(Mentor)
                  .where(Interview.free, Mentor.school == self.school))
         try:

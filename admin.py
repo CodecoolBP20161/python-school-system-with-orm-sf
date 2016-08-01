@@ -1,6 +1,8 @@
 from models import *
 import datetime
 
+# join(AssignMentor)
+
 
 def filter_by_mentor_name():
     """Filter applicants by their mentor name"""
@@ -9,6 +11,7 @@ def filter_by_mentor_name():
         first, last = mentor.split()
         applicants = (Applicant.select()
                       .join(Interview)
+                      .join(AssignMentor)
                       .join(Mentor)
                       .where(~(Applicant.interview_slot >> None),
                              Mentor.first_name.contains(first),
@@ -151,22 +154,26 @@ def interview_by_time():
                                            Interview.start.second == time.second
                                            )]
 
+# join(AssignMentor)
+
 
 def interview_by_school():
     """Filter interviews by school"""
     choice = input("Enter a city where you want to search the scheduled interviews: ")
-    interviews = Interview.select().join(Mentor).join(School).where(Interview.free == False, School.location == choice)
+    interviews = Interview.select().join(AssignMentor).join(Mentor).join(School).where(Interview.free == False, School.location == choice)
     if len(interviews) == 0:
         print("Sorry we didn't find this school in our system. Please try a new one.")
         return interview_by_school()
     return interviews
 
 
+# join(AssignMentor)
+
 def interview_by_mentor():
     """Filter interviews by mentor name"""
     choice_first_name = input(" Please enter the first name of the mentor:  ")
     choice_last_name = input("Please enter the last name of the mentor:   ")
-    mentor = Interview.select().join(Mentor).where(Mentor.first_name.contains(choice_first_name),
+    mentor = Interview.select().join(AssignMentor).join(Mentor).where(Mentor.first_name.contains(choice_first_name),
                                                       Mentor.last_name.contains(choice_last_name),
                                                       Interview.free == False)
     if len(mentor) == 0:
