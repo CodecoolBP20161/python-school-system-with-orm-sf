@@ -24,7 +24,7 @@ class Mentor(BaseModel):
 class Interview(BaseModel):
     start = DateTimeField()
     end = DateTimeField()
-    mentor = ForeignKeyField(Mentor, related_name='interviews')
+    # mentor = ForeignKeyField(Mentor, related_name='interviews')
     free = BooleanField(default=True)
 
     def __str__(self):
@@ -79,6 +79,7 @@ class Applicant(BaseModel):
 
     def set_interview_slot(self):
         query = (Interview.select(Interview, Mentor)
+                 .join(AssignMentor)
                  .join(Mentor)
                  .where(Interview.free, Mentor.school == self.school))
         try:
@@ -94,5 +95,3 @@ class Applicant(BaseModel):
 class City(BaseModel):
     name = CharField()
     school_near = ForeignKeyField(School, related_name='schools')
-
-
