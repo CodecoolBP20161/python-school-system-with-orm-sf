@@ -24,11 +24,15 @@ class Mentor(BaseModel):
 class Interview(BaseModel):
     start = DateTimeField()
     end = DateTimeField()
-    mentor = ForeignKeyField(Mentor, related_name='interviews')
     free = BooleanField(default=True)
 
     def __str__(self):
         return str(self.id)
+
+
+class AssignMentor(BaseModel):
+    interview = ForeignKeyField(Interview, related_name='mentors')
+    mentor = ForeignKeyField(Mentor, related_name='interviews')
 
 
 class Applicant(BaseModel):
@@ -94,5 +98,3 @@ class Applicant(BaseModel):
 class City(BaseModel):
     name = CharField()
     school_near = ForeignKeyField(School, related_name='schools')
-
-
