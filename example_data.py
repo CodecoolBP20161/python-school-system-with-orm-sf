@@ -91,10 +91,10 @@ interview_slots = [
 
 def interview():
     for interview_slot in interview_slots:
-        Interview.create(start=interview_slot['start'], end=interview_slot['end'],free=interview_slot['free'])
+        Interview.create(start=interview_slot['start'], end=interview_slot['end'], free=interview_slot['free'])
 
 
-assign_mentors = [{'interview': '1', 'mentor': '1'},
+assign_mentors_dict = [{'interview': '1', 'mentor': '1'},
                   {'interview': '1', 'mentor': '3'},
                   {'interview': '2', 'mentor': '2'},
                   {'interview': '2', 'mentor': '3'},
@@ -103,7 +103,7 @@ assign_mentors = [{'interview': '1', 'mentor': '1'},
 
 
 def assign_mentors():
-    for mentors in assign_mentors:
-        Assign_mentors.create(interview = Interview.select().where(Interview.id == mentors['interview']),
-                              mentor = Mentor.select().where(Mentor.id == mentors['mentor']))
+    for mentors in assign_mentors_dict:
+        AssignMentor.create(interview=Interview.select().where(Interview.id == mentors['interview']),
+                            mentor=Mentor.select().where(Mentor.id == mentors['mentor']))
 
