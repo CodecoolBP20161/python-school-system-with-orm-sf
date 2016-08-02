@@ -25,12 +25,12 @@ def print_query(object_list, titles):
 
 def select_all_applicants():
     """Show all applicants"""
-    return Applicant.select()
+    return Applicant.select(*admin.selection_dict['applicant_without_school'])
 
 
 def select_all_interviews():
     """Show all interview slots"""
-    return Interview.select()
+    return Interview.select(*admin.selection_dict['interview']).join(AssignMentor, JOIN.LEFT_OUTER).join(Mentor, JOIN.LEFT_OUTER)
 
 
 def call_applicant_submenu():
