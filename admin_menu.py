@@ -57,10 +57,15 @@ def call_applicant_submenu():
     """Select applicants by filters"""
     menu_loop(admin_applicants_menu)
 
+
 def call_interview_submenu():
     """Select interviews by filters"""
     menu_loop(admin_interview_menu)
 
+
+def call_question_submenu():
+    """Select question by filters"""
+    menu_loop(admin_question_menu)
 
 
 def menu_loop(menu):
@@ -95,7 +100,8 @@ admin_menu = OrderedDict([
     ('1', select_all_applicants),
     ('2', select_all_interviews),
     ('3', call_applicant_submenu),
-    ('4', call_interview_submenu)
+    ('4', call_interview_submenu),
+    ('5', call_question_submenu)
 ])
 
 admin_interview_menu = OrderedDict([
@@ -103,4 +109,12 @@ admin_interview_menu = OrderedDict([
     ('2', admin.interview_by_application_code),
     ('3', admin.interview_by_mentor),
     ('4', admin.interview_by_time)
+])
+
+admin_question_menu = OrderedDict([
+    ('1', admin.question_by_status),
+    # ('2', admin.question_by_time),
+    # ('3', admin.question_application_code),
+    # ('4', admin.question_by_school),
+    # ('5', admin.question_by_mentor_name)
 ])
