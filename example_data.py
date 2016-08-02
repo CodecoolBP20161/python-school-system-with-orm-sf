@@ -1,6 +1,7 @@
 # This script can generate example data for "City" and "InterviewSlot" models.
 
 from models import *
+import random
 
 schools = [
     {'location': 'Budapest'},
@@ -94,3 +95,19 @@ def interview():
         Interview.create(start=interview_slot['start'], end=interview_slot['end'],
                          mentor=Mentor.select().where(Mentor.first_name == interview_slot['mentor']),
                          free=interview_slot['free'])
+
+questions = [
+    {'question': 'Why I have to speak English?', 'status': 'new', 'time': '2016-09-01 11:20:00'},
+    {'question': 'How much time activity is needed?', 'status': 'new', 'time': '2016-09-02 10:20:00'},
+    {'question': 'Are there any break during the education?', 'status': 'new', 'time': '2016-09-03 20:20:00'},
+    {'question': 'What kind of company can I work at?', 'status': 'new', 'time': '2016-09-03 21:21:00'},
+    {'question': 'How much will be the starting wage?', 'status': 'new', 'time': '2016-09-04 22:21:00'},
+    {'question': 'How much money I have to pay back after finishing?', 'status': 'new', 'time': '2016-09-05 22:21:00'}
+             ]
+
+
+def question():
+    for question in questions:
+        n =+ 1
+        Question.create(status=question['status'], time=question['time'], applicant=Applicant.select().
+                        where(Applicant.id == n), question=question['question'],)
