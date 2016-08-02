@@ -173,3 +173,12 @@ def interview_by_mentor():
         print("sorry we didn't have mentor with this name")
         return interview_by_mentor()
     return mentor
+
+def question_by_status():
+    """Filter question by status"""
+    choice = input("Please enter the status:   ")
+    status = Question.select(Applicant.first_name).join(Applicant).where(Question.status.contains(choice))
+    if len(status) == 0:
+        print("Sorry, we didn't find.Please try a new one.")
+        return question_by_status()
+    return status
