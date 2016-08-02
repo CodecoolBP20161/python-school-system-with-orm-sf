@@ -173,3 +173,12 @@ def interview_by_mentor():
         print("sorry we didn't have mentor with this name")
         return interview_by_mentor()
     return mentor
+
+
+def question_by_app_code():
+    code = input("Enter an application code!"):
+    questions = Question.select().join(Applicant).where(Applicant.application_code == code)
+    if questions:
+        return questions
+    else:
+        print("No questions related to the given application code!")
