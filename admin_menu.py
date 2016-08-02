@@ -1,56 +1,36 @@
 from models import *
 from collections import OrderedDict
 import admin
+from tabulate import tabulate
 
 
 def print_query(object_list, titles):
-    import itertools as IT
+    import os
 
-    data_frame = OrderedDict()
-    for i in range(len(titles)):
-        datas = []
-        for obj in object_list:
-            if titles[i] == 'interview_slot':
-                interview_start = [iv for iv in Interview.select()
-                                                         .where(Interview.id == obj.__dict__['_data'][titles[i]])]
-                if interview_start:
-                    datas.append(interview_start[0].start)
-                else:
-                    datas.append('None')
-
-            elif titles[i] == 'school':
-                school_location = [iv for iv in School.select()
-                                                      .where(School.id == obj.__dict__['_data'][titles[i]])]
-                if school_location:
-                    datas.append(school_location[0].location)
-                else:
-                    datas.append('None')
-
-            elif titles[i] == 'mentor':
-                mentor_name = [iv for iv in Mentor.select()
-                    .where(Mentor.id == obj.__dict__['_data'][titles[i]])]
-                if mentor_name:
-                    datas.append(mentor_name[0].first_name)
-                else:
-                    datas.append('None')
-            else:
-                datas.append(obj.__dict__['_data'][titles[i]])
-        data_frame[titles[i]] = datas
-
-    matrix = zip(*[value if isinstance(value, list) else IT.repeat(value) for key, value in data_frame.items()])
-    print(''.join(['{:15}'.format(key) for key in data_frame.keys()]))
-    for row in matrix:
-        print(''.join(['{:15}'.format(str(item)) for item in row]))
+    vars = []
+    for i in object_list.sql()[1]:
+        vars.append(i)
+    vars = tuple(vars)
+    q_sql_with_pars = '"' + object_list.sql()[0] + '"'
+    q_sql = q_sql_with_pars % vars
+    for i in object_list.sql()[1]:
+        if i is None:
+            q_sql = q_sql.replace('None', 'Null')
+        elif i == '%%':
+            q_sql = q_sql.replace(i, "'" + "%" + "'")
+        elif isinstance(i, str):
+            q_sql = q_sql.replace(i, "'" + i + "'")
+    os.system('psql -c ' + q_sql)
 
 
 def select_all_applicants():
     """Show all applicants"""
-    return Applicant.select()
+    return Applicant.select(*admin.selection_dict['applicant_without_school'])
 
 
 def select_all_interviews():
     """Show all interview slots"""
-    return Interview.select()
+    return Interview.select(*admin.selection_dict['interview']).join(AssignMentor, JOIN.LEFT_OUTER).join(Mentor, JOIN.LEFT_OUTER)
 
 
 def call_applicant_submenu():
