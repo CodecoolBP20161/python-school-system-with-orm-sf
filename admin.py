@@ -182,3 +182,13 @@ def question_by_status():
         print("Sorry, we didn't find.Please try a new one.")
         return question_by_status()
     return status
+
+
+def question_by_id_assign_mentor():
+    id = input("Please enter a question id: ")
+    question = Question.select(Question.question).where(Question.id == id)
+    mentor_choice = input("Please assign a mentor to this question: ")
+    Question.mentor = Mentor.select().where(Mentor.first_name.contains(mentor_choice) |
+                                            Mentor.last_name.contai(mentor_choice))
+    Question.status = 'waiting for answer'
+    save()
