@@ -95,6 +95,4 @@ class City(BaseModel):
     name = CharField()
     school_near = ForeignKeyField(School, related_name='schools')
 
-# + questin model
-
 
