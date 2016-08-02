@@ -71,30 +71,39 @@ def add_mentors():
                       school=School.select().where(School.location == mentor['school']))
 
 interview_slots = [
-    {'start': '2016-09-01 11:00:00', 'end': '2016-09-01 11:20:00', 'mentor': 'Miki', 'free': True},
-    {'start': '2016-09-01 11:30:00', 'end': '2016-09-01 11:50:00', 'mentor': 'Miki', 'free': True},
-    {'start': '2016-09-01 13:00:00', 'end': '2016-09-01 13:20:00', 'mentor': 'Tomi', 'free': True},
-    {'start': '2016-09-01 13:30:00', 'end': '2016-09-01 13:50:00', 'mentor': 'Miki', 'free': True},
-    {'start': '2016-09-02 11:00:00', 'end': '2016-09-02 11:20:00', 'mentor': 'Zoli', 'free': True},
-    {'start': '2016-09-02 11:30:00', 'end': '2016-09-02 11:50:00', 'mentor': 'Zoli', 'free': True},
-    {'start': '2016-09-02 13:00:00', 'end': '2016-09-02 13:20:00', 'mentor': 'Zoli', 'free': True},
-    {'start': '2016-09-02 11:00:00', 'end': '2016-09-02 11:20:00', 'mentor': 'Miki', 'free': True},
-    {'start': '2016-09-03 11:00:00', 'end': '2016-09-03 11:20:00', 'mentor': 'Hrosic', 'free': True},
-    {'start': '2016-09-03 11:30:00', 'end': '2016-09-03 11:50:00', 'mentor': 'Hrosic', 'free': True},
-    {'start': '2016-09-04 11:00:00', 'end': '2016-09-04 11:20:00', 'mentor': 'Hrosic', 'free': True},
-    {'start': '2016-09-04 11:00:00', 'end': '2016-09-04 11:20:00', 'mentor': 'Miki', 'free': True},
-    {'start': '2016-09-04 11:40:00', 'end': '2016-09-04 12:00:00', 'mentor': 'Tomi', 'free': True},
-    {'start': '2016-09-05 13:00:00', 'end': '2016-09-05 13:20:00', 'mentor': 'Dani', 'free': True},
-    {'start': '2016-09-05 13:30:00', 'end': '2016-09-05 13:50:00', 'mentor': 'Dani', 'free': True},
-    {'start': '2016-09-06 11:00:00', 'end': '2016-09-06 11:20:00', 'mentor': 'Tomi', 'free': True}
+    {'start': '2016-09-01 11:00:00', 'end': '2016-09-01 11:20:00', 'free': True},
+    {'start': '2016-09-01 11:00:00', 'end': '2016-09-01 11:20:00', 'free': True},
+    {'start': '2016-09-01 11:00:00', 'end': '2016-09-01 11:20:00', 'free': True},
+    {'start': '2016-09-01 11:30:00', 'end': '2016-09-01 11:50:00', 'free': True},
+    {'start': '2016-09-01 11:30:00', 'end': '2016-09-01 11:50:00', 'free': True},
+    {'start': '2016-09-01 13:00:00', 'end': '2016-09-01 13:20:00', 'free': True},
+    {'start': '2016-09-01 13:00:00', 'end': '2016-09-01 13:20:00', 'free': True},
+    {'start': '2016-09-01 13:30:00', 'end': '2016-09-01 13:50:00', 'free': True},
+    {'start': '2016-09-02 11:00:00', 'end': '2016-09-02 11:20:00', 'free': True},
+    {'start': '2016-09-02 11:30:00', 'end': '2016-09-02 11:50:00', 'free': True},
+    {'start': '2016-09-02 13:00:00', 'end': '2016-09-02 13:20:00', 'free': True},
+    {'start': '2016-09-02 11:00:00', 'end': '2016-09-02 11:20:00', 'free': True},
+    {'start': '2016-09-03 11:00:00', 'end': '2016-09-03 11:20:00', 'free': True},
+    {'start': '2016-09-03 11:30:00', 'end': '2016-09-03 11:50:00', 'free': True},
+    {'start': '2016-09-03 11:30:00', 'end': '2016-09-03 11:50:00', 'free': True},
+    {'start': '2016-09-03 11:30:00', 'end': '2016-09-03 11:50:00', 'free': True},
+    {'start': '2016-09-03 11:30:00', 'end': '2016-09-03 11:50:00', 'free': True},
+    {'start': '2016-09-04 11:00:00', 'end': '2016-09-04 11:20:00', 'free': True},
+    {'start': '2016-09-04 11:00:00', 'end': '2016-09-04 11:20:00', 'free': True},
+    {'start': '2016-09-04 11:40:00', 'end': '2016-09-04 12:00:00', 'free': True},
+    {'start': '2016-09-04 11:40:00', 'end': '2016-09-04 12:00:00', 'free': True},
+    {'start': '2016-09-04 11:40:00', 'end': '2016-09-04 12:00:00', 'free': True},
+    {'start': '2016-09-04 11:40:00', 'end': '2016-09-04 12:00:00', 'free': True},
+    {'start': '2016-09-05 13:00:00', 'end': '2016-09-05 13:20:00', 'free': True},
+    {'start': '2016-09-05 13:30:00', 'end': '2016-09-05 13:50:00', 'free': True},
+    {'start': '2016-09-06 11:00:00', 'end': '2016-09-06 11:20:00', 'free': True}
 ]
 
 
 def interview():
     for interview_slot in interview_slots:
-        Interview.create(start=interview_slot['start'], end=interview_slot['end'],
-                         mentor=Mentor.select().where(Mentor.first_name == interview_slot['mentor']),
-                         free=interview_slot['free'])
+        Interview.create(start=interview_slot['start'], end=interview_slot['end'], free=interview_slot['free'])
+
 
 questions = [
     {'question': 'Why I have to speak English?', 'status': 'new', 'time': '2016-09-01 11:20:00'},
