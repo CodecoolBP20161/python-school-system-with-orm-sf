@@ -99,6 +99,6 @@ class City(BaseModel):
 class Question(BaseModel):
     status = CharField()
     time = DateTimeField()
-    applicant = ForeignKeyField(Applicant, related_name='applicant_name')
+    applicant = ForeignKeyField(Applicant, related_name='questions')
     question = TextField()
-    mentor = ForeignKeyField(Mentor, related_name='mentor_name')
+    mentor = ForeignKeyField(Mentor, related_name='questions')
