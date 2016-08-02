@@ -181,7 +181,7 @@ def question_by_name():
     name = Question.select(Question.question, Applicant.first_name, Applicant.last_name).join(Applicant).join(Mentor)\
                             .where(Mentor.first_name.contains(choice_first_name),\
                                     Mentor.last_name.contains(choice_last_name))
-    if len(name) == 0:
+    if not name:
         print("Sorry, we didn't find.Please try a new one.")
         return question_by_name()
     return name
