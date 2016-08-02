@@ -187,7 +187,7 @@ def question_by_status():
 def question_by_school():
     """Filter question by status"""
     choice = input("Enter a school location: ")
-    school = Question.select().join(Applicant).join(School).where(School.location == choice)
+    school = Question.select().join(Applicant).join(School).where(School.location.contains(choice))
     if len(school) == 0:
         print("There is 0 question from this school. Please try a new one.")
         return question_by_school
