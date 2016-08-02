@@ -194,3 +194,13 @@ def question_by_name():
         print("Sorry, we didn't find.Please try a new one.")
         return question_by_name()
     return name
+
+
+def question_by_school():
+    """Filter question by status"""
+    choice = input("Enter a school location: ")
+    school = Question.select().join(Applicant).join(School).where(School.location.contains(choice))
+    if not school:
+        print("There is 0 question from this school. Please try a new one.")
+        return question_by_school
+    return school
