@@ -107,7 +107,8 @@ questions = [
 
 
 def question():
+    n = 1
     for question in questions:
-        n =+ 1
         Question.create(status=question['status'], time=question['time'], applicant=Applicant.select().
-                        where(Applicant.id == n), question=question['question'],)
+                        where(Applicant.id == n), question=question['question'])
+        n += 1
