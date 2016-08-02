@@ -173,3 +173,28 @@ def interview_by_mentor():
         print("sorry we didn't have mentor with this name")
         return interview_by_mentor()
     return mentor
+
+def question_by_name():
+    """Filter questions by mentor name"""
+    choice_first_name = input(" Please enter the first name of the mentor:  ")
+    choice_last_name = input("Please enter the last name of the mentor:   ")
+    name = Question.select(Question.question, Applicant.first_name, Applicant.last_name).join(Applicant).join(Mentor)\
+                            .where(Mentor.first_name.contains(choice_first_name),\
+                                    Mentor.last_name.contains(choice_last_name))
+    if len(name) == 0:
+        print("Sorry, we didn't find.Please try a new one.")
+        return question_by_name()
+    return name
+
+
+
+
+
+
+
+
+
+
+
+
+
