@@ -93,8 +93,8 @@ admin_interview_menu = OrderedDict([
 
 admin_question_menu = OrderedDict([
     ('1', admin.question_by_status),
-    # ('2', admin.question_by_time),
-    # ('3', admin.question_application_code),
+    ('2', admin.question_by_name),
+    ('3', admin.question_by_school),
     # ('4', admin.question_by_school),
     # ('5', admin.question_by_mentor_name)
 ])
