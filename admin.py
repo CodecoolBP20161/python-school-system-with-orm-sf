@@ -177,7 +177,7 @@ def interview_by_mentor():
 def question_by_status():
     """Filter question by status"""
     choice = input("Please enter the status:   ")
-    status = Question.select().where(choice == Question.status)
+    status = Question.select(Applicant.first_name).join(Applicant).where(Question.status.contains(choice))
     if len(status) == 0:
         print("Sorry, we didn't find.Please try a new one.")
         return question_by_status()
