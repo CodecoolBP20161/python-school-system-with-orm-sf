@@ -71,7 +71,11 @@ def add_mentors():
 
 interview_slots = [
     {'start': '2016-09-01 11:00:00', 'end': '2016-09-01 11:20:00', 'free': True},
+    {'start': '2016-09-01 11:00:00', 'end': '2016-09-01 11:20:00', 'free': True},
+    {'start': '2016-09-01 11:00:00', 'end': '2016-09-01 11:20:00', 'free': True},
     {'start': '2016-09-01 11:30:00', 'end': '2016-09-01 11:50:00', 'free': True},
+    {'start': '2016-09-01 11:30:00', 'end': '2016-09-01 11:50:00', 'free': True},
+    {'start': '2016-09-01 13:00:00', 'end': '2016-09-01 13:20:00', 'free': True},
     {'start': '2016-09-01 13:00:00', 'end': '2016-09-01 13:20:00', 'free': True},
     {'start': '2016-09-01 13:30:00', 'end': '2016-09-01 13:50:00', 'free': True},
     {'start': '2016-09-02 11:00:00', 'end': '2016-09-02 11:20:00', 'free': True},
@@ -80,8 +84,14 @@ interview_slots = [
     {'start': '2016-09-02 11:00:00', 'end': '2016-09-02 11:20:00', 'free': True},
     {'start': '2016-09-03 11:00:00', 'end': '2016-09-03 11:20:00', 'free': True},
     {'start': '2016-09-03 11:30:00', 'end': '2016-09-03 11:50:00', 'free': True},
+    {'start': '2016-09-03 11:30:00', 'end': '2016-09-03 11:50:00', 'free': True},
+    {'start': '2016-09-03 11:30:00', 'end': '2016-09-03 11:50:00', 'free': True},
+    {'start': '2016-09-03 11:30:00', 'end': '2016-09-03 11:50:00', 'free': True},
     {'start': '2016-09-04 11:00:00', 'end': '2016-09-04 11:20:00', 'free': True},
     {'start': '2016-09-04 11:00:00', 'end': '2016-09-04 11:20:00', 'free': True},
+    {'start': '2016-09-04 11:40:00', 'end': '2016-09-04 12:00:00', 'free': True},
+    {'start': '2016-09-04 11:40:00', 'end': '2016-09-04 12:00:00', 'free': True},
+    {'start': '2016-09-04 11:40:00', 'end': '2016-09-04 12:00:00', 'free': True},
     {'start': '2016-09-04 11:40:00', 'end': '2016-09-04 12:00:00', 'free': True},
     {'start': '2016-09-05 13:00:00', 'end': '2016-09-05 13:20:00', 'free': True},
     {'start': '2016-09-05 13:30:00', 'end': '2016-09-05 13:50:00', 'free': True},
@@ -92,18 +102,3 @@ interview_slots = [
 def interview():
     for interview_slot in interview_slots:
         Interview.create(start=interview_slot['start'], end=interview_slot['end'], free=interview_slot['free'])
-
-
-assign_mentors_dict = [{'interview': '1', 'mentor': '1'},
-                  {'interview': '1', 'mentor': '3'},
-                  {'interview': '2', 'mentor': '2'},
-                  {'interview': '2', 'mentor': '3'},
-                  {'interview': '3', 'mentor': '1'},
-                  {'interview': '3', 'mentor': '2'}]
-
-
-def assign_mentors():
-    for mentors in assign_mentors_dict:
-        AssignMentor.create(interview=Interview.select().where(Interview.id == mentors['interview']),
-                            mentor=Mentor.select().where(Mentor.id == mentors['mentor']))
-
