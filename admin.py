@@ -197,7 +197,11 @@ def question_by_status():
 
 def question_by_id_assign_mentor():
     """Assign mentor to question by ID"""
-    id = input("Please enter a question id: ")
+    try:
+        id = int(input("Please enter a question id: "))
+    except ValueError:
+        print('Please enter a number!')
+        return question_by_id_assign_mentor()
     questions_id = Question.select().where(Question.id == id)
     if not questions_id:
         print("Sorry, we didn't find. Please try a new one.")
@@ -209,13 +213,16 @@ def question_by_id_assign_mentor():
     except ValueError:
         first_name = mentor_choice
         last_name = mentor_choice
-    mentor = Mentor.select().where(Mentor.first_name.contains(first_name) | Mentor.first_name.contains(last_name))
+    mentor = Mentor.select().where(Mentor.first_name.contains(first_name) | Mentor.last_name.contains(last_name))
+    if len([i for i in mentor]) > 1:
+        for i in mentor:
+            print(i.first_name, i.last_name)
+        print('Choose one mentor!')
+        return question_by_id_assign_mentor()
     if not mentor:
         print("Sorry, we didn't find. Please try again.")
         return question_by_id_assign_mentor()
-    assigned_mentor = Mentor.get(Mentor.first_name.contains(first_name) |
-                                            Mentor.last_name.contains(last_name))
-
+    assigned_mentor = mentor[0]
     question.mentor = assigned_mentor
     question.status = 'waiting for answer'
     question.save()
