@@ -17,16 +17,16 @@ def add_schools():
         School.create(location=school['location'])
 
 applicants = [
-    {'first_name': 'Kata', 'last_name': 'Kiss', 'city': 'Budapest', 'status': 'applied', 'email': 'kata.ki@gmail.com'},
-    {'first_name': 'Zoltán', 'last_name': 'Nagy', 'city': 'Debrecen','status': 'applied', 'email': 'zolika@gmail.com'},
-    {'first_name': 'László', 'last_name': 'Közepes', 'city': 'Eger','status': 'applied', 'email': 'laci.ko@gmail.com'},
-    {'first_name': 'Ryan', 'last_name': 'Gostling', 'city': 'Los Angeles','status': 'applied','email':'r@gmail.com'},
-    {'first_name': 'Lilla', 'last_name': 'Lila', 'city': 'Székesfehérvár','status': 'applied', 'email':'l@hotmail.com'},
-    {'first_name': 'Alina', 'last_name': 'Kolowa', 'city': 'Krakkó','status': 'applied', 'email': 'alina@hotmail.com'},
-    {'first_name': 'Tibor', 'last_name': 'Valami', 'city': 'Dabas','status': 'applied', 'email': 'tibi@freemail.com'},
-    {'first_name': 'Max', 'last_name': 'Well', 'city': 'New York','status': 'applied', 'email': 'maxy@gmail.com'},
-    {'first_name': 'Marek', 'last_name': 'Saro', 'city': 'Varsó','status': 'applied', 'email':'saro@gmail.com'},
-    {'first_name': 'Miklós', 'last_name': 'Siklós', 'city': 'Miskolc','status': 'applied', 'email': 'mi@gmail.com'}
+    {'first_name': 'Kata', 'last_name': 'Kiss', 'city': 'Budapest', 'status': 'applied', 'email': 'applicant.codecool@gmail.com'},
+    {'first_name': 'Zoltán', 'last_name': 'Nagy', 'city': 'Debrecen','status': 'applied', 'email': 'applicant.codecool@gmail.com'},
+    {'first_name': 'László', 'last_name': 'Közepes', 'city': 'Eger','status': 'applied', 'email': 'applicant.codecool@gmail.com'},
+    {'first_name': 'Ryan', 'last_name': 'Gostling', 'city': 'Los Angeles','status': 'applied','email':'applicant.codecool@gmail.com'},
+    {'first_name': 'Lilla', 'last_name': 'Lila', 'city': 'Székesfehérvár','status': 'applied', 'email':'applicant.codecool@gmail.com'},
+    {'first_name': 'Alina', 'last_name': 'Kolowa', 'city': 'Krakkó','status': 'applied', 'email': 'applicant.codecool@gmail.com'},
+    {'first_name': 'Tibor', 'last_name': 'Valami', 'city': 'Dabas','status': 'applied', 'email': 'applicant.codecool@gmail.com'},
+    {'first_name': 'Max', 'last_name': 'Well', 'city': 'New York','status': 'applied', 'email': 'applicant.codecool@gmail.com'},
+    {'first_name': 'Marek', 'last_name': 'Saro', 'city': 'Varsó','status': 'applied', 'email':'applicant.codecool@gmail.com'},
+    {'first_name': 'Miklós', 'last_name': 'Siklós', 'city': 'Miskolc','status': 'applied', 'email': 'applicant.codecool@gmail.com'}
 ]
 
 
