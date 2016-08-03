@@ -10,7 +10,9 @@ selection_dict = {'applicant':
                   'applicant_without_school':
                       (Applicant.first_name, Applicant.last_name, Applicant.application_code, Applicant.email, Applicant.city, Applicant.status),
                   'interview':
-                      (Interview.start, Interview.end, Mentor.first_name.alias('mentor'))}
+                      (Interview.start, Interview.end, Mentor.first_name.alias('mentor')),
+                   'question':
+                      (Question.id,Question.status, Question.time, Applicant.first_name, Question.question, Mentor.first_name)}
 
 def filter_by_mentor_name():
     """Filter applicants by their mentor name"""
@@ -226,3 +228,42 @@ def question_by_school():
         print("There is 0 question from this school. Please try a new one.")
         return question_by_school
     return school
+
+
+def question_by_time():
+    """Filter questions by their time"""
+    a = [int(x) for x in input(
+        'Please type the correct start time (correct form: yyyy m d h m s): ').split()]
+    input_len = len(a)
+    if input_len < 6:
+        i = input_len
+        for i in range(6):
+            a.append(1)
+        time = datetime.datetime(a[0], a[1], a[2], a[3], a[4], a[5])
+    if input_len == 1:
+        return Question.select(*selection_dict['question']).join(Applicant).switch(Question).join(Mentor).where(Question.time.year == time.year)
+    elif input_len == 2:
+        return Question.select(*selection_dict['question']).join(Applicant).switch(Question).join(Mentor).where(Question.time.year == time.year,
+                                                                                                    Question.time.month == time.month)
+    elif input_len == 3:
+        return Question.select(*selection_dict['question']).join(Applicant).switch(Question).join(Mentor).where(Question.time.year == time.year,
+                                                                                                    Question.time.month == time.month,
+                                                                                                    Question.time.day == time.day)
+    elif input_len == 4:
+        return Question.select(*selection_dict['question']).join(Applicant).switch(Question).join(Mentor).where(Question.time.year == time.year,
+                                                                                                    Question.time.month == time.month,
+                                                                                                    Question.time.day == time.day,
+                                                                                                    Question.time.hour == time.hour)
+    elif input_len == 5:
+        return Question.select(*selection_dict['question']).join(Applicant).switch(Question).join(Mentor).where(Question.time.year == time.year,
+                                                                                                    Question.time.month == time.month,
+                                                                                                    Question.time.day == time.day,
+                                                                                                    Question.time.hour == time.hour,
+                                                                                                    Question.time.minute == time.minute)
+    elif input_len == 6:
+        return Question.select(*selection_dict['question']).join(Applicant).switch(Question).join(Mentor).where(Question.time.year == time.year,
+                                                                                                    Question.time.month == time.month,
+                                                                                                    Question.time.day == time.day,
+                                                                                                    Question.time.hour == time.hour,
+                                                                                                    Question.time.minute == time.minute,
+                                                                                                    Question.time.second == time.second)
