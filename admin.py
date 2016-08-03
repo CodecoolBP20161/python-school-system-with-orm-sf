@@ -174,7 +174,8 @@ def interview_by_mentor():
 
 
 def question_by_app_code():
-    code = input("Enter an application code!"):
+    """Filter question by status"""
+    code = input("Enter an application code!")
     questions = Question.select().join(Applicant).where(Applicant.application_code == code)
     if questions:
         return questions
@@ -193,6 +194,7 @@ def question_by_status():
 
 
 def question_by_id_assign_mentor():
+    """Assign mentor to question by ID"""
     id = input("Please enter a question id: ")
     question = Question.get(Question.id == id)
     mentor_choice = input("Please assign a mentor to this question: ")
