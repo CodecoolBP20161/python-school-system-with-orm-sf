@@ -1,7 +1,7 @@
 from models import *
 from collections import OrderedDict
 import admin
-from tabulate import tabulate
+
 
 
 def print_query(object_list, titles):
@@ -95,6 +95,8 @@ admin_question_menu = OrderedDict([
     ('1', admin.question_by_status),
     ('2', admin.question_by_name),
     ('3', admin.question_by_school),
-    # ('4', admin.question_by_school),
-    # ('5', admin.question_by_mentor_name)
+    ('4', admin.question_by_school),
+    ('5', admin.question_by_app_code),
+    ('6', admin.question_by_id_assign_mentor)
+
 ])
