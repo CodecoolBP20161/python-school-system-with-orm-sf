@@ -200,7 +200,7 @@ def question_by_id_assign_mentor():
     id = input("Please enter a question id: ")
     questions_id = Question.select().where(Question.id == id)
     if not questions_id:
-        print("Sorry, we didn't find.Please try a new one.")
+        print("Sorry, we didn't find. Please try a new one.")
         return question_by_id_assign_mentor()
     question = Question.get(Question.id == id)
     mentor_choice = input("Please assign a mentor to this question: ")
@@ -209,8 +209,13 @@ def question_by_id_assign_mentor():
     except ValueError:
         first_name = mentor_choice
         last_name = mentor_choice
+    mentor = Mentor.select().where(Mentor.first_name.contains(first_name) | Mentor.first_name.contains(last_name))
+    if not mentor:
+        print("Sorry, we didn't find. Please try again.")
+        return question_by_id_assign_mentor()
     assigned_mentor = Mentor.get(Mentor.first_name.contains(first_name) |
                                             Mentor.last_name.contains(last_name))
+
     question.mentor = assigned_mentor
     question.status = 'waiting for answer'
     question.save()
