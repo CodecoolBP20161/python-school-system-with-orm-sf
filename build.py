@@ -5,10 +5,12 @@ from example_data import *
 
 db.connect()
 
-db.drop_tables([Applicant, City, School, Mentor, Interview], safe=True)
-db.create_tables([Applicant, City, School, Mentor, Interview], safe=True)
+db.drop_tables([Applicant, City, School, Mentor, Interview, AssignMentor, Question], safe=True)
+db.create_tables([Applicant, City, School, Mentor, Interview, AssignMentor, Question], safe=True)
+
 add_schools()
 add_applicants()
 add_cities()
 add_mentors()
 interview()
+question()
