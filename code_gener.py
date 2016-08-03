@@ -35,12 +35,3 @@ def pw():
         i.application_code = solution()
         i.status = 'in progress'
         i.save()
-
-
-
-
-
-
-
-
-

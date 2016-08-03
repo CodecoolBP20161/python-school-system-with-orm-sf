@@ -63,6 +63,8 @@ class Applicant(BaseModel):
     def set_city(self):
         self.school = City.select(City.school_near).where(City.name == self.city)
         self.save()
+        self._send_app_code_school()
+
 
     @classmethod
     def set_app_code(cls):
@@ -118,6 +120,11 @@ class Applicant(BaseModel):
                      mentors[0].first_name + ' ' + mentors[0].last_name,
                      mentors[1].first_name + ' ' + mentors[1].last_name)
         Mail.send(message, self.email, 'Interview time')
+
+    def _send_app_code_school(self):
+        message = "Dear %s!\n\nYour Application code: %s\nAssigned school: %s\n\nFarewell" \
+                  % (self.first_name + ' ' + self.last_name, self.application_code, self.school.location)
+        Mail.send(message, self.email, 'Application details')
 
 
 
