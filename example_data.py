@@ -61,7 +61,12 @@ mentors = [
     {'first_name': 'Tomi', 'last_name': 'Tompa', 'school': 'Budapest'},
     {'first_name': 'Dani', 'last_name': 'Salamon', 'school': 'Budapest'},
     {'first_name': 'Zoli', 'last_name': 'Ász', 'school': 'Miskolc'},
-    {'first_name': 'Hrosic', 'last_name': 'Czukor', 'school': 'Krakkó'}
+    {'first_name': 'Pista', 'last_name': 'Kovács', 'school': 'Miskolc'},
+    {'first_name': 'Imre', 'last_name': 'Szabó', 'school': 'Miskolc'},
+    {'first_name': 'Hrosic', 'last_name': 'Czukor', 'school': 'Krakkó'},
+    {'first_name': 'Béla', 'last_name': 'Lengyel', 'school': 'Krakkó'},
+    {'first_name': 'Réka', 'last_name': 'Sárga', 'school': 'Krakkó'}
+
 ]
 
 
