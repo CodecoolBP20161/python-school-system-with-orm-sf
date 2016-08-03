@@ -1,6 +1,7 @@
 # This script can generate example data for "City" and "InterviewSlot" models.
 
 from models import *
+import random
 
 schools = [
     {'location': 'Budapest'},
@@ -60,7 +61,12 @@ mentors = [
     {'first_name': 'Tomi', 'last_name': 'Tompa', 'school': 'Budapest'},
     {'first_name': 'Dani', 'last_name': 'Salamon', 'school': 'Budapest'},
     {'first_name': 'Zoli', 'last_name': 'Ász', 'school': 'Miskolc'},
-    {'first_name': 'Hrosic', 'last_name': 'Czukor', 'school': 'Krakkó'}
+    {'first_name': 'Pista', 'last_name': 'Kovács', 'school': 'Miskolc'},
+    {'first_name': 'Imre', 'last_name': 'Szabó', 'school': 'Miskolc'},
+    {'first_name': 'Hrosic', 'last_name': 'Czukor', 'school': 'Krakkó'},
+    {'first_name': 'Béla', 'last_name': 'Lengyel', 'school': 'Krakkó'},
+    {'first_name': 'Réka', 'last_name': 'Sárga', 'school': 'Krakkó'}
+
 ]
 
 
@@ -70,27 +76,53 @@ def add_mentors():
                       school=School.select().where(School.location == mentor['school']))
 
 interview_slots = [
-    {'start': '2016-09-01 11:00:00', 'end': '2016-09-01 11:20:00', 'mentor': 'Miki', 'free': True},
-    {'start': '2016-09-01 11:30:00', 'end': '2016-09-01 11:50:00', 'mentor': 'Miki', 'free': True},
-    {'start': '2016-09-01 13:00:00', 'end': '2016-09-01 13:20:00', 'mentor': 'Tomi', 'free': True},
-    {'start': '2016-09-01 13:30:00', 'end': '2016-09-01 13:50:00', 'mentor': 'Miki', 'free': True},
-    {'start': '2016-09-02 11:00:00', 'end': '2016-09-02 11:20:00', 'mentor': 'Zoli', 'free': True},
-    {'start': '2016-09-02 11:30:00', 'end': '2016-09-02 11:50:00', 'mentor': 'Zoli', 'free': True},
-    {'start': '2016-09-02 13:00:00', 'end': '2016-09-02 13:20:00', 'mentor': 'Zoli', 'free': True},
-    {'start': '2016-09-02 11:00:00', 'end': '2016-09-02 11:20:00', 'mentor': 'Miki', 'free': True},
-    {'start': '2016-09-03 11:00:00', 'end': '2016-09-03 11:20:00', 'mentor': 'Hrosic', 'free': True},
-    {'start': '2016-09-03 11:30:00', 'end': '2016-09-03 11:50:00', 'mentor': 'Hrosic', 'free': True},
-    {'start': '2016-09-04 11:00:00', 'end': '2016-09-04 11:20:00', 'mentor': 'Hrosic', 'free': True},
-    {'start': '2016-09-04 11:00:00', 'end': '2016-09-04 11:20:00', 'mentor': 'Miki', 'free': True},
-    {'start': '2016-09-04 11:40:00', 'end': '2016-09-04 12:00:00', 'mentor': 'Tomi', 'free': True},
-    {'start': '2016-09-05 13:00:00', 'end': '2016-09-05 13:20:00', 'mentor': 'Dani', 'free': True},
-    {'start': '2016-09-05 13:30:00', 'end': '2016-09-05 13:50:00', 'mentor': 'Dani', 'free': True},
-    {'start': '2016-09-06 11:00:00', 'end': '2016-09-06 11:20:00', 'mentor': 'Tomi', 'free': True}
+    {'start': '2016-09-01 11:00:00', 'end': '2016-09-01 11:20:00', 'free': True},
+    {'start': '2016-09-01 11:00:00', 'end': '2016-09-01 11:20:00', 'free': True},
+    {'start': '2016-09-01 11:00:00', 'end': '2016-09-01 11:20:00', 'free': True},
+    {'start': '2016-09-01 11:30:00', 'end': '2016-09-01 11:50:00', 'free': True},
+    {'start': '2016-09-01 11:30:00', 'end': '2016-09-01 11:50:00', 'free': True},
+    {'start': '2016-09-01 13:00:00', 'end': '2016-09-01 13:20:00', 'free': True},
+    {'start': '2016-09-01 13:00:00', 'end': '2016-09-01 13:20:00', 'free': True},
+    {'start': '2016-09-01 13:30:00', 'end': '2016-09-01 13:50:00', 'free': True},
+    {'start': '2016-09-02 11:00:00', 'end': '2016-09-02 11:20:00', 'free': True},
+    {'start': '2016-09-02 11:30:00', 'end': '2016-09-02 11:50:00', 'free': True},
+    {'start': '2016-09-02 13:00:00', 'end': '2016-09-02 13:20:00', 'free': True},
+    {'start': '2016-09-02 11:00:00', 'end': '2016-09-02 11:20:00', 'free': True},
+    {'start': '2016-09-03 11:00:00', 'end': '2016-09-03 11:20:00', 'free': True},
+    {'start': '2016-09-03 11:30:00', 'end': '2016-09-03 11:50:00', 'free': True},
+    {'start': '2016-09-03 11:30:00', 'end': '2016-09-03 11:50:00', 'free': True},
+    {'start': '2016-09-03 11:30:00', 'end': '2016-09-03 11:50:00', 'free': True},
+    {'start': '2016-09-03 11:30:00', 'end': '2016-09-03 11:50:00', 'free': True},
+    {'start': '2016-09-04 11:00:00', 'end': '2016-09-04 11:20:00', 'free': True},
+    {'start': '2016-09-04 11:00:00', 'end': '2016-09-04 11:20:00', 'free': True},
+    {'start': '2016-09-04 11:40:00', 'end': '2016-09-04 12:00:00', 'free': True},
+    {'start': '2016-09-04 11:40:00', 'end': '2016-09-04 12:00:00', 'free': True},
+    {'start': '2016-09-04 11:40:00', 'end': '2016-09-04 12:00:00', 'free': True},
+    {'start': '2016-09-04 11:40:00', 'end': '2016-09-04 12:00:00', 'free': True},
+    {'start': '2016-09-05 13:00:00', 'end': '2016-09-05 13:20:00', 'free': True},
+    {'start': '2016-09-05 13:30:00', 'end': '2016-09-05 13:50:00', 'free': True},
+    {'start': '2016-09-06 11:00:00', 'end': '2016-09-06 11:20:00', 'free': True}
 ]
 
 
 def interview():
     for interview_slot in interview_slots:
-        Interview.create(start=interview_slot['start'], end=interview_slot['end'],
-                         mentor=Mentor.select().where(Mentor.first_name == interview_slot['mentor']),
-                         free=interview_slot['free'])
+        Interview.create(start=interview_slot['start'], end=interview_slot['end'], free=interview_slot['free'])
+
+
+questions = [
+    {'question': 'Why I have to speak English?', 'status': 'new', 'time': '2016-09-01 11:20:00'},
+    {'question': 'How much time activity is needed?', 'status': 'new', 'time': '2016-09-02 10:20:00'},
+    {'question': 'Are there any break during the education?', 'status': 'new', 'time': '2016-09-03 20:20:00'},
+    {'question': 'What kind of company can I work at?', 'status': 'new', 'time': '2016-09-03 21:21:00'},
+    {'question': 'How much will be the starting wage?', 'status': 'new', 'time': '2016-09-04 22:21:00'},
+    {'question': 'How much money I have to pay back after finishing?', 'status': 'new', 'time': '2016-09-05 22:21:00'}
+             ]
+
+
+def question():
+    n = 1
+    for question in questions:
+        Question.create(status=question['status'], time=question['time'], applicant=Applicant.select().
+                        where(Applicant.id == n), question=question['question'])
+        n += 1

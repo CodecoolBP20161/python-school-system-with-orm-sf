@@ -24,11 +24,15 @@ class Mentor(BaseModel):
 class Interview(BaseModel):
     start = DateTimeField()
     end = DateTimeField()
-    mentor = ForeignKeyField(Mentor, related_name='interviews')
     free = BooleanField(default=True)
 
     def __str__(self):
         return str(self.id)
+
+
+class AssignMentor(BaseModel):
+    interview = ForeignKeyField(Interview, related_name='mentors', null=True)
+    mentor = ForeignKeyField(Mentor, related_name='interviews', null=True)
 
 
 class Applicant(BaseModel):
@@ -75,20 +79,37 @@ class Applicant(BaseModel):
         """Find interview slot for applicant"""
         applicants = cls.find_missing_interview_slot()
         for applicant in applicants:
-            applicant.set_interview_slot()
+            applicant.assign_slot_with_mentors()
 
-    def set_interview_slot(self):
-        query = (Interview.select(Interview, Mentor)
-                 .join(Mentor)
-                 .where(Interview.free, Mentor.school == self.school))
-        try:
-            slot = [i for i in query][0]
+    def assign_slot_with_mentors(self):
+        print(self.first_name)
+        query = Interview.select().where(Interview.free)
+        have_slot = True
+        j = 0
+        slots = [i for i in query]
+        while have_slot:
+            try:
+                slot = slots[j]
+            except IndexError:
+                print('Not enough interview slot')
+                have_slot = False
+                continue
+            query = (AssignMentor.select(Mentor.id)
+                     .join(Mentor).switch(AssignMentor).join(Interview)
+                     .where(slot.start == Interview.start))
+            query2 = Mentor.select().where(Mentor.id.not_in(query), Mentor.school == self.school)
+            try:
+                enough_mentor = [i for i in query2][1]
+            except IndexError:
+                j += 1
+                continue
+            for m in range(2):
+                AssignMentor.create(interview=slot, mentor=[i for i in query2][m])
             slot.free = False
             slot.save()
             self.interview_slot = slot
             self.save()
-        except IndexError:
-            print('Not enough interview slots!')
+            have_slot = False
 
 
 class City(BaseModel):
@@ -96,3 +117,9 @@ class City(BaseModel):
     school_near = ForeignKeyField(School, related_name='schools')
 
 
+class Question(BaseModel):
+    status = CharField()
+    time = DateTimeField()
+    applicant = ForeignKeyField(Applicant, related_name='questions', null=True)
+    question = TextField()
+    mentor = ForeignKeyField(Mentor, related_name='questions', null=True)
