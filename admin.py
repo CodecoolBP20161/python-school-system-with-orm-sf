@@ -176,7 +176,7 @@ def interview_by_mentor():
 
 
 def question_by_app_code():
-    """Filter question by status"""
+    """Filter question by app_code"""
     code = input("Enter an application code!")
     questions = Question.select().join(Applicant).where(Applicant.application_code == code)
     if questions:
