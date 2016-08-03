@@ -32,6 +32,9 @@ def select_all_interviews():
     """Show all interview slots"""
     return Interview.select(*admin.selection_dict['interview']).join(AssignMentor, JOIN.LEFT_OUTER).join(Mentor, JOIN.LEFT_OUTER)
 
+def select_all_questions():
+    """Show all question slots"""
+    return Question.select(*admin.selection_dict['question']).join(Applicant, JOIN.LEFT_OUTER).switch(Question).join(Mentor, JOIN.LEFT_OUTER)
 
 def call_applicant_submenu():
     """Select applicants by filters"""
@@ -79,9 +82,10 @@ admin_applicants_menu = OrderedDict([
 admin_menu = OrderedDict([
     ('1', select_all_applicants),
     ('2', select_all_interviews),
-    ('3', call_applicant_submenu),
-    ('4', call_interview_submenu),
-    ('5', call_question_submenu)
+    ('3', select_all_questions),
+    ('4', call_applicant_submenu),
+    ('5', call_interview_submenu),
+    ('6', call_question_submenu)
 ])
 
 admin_interview_menu = OrderedDict([
@@ -95,7 +99,6 @@ admin_question_menu = OrderedDict([
     ('1', admin.question_by_status),
     ('2', admin.question_by_name),
     ('3', admin.question_by_school),
-    ('4', admin.question_by_school),
     ('5', admin.question_by_app_code),
     ('6', admin.question_by_id_assign_mentor),
     ('7', admin.question_by_time)
