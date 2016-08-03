@@ -97,6 +97,7 @@ admin_question_menu = OrderedDict([
     ('3', admin.question_by_school),
     ('4', admin.question_by_school),
     ('5', admin.question_by_app_code),
-    ('6', admin.question_by_id_assign_mentor)
+    ('6', admin.question_by_id_assign_mentor),
+    ('7', admin.question_by_time)
 
 ])
