@@ -196,10 +196,19 @@ def question_by_status():
 def question_by_id_assign_mentor():
     """Assign mentor to question by ID"""
     id = input("Please enter a question id: ")
+    questions_id = Question.select().where(Question.id == id)
+    if not questions_id:
+        print("Sorry, we didn't find.Please try a new one.")
+        return question_by_id_assign_mentor()
     question = Question.get(Question.id == id)
     mentor_choice = input("Please assign a mentor to this question: ")
-    assigned_mentor = Mentor.get(Mentor.first_name.contains(mentor_choice) |
-                                            Mentor.last_name.contains(mentor_choice))
+    try:
+        first_name, last_name = mentor_choice.split()
+    except ValueError:
+        first_name = mentor_choice
+        last_name = mentor_choice
+    assigned_mentor = Mentor.get(Mentor.first_name.contains(first_name) |
+                                            Mentor.last_name.contains(last_name))
     question.mentor = assigned_mentor
     question.status = 'waiting for answer'
     question.save()
@@ -215,6 +224,7 @@ def question_by_name():
                                    Mentor.last_name.contains(choice_last_name))
     if not name:
         print("Sorry, we didn't find.Please try a new one.")
+        return question_by_name()
     return name
 
 
@@ -224,5 +234,5 @@ def question_by_school():
     school = Question.select().join(Applicant).join(School).where(School.location.contains(choice))
     if not school:
         print("There is 0 question from this school. Please try a new one.")
-        return question_by_school
+        return question_by_school()
     return school
