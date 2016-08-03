@@ -79,30 +79,37 @@ class Applicant(BaseModel):
         """Find interview slot for applicant"""
         applicants = cls.find_missing_interview_slot()
         for applicant in applicants:
-            applicant.set_interview_slot()
+            applicant.assign_slot_with_mentors()
 
-    def set_interview_slot(self):
-        query = (Interview.select().where(Interview.free))
-        try:
-            slot = [i for i in query][0]
+    def assign_slot_with_mentors(self):
+        print(self.first_name)
+        query = Interview.select().where(Interview.free)
+        have_slot = True
+        j = 0
+        slots = [i for i in query]
+        while have_slot:
+            try:
+                slot = slots[j]
+            except IndexError:
+                print('Not enough interview slot')
+                have_slot = False
+                continue
+            query = (AssignMentor.select(Mentor.id)
+                     .join(Mentor).switch(AssignMentor).join(Interview)
+                     .where(slot.start == Interview.start))
+            query2 = Mentor.select().where(Mentor.id.not_in(query), Mentor.school == self.school)
+            try:
+                enough_mentor = [i for i in query2][1]
+            except IndexError:
+                j += 1
+                continue
+            for m in range(2):
+                AssignMentor.create(interview=slot, mentor=[i for i in query2][m])
             slot.free = False
             slot.save()
             self.interview_slot = slot
             self.save()
-            self.assign_mentor_to_interview(slot)
-        except IndexError:
-            print('Not enough interview slots!')
-
-    def assign_mentor_to_interview(self, slot):
-        query = (AssignMentor.select(Mentor.id)
-                             .join(Mentor).switch(AssignMentor).join(Interview)
-                             .where(slot.start == Interview.start))
-        query2 = Mentor.select().where(Mentor.id.not_in(query), Mentor.school == self.school)
-        try:
-            for i in range(2):
-                AssignMentor.create(interview=slot, mentor=[i for i in query2][i])
-        except IndexError:
-            print('Not enough mentors!!!!')
+            have_slot = False
 
 
 class City(BaseModel):
