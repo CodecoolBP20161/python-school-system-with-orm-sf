@@ -23,6 +23,7 @@ class ApplicantLogin():
 
     @classmethod
     def by_date_school_mentor(cls):
-        return Applicant.select(Interview.start, School.location, AssignMentor.mentor_id) \
-            .join(AssignMentor).join(Interview).switch(Applicant).join(School) \
+        """Interview details"""
+        return Applicant.select(Interview.start, School.location, Mentor.first_name.alias('Mentor')) \
+            .join(Interview).join(AssignMentor).join(Mentor).switch(Applicant).join(School) \
             .where(Applicant.application_code == cls.appcode)

@@ -124,5 +124,6 @@ main_menu = OrderedDict([
 ])
 
 applicant_menu = OrderedDict([
-    ('1', ApplicantLogin.status)
+    ('1', ApplicantLogin.status),
+    ('2', ApplicantLogin.by_date_school_mentor)
 ])
