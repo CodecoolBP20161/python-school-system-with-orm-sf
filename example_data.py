@@ -57,22 +57,22 @@ def add_cities():
 
 
 mentors = [
-    {'first_name': 'Miki', 'last_name': 'Beöthy', 'school': 'Budapest'},
-    {'first_name': 'Tomi', 'last_name': 'Tompa', 'school': 'Budapest'},
-    {'first_name': 'Dani', 'last_name': 'Salamon', 'school': 'Budapest'},
-    {'first_name': 'Zoli', 'last_name': 'Ász', 'school': 'Miskolc'},
-    {'first_name': 'Pista', 'last_name': 'Kovács', 'school': 'Miskolc'},
-    {'first_name': 'Imre', 'last_name': 'Szabó', 'school': 'Miskolc'},
-    {'first_name': 'Hrosic', 'last_name': 'Czukor', 'school': 'Krakkó'},
-    {'first_name': 'Béla', 'last_name': 'Lengyel', 'school': 'Krakkó'},
-    {'first_name': 'Réka', 'last_name': 'Sárga', 'school': 'Krakkó'}
+    {'first_name': 'Miki', 'last_name': 'Beöthy', 'school': 'Budapest','email':'applicant.codecool@gmail.com'},
+    {'first_name': 'Tomi', 'last_name': 'Tompa', 'school': 'Budapest','email':'applicant.codecool@gmail.com'},
+    {'first_name': 'Dani', 'last_name': 'Salamon', 'school': 'Budapest','email':'applicant.codecool@gmail.com'},
+    {'first_name': 'Zoli', 'last_name': 'Ász', 'school': 'Miskolc','email':'applicant.codecool@gmail.com'},
+    {'first_name': 'Pista', 'last_name': 'Kovács', 'school': 'Miskolc','email':'applicant.codecool@gmail.com'},
+    {'first_name': 'Imre', 'last_name': 'Szabó', 'school': 'Miskolc','email':'applicant.codecool@gmail.com'},
+    {'first_name': 'Hrosic', 'last_name': 'Czukor', 'school': 'Krakkó','email':'applicant.codecool@gmail.com'},
+    {'first_name': 'Béla', 'last_name': 'Lengyel', 'school': 'Krakkó','email':'applicant.codecool@gmail.com'},
+    {'first_name': 'Réka', 'last_name': 'Sárga', 'school': 'Krakkó','email':'applicant.codecool@gmail.com'}
 
 ]
 
 
 def add_mentors():
     for mentor in mentors:
-        Mentor.create(first_name=mentor['first_name'], last_name=mentor['last_name'],
+        Mentor.create(first_name=mentor['first_name'], last_name=mentor['last_name'],email=mentor['email'],
                       school=School.select().where(School.location == mentor['school']))
 
 interview_slots = [
