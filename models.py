@@ -1,6 +1,6 @@
 from peewee import *
 from connect import db
-
+from mail import Mail
 
 class BaseModel(Model):
     """A base model that will use our Postgresql database"""
@@ -19,6 +19,7 @@ class Mentor(BaseModel):
     first_name = CharField()
     last_name = CharField()
     school = ForeignKeyField(School, related_name='mentors')
+    email = CharField()
 
 
 class Interview(BaseModel):
@@ -109,7 +110,17 @@ class Applicant(BaseModel):
             slot.save()
             self.interview_slot = slot
             self.save()
+            self._send_interview_slot_email(query2)
             have_slot = False
+
+    def _send_interview_slot_email(self, mentors):
+        message = "Dear %s!\n\nYour interview's time: %s\nAssigned mentors: %s, %s\n\n See you soon!" \
+                  % (self.first_name + ' ' + self.last_name, self.interview_slot.start,
+                     mentors[0].first_name + ' ' + mentors[0].last_name,
+                     mentors[1].first_name + ' ' + mentors[1].last_name)
+        Mail.send(message, self.email, 'Interview time')
+
+
 
 
 class City(BaseModel):
