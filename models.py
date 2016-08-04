@@ -19,6 +19,7 @@ class Mentor(BaseModel):
     first_name = CharField()
     last_name = CharField()
     school = ForeignKeyField(School, related_name='mentors')
+    email = CharField()
 
 
 class Interview(BaseModel):
