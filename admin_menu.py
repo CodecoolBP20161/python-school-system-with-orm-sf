@@ -55,7 +55,10 @@ def call_question_submenu():
 
 def call_admin_menu():
     """Admin menu"""
-    menu_loop(admin_menu)
+    if input('\nGive me the admin password: ') == '123':
+        menu_loop(admin_menu)
+    else:
+        print('The password is not valid!')
 
 
 def call_applicant_menu():
