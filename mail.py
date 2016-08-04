@@ -14,9 +14,13 @@ class Mail():
         server = smtplib.SMTP(Config.load("server"))
         server.ehlo()
         server.starttls()
-        server.login(cls.username, cls.password)
-        server.sendmail(cls.fromaddr, receiver, msg.encode("UTF-8"))
-        server.quit()
+        try:
+            server.login(cls.username, cls.password)
+            server.sendmail(cls.fromaddr, receiver, msg.encode("UTF-8"))
+            server.quit()
+        except TypeError:
+            print("Login creditentials are not properly set,please set them in config.json")
+            exit()
 
     @staticmethod
     def format():
