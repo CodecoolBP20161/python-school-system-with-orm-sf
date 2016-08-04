@@ -21,6 +21,11 @@ class Mentor(BaseModel):
     school = ForeignKeyField(School, related_name='mentors')
     email = CharField()
 
+    def _send_interview_details(self, slot, applicant):
+        message = "Dear %s!\n\nYour You have an interview at: %s\nApplicant's name: %s\n\nHave fun!" \
+                  % (self.first_name + ' ' + self.last_name, slot.start, applicant.first_name + ' ' + applicant.last_name)
+        Mail.send(message, self.email, 'Interview details')
+
 
 class Interview(BaseModel):
     start = DateTimeField()
@@ -64,6 +69,8 @@ class Applicant(BaseModel):
     def set_city(self):
         self.school = City.select(City.school_near).where(City.name == self.city)
         self.save()
+        self._send_app_code_school()
+
 
     @classmethod
     def set_app_code(cls):
@@ -111,6 +118,8 @@ class Applicant(BaseModel):
             self.interview_slot = slot
             self.save()
             self._send_interview_slot_email(query2)
+            for mentor in query2[:2]:
+                mentor._send_interview_details(slot, applicant=self)
             have_slot = False
 
     def _send_interview_slot_email(self, mentors):
@@ -119,6 +128,12 @@ class Applicant(BaseModel):
                      mentors[0].first_name + ' ' + mentors[0].last_name,
                      mentors[1].first_name + ' ' + mentors[1].last_name)
         Mail.send(message, self.email, 'Interview time')
+
+    def _send_app_code_school(self):
+        message = "Dear %s!\n\nYour Application code: %s\nAssigned school: %s\n\nFarewell" \
+                  % (self.first_name + ' ' + self.last_name, self.application_code, self.school.location)
+        Mail.send(message, self.email, 'Application details')
+
 
 
 
