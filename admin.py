@@ -236,10 +236,10 @@ def question_by_name():
     name = Question.select().join(Applicant).switch(Question).join(Mentor)\
                             .where(Mentor.first_name.contains(choice_first_name),\
                                    Mentor.last_name.contains(choice_last_name))
-    if not name:
+    if name:
+        return name
+    else:
         print("Sorry, we didn't find.Please try a new one.")
-        return question_by_name()
-    return name
 
 
 def question_by_school():
