@@ -118,7 +118,7 @@ class Applicant(BaseModel):
             self.interview_slot = slot
             self.save()
             self._send_interview_slot_email(query2)
-            for mentor in query2:
+            for mentor in query2[:2]:
                 mentor._send_interview_details(slot, applicant=self)
             have_slot = False
 
