@@ -12,3 +12,6 @@ class ApplicantLogin():
             return ApplicantLogin(appcode)
         else:
             print("No such applicant")
+
+    def status(self):
+        return Applicant.select(Applicant.status).where(Applicant.application_code == self.appcode)
