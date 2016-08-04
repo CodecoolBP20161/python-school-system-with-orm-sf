@@ -1,10 +1,10 @@
 from models import *
 from collections import OrderedDict
 import admin
+from applicant import ApplicantLogin
 
 
-
-def print_query(object_list, titles):
+def print_query(object_list):
     import os
 
     vars = []
@@ -32,9 +32,11 @@ def select_all_interviews():
     """Show all interview slots"""
     return Interview.select(*admin.selection_dict['interview']).join(AssignMentor, JOIN.LEFT_OUTER).join(Mentor, JOIN.LEFT_OUTER)
 
+
 def select_all_questions():
     """Show all questions"""
     return Question.select(*admin.selection_dict['question']).join(Applicant, JOIN.LEFT_OUTER).switch(Question).join(Mentor, JOIN.LEFT_OUTER)
+
 
 def call_applicant_submenu():
     """Select applicants by filters"""
@@ -51,6 +53,20 @@ def call_question_submenu():
     menu_loop(admin_question_menu)
 
 
+def call_admin_menu():
+    """Admin menu"""
+    if input('\nGive me the admin password: ') == '123':
+        menu_loop(admin_menu)
+    else:
+        print('The password is not valid!')
+
+
+def call_applicant_menu():
+    """Applicant menu"""
+    if ApplicantLogin.login():
+        menu_loop(applicant_menu)
+
+
 def menu_loop(menu):
     choice = None
     while choice != 'q':
@@ -62,11 +78,8 @@ def menu_loop(menu):
 
         if choice in menu:
             obj_list = menu[choice]()
-            print('')
             try:
-                titles = []
-                titles.extend(obj_list[0].__dict__['_data'].keys())
-                print_query(obj_list, titles)
+                print_query(obj_list)
             except:
                 pass
 
@@ -103,4 +116,13 @@ admin_question_menu = OrderedDict([
     ('4', admin.question_by_app_code),
     ('5', admin.question_by_time)
 
+])
+
+main_menu = OrderedDict([
+    ('1', call_applicant_menu),
+    ('2', call_admin_menu)
+])
+
+applicant_menu = OrderedDict([
+    ('1', ApplicantLogin.status)
 ])
