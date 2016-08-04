@@ -26,5 +26,5 @@ print_applicant_table()
 
 menu = True
 while menu:
-    menu_loop(admin_menu)
+    menu_loop(main_menu)
     menu = False
