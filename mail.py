@@ -10,7 +10,7 @@ class Mail():
     @classmethod
     def send(cls, message,receiver,subject):
         msg = """From: %s\nTo: %s\nSubject: %s\n\n%s
-    """ % (cls.fromaddr, receiver,subject, message)
+    """ % (cls.fromaddr, receiver, subject, message)
         server = smtplib.SMTP(Config.load("server"))
         server.ehlo()
         server.starttls()
@@ -21,5 +21,3 @@ class Mail():
     @staticmethod
     def format():
         pass
-
-Mail.send("hello", 'carbalage@gmail.com', 'test')
