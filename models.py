@@ -156,6 +156,6 @@ class EmailLog(BaseModel):
     content = TextField()
     mode = CharField()
     timestamp = DateTimeField()
-    receipant_name = CharField()
-    receipant_email = CharField()
+    recipient_name = CharField()
+    recipient_email = CharField()
     status = BooleanField()
