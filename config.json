@@ -1,6 +1,6 @@
 {
-"mail_username": "",
-"mail_password": "",
-"sender": "",
+"mail_username": "applicant.codecool@gmail.com",
+"mail_password": "Codecool123",
+"sender": "StarFish",
 "server": "smtp.gmail.com:587"
 }
