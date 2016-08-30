@@ -35,6 +35,7 @@ def get_db(database=db):
 
 @app.route('/registration', methods=['GET'])
 def applicant_form():
+    form = MyForm()
     return render_template('applicant_form.html', form=form)
 
 

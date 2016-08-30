@@ -7,7 +7,6 @@
 
     </head>
     <body>
-    </h1>
     <form id="form" action= "{{ url_for('submit_applicant') }}" method="post">
     <p>First name</p>
     <p>{{form.first_name(style="width: 1800px;",required="true")}}</p>
@@ -16,15 +15,9 @@
     <p>City</p>
     <p>{{form.city(style="width: 1800px; height: 250px;",required="true")}}</p>
     <p>Email</p>
-    <p>{{form.email(type="number",min="100",max="1500",step="100",required="true")}}</p>
+    <p>{{form.email(min="100",max="1500",step="100",required="true")}}</p>
     <p>Submit</p>
     <p>{{form.submit}}</p>
-    <p>
-{% if form.submit.name=='EDIT'%}
-{{form.submit(value="EDIT")}}
-{% else %}
-{{form.submit(value="SAVE")}}
-{% endif %}
-</p>
+
     </body>
 </html>
