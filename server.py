@@ -9,17 +9,24 @@ class MyForm(Form):
     first_name = StringField('Firs Name')
     last_name = StringField('Last Name')
     city = StringField('City')
-    email = StringField('Email', validators=[validators.Email(message='Invalid email adress!')])
+    email = StringField('Email', validators=[validators.Email(message='Invalid email address!')])
     submit = SubmitField()
+
+
+@app.before_request
+def before_request():
+    db.connect()
+
+
+@app.after_request
+def after_request(response):
+    db.close()
+    return response
 
 
 @app.route('/')
 def home():
     return render_template('home.html')
-
-
-if __name__ == '__main__':
-    app.run()
 
 
 def get_db(database=db):
@@ -40,3 +47,6 @@ def submit_applicant():
         return redirect(url_for('home'))
     return redirect(url_for('applicant_form'))
 
+
+if __name__ == '__main__':
+    app.run()
