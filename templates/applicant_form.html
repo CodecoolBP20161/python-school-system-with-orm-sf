@@ -7,16 +7,16 @@
 
     </head>
     <body>
+    <h1 style="font-family:helvetica;">Application form</h1>
     <form id="form" action= "{{ url_for('submit_applicant') }}" method="post">
-    <p>First name</p>
-    <p>{{form.first_name(style="width: 1800px;",required="true")}}</p>
-    <p>Last name</p>
-    <p>{{form.last_name(style="width: 1800px; height: 250px;",required="true")}}</p>
-    <p>City</p>
-    <p>{{form.city(style="width: 1800px; height: 250px;",required="true")}}</p>
-    <p>Email</p>
-    <p>{{form.email(min="100",max="1500",step="100",required="true")}}</p>
-    <p>Submit</p>
+    <p style="font-family:helvetica;"><strong>First name</strong></p>
+    <p>{{form.first_name(style="width: 400px",required="true")}}</p>
+    <p style="font-family:helvetica;"><strong>Last name</strong></p>
+    <p>{{form.last_name(style="width: 400px",required="true")}}</p>
+    <p style="font-family:helvetica;"><strong>City</strong></p>
+    <p>{{form.city(style="width: 400px",required="true")}}</p>
+    <p style="font-family:helvetica;"><strong>Email</strong></p>
+    <p>{{form.email(required="true")}}</p>
     <p>{{form.submit}}</p>
 
     </body>
