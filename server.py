@@ -29,6 +29,12 @@ def home():
     return render_template('home.html')
 
 
+@app.route('/admin/email-log', methods=['GET'])
+def email_log():
+    entries = EmailLog.select()
+    return render_template('email_log.html', entries=entries)
+
+
 def get_db(database=db):
     return database
 
