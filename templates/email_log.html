@@ -1,0 +1,34 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <title>Email Log</title>
+</head>
+
+<body>
+
+<table>
+    <tr>
+        <td>Receipant's name</td>
+        <td>Receipant's email</td>
+        <td>Email Subject</td>
+        <td>Email Content</td>
+        <td>Email Type</td>
+        <td>Time</td>
+        <td>Status</td>
+    </tr>
+    {% for entry in entries %}
+    <tr>
+        <td>{{entry['receipant_name']}}</td>
+        <td>{{entry['receipant_email']}}</td>
+        <td>{{entry['subject']}}</td>
+        <td>{{entry['content']}}</td>
+        <td>{{entry['mode']}}</td>
+        <td>{{entry['time']}}</td>
+        <td>{{entry['status']}}</td>
+    </tr>
+    {% endif %}
+</table>
+
+</body>
+
+</html>
