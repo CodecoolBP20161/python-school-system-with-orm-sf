@@ -1,5 +1,6 @@
 import smtplib
 from config import Config
+from decorate import logger
 
 
 class Mail():
@@ -8,6 +9,7 @@ class Mail():
     password = Config.load("mail_password")
 
     @classmethod
+    @logger
     def send(cls, message,receiver,subject):
         msg = """From: %s\nTo: %s\nSubject: %s\n\n%s
     """ % (cls.fromaddr, receiver, subject, message)

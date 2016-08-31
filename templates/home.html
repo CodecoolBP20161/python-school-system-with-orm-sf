@@ -5,15 +5,18 @@
 
         <meta charset='UTF-8'>
         <title>Home</title>
+        <link rel="stylesheet" href="/static/css/home_style.css">
 
     </head>
     <body>
-        <div style="text-align:center">
+        <div class="header"></div>
+
+        <div style="text-align:right">
             <form action="{{ url_for('applicant_form') }}" method='GET'>
-                <input type="submit" value="Registration">
+                <input type="submit" value="Registration" class="myButton">
             </form>
             <form action=".html">
-                <input type="submit" value="Log in">
+                <input type="submit" value="Log in" class="myButton">
             </form>
         </div>
     </body>
