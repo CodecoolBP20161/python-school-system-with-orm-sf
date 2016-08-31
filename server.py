@@ -1,6 +1,7 @@
 from flask import Flask, render_template, request, url_for, redirect, g
 from wtforms import *
 from models import *
+from datetime import datetime
 
 app = Flask(__name__)
 
@@ -27,6 +28,21 @@ def after_request(response):
 @app.route('/')
 def home():
     return render_template('home.html')
+
+
+@app.route('/admin/email-log', methods=['GET'])
+def email_log():
+    dict_query = {}
+    for entry in EmailLog.select():
+        dict_query['subject'] = entry.subject
+        dict_query['content'] = entry.content
+        dict_query['mode'] = entry.mode
+        dict_query['time'] = entry.timestamp
+        dict_query['receipant_name'] = entry.receipant_name
+        dict_query['receipant_email'] = entry.receipant_email
+        dict_query['status'] = entry.status
+
+    return render_template('email_log.html', entries=dict_query)
 
 
 def get_db(database=db):
