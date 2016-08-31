@@ -149,3 +149,13 @@ class Question(BaseModel):
     applicant = ForeignKeyField(Applicant, related_name='questions', null=True)
     question = TextField()
     mentor = ForeignKeyField(Mentor, related_name='questions', null=True)
+
+
+class EmailLog(BaseModel):
+    subject = CharField()
+    content = TextField()
+    mode = CharField()
+    timestamp = DateTimeField()
+    recipient_name = CharField()
+    recipient_email = CharField()
+    status = BooleanField()
