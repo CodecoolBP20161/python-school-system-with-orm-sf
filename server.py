@@ -31,8 +31,13 @@ def home():
 
 @app.route('/admin/email-log', methods=['GET'])
 def email_log():
-    entries = EmailLog.select()
-    return render_template('email_log.html', entries=entries)
+    query = {}
+    for entries in EmailLog.select():
+        query['subject'] = query.subject
+        query['time'] = datetime.timestamp(query.timestamp)
+
+
+        return render_template('email_log.html', entries=entries)
 
 
 def get_db(database=db):
