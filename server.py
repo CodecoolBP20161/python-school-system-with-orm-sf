@@ -1,16 +1,17 @@
-from flask import Flask, render_template, request, url_for, redirect, g
+from flask import Flask, render_template, request, url_for, redirect, flash
 from wtforms import *
 from models import *
 from datetime import datetime
 
 app = Flask(__name__)
+app.secret_key = 'key'
 
 
 class MyForm(Form):
     first_name = StringField('First Name')
     last_name = StringField('Last Name')
     city = StringField('City')
-    email = StringField('Email', validators=[validators.Email(message='Invalid email address!')])
+    email = StringField('Email', validators=[validators.Email()])
     submit = SubmitField()
 
 
@@ -62,7 +63,8 @@ def submit_applicant():
         Applicant.create(first_name=form.first_name.data, last_name=form.last_name.data,
                          city=form.city.data, email=form.email.data, status='new')
         return redirect(url_for('home'))
-    return redirect(url_for('applicant_form'))
+    flash('Invalid email address!')
+    return render_template('applicant_form.html', form=form)
 
 
 if __name__ == '__main__':
