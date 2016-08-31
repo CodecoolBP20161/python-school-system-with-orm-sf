@@ -8,7 +8,7 @@ def logger(func):
     def inner(*args, **kwargs):
         from models import EmailLog, Mentor, Applicant
         subject = args[3]
-        content = args[1]
+        content = args[1][:144]
         mode = [i for i in modes if modes[i] == subject][0]
         recipient_email = args[2]
         if mode == 'mentor':
