@@ -32,17 +32,17 @@ def home():
 
 @app.route('/admin/email-log', methods=['GET'])
 def email_log():
-    query = {}
+    dict_query = {}
     for entry in EmailLog.select():
-        query['subject'] = entry.subject
-        query['content'] = entry.content
-        query['mode'] = entry.mode
-        query['time'] = entry.datetime.timestamp
-        query['receipant_name'] = entry.receipant_name
-        query['receipant_email'] = entry.receipant_email
-        query['status'] = entry.status
+        dict_query['subject'] = entry.subject
+        dict_query['content'] = entry.content
+        dict_query['mode'] = entry.mode
+        dict_query['time'] = entry.timestamp
+        dict_query['receipant_name'] = entry.receipant_name
+        dict_query['receipant_email'] = entry.receipant_email
+        dict_query['status'] = entry.status
 
-    return render_template('email_log.html', entry=entry)
+    return render_template('email_log.html', entries=dict_query)
 
 
 def get_db(database=db):
