@@ -16,6 +16,7 @@ app.config.update(dict(
 
 @app.route('/admin/login', methods=['GET', 'POST'])
 def login():
+    form = MyForm()
     error = None
     if request.method == 'POST':
         if request.form['Username'] != app.config['USERNAME']:
@@ -26,7 +27,7 @@ def login():
             session['logged_in'] = True
             flash('You were logged in')
             return redirect(url_for('admin'))
-    return render_template('admin_login.html', error=error)
+    return render_template('admin_login.html', error=error,form=form)
 
 
 
