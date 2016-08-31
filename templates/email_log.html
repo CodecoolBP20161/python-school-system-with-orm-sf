@@ -4,7 +4,8 @@
     <title>Email Log</title>
 </head>
 
-<body>
+{% extends "admin.html" %}
+{% block body %}
 
 <table border=3>
     <tr>
@@ -29,6 +30,6 @@
     {% endfor %}
 </table>
 
-</body>>
+{% endblock %}
 
 </html>
