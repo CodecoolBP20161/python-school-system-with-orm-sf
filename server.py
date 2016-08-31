@@ -13,24 +13,32 @@ app.config.update(dict(
 ))
 
 
-
 @app.route('/admin/login', methods=['GET', 'POST'])
 def login():
-    form = MyForm()
     error = None
+    form = MyForm(request.form, csrf_enabled=False)
     if request.method == 'POST':
-        if request.form['Username'] != app.config['USERNAME']:
+        if form.username.data != app.config['USERNAME']:
             error = 'Invalid username'
-        elif request.form['Password'] != app.config['PASSWORD']:
+        elif form.password.data != app.config['PASSWORD']:
             error = 'Invalid password'
         else:
             session['logged_in'] = True
             flash('You were logged in')
             return redirect(url_for('admin'))
-    return render_template('admin_login.html', error=error,form=form)
+    return render_template('admin_login.html', error=error, form=form)
 
 
+@app.route('/logout')
+def logout():
+    session.pop('logged_in', None)
+    flash('You were logged out')
+    return redirect(url_for('home'))
 
+
+@app.route('/admin', methods=['GET'])
+def admin():
+    return 'abrakadabra'
 
 
 class MyForm(Form):
@@ -53,6 +61,7 @@ def after_request(response):
     db.close()
     return response
 
+
 @app.route('/')
 def home():
     return render_template('home.html')
@@ -60,22 +69,21 @@ def home():
 
 @app.route('/admin/email-log', methods=['GET'])
 def email_log():
-    session['logged_in'] = True
-    if session['logged_in']:
-        mylist = []
-        for entry in EmailLog.select():
-            dict_query = {}
-            dict_query['subject'] = entry.subject
-            dict_query['content'] = entry.content
-            dict_query['mode'] = entry.mode
-            dict_query['time'] = entry.timestamp
-            dict_query['recipient_name'] = entry.recipient_name
-            dict_query['recipient_email'] = entry.recipient_email
-            dict_query['status'] = entry.status
-            mylist.append(dict_query)
+    mylist = []
+    for entry in EmailLog.select():
+        dict_query = {}
+        dict_query['subject'] = entry.subject
+        dict_query['content'] = entry.content
+        dict_query['mode'] = entry.mode
+        dict_query['time'] = entry.timestamp
+        dict_query['recipient_name'] = entry.recipient_name
+        dict_query['recipient_email'] = entry.recipient_email
+        dict_query['status'] = entry.status
+        mylist.append(dict_query)
 
-        return render_template('email_log.html', entries=mylist)
-    return redirect(url_for('home'))
+    return render_template('email_log.html', entries=mylist)
+    # return redirect(url_for('home'))
+
 
 def get_db(database=db):
     return database
