@@ -6,7 +6,7 @@ from flask import session
 import hashlib
 
 
-app = Flask(__name__)
+app = Flask(__name__, template_folder='view/templates', static_folder='view/static')
 app.secret_key = 'key'
 app.config.update(dict(
     USERNAME='admin',
