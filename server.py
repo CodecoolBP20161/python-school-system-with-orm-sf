@@ -72,16 +72,18 @@ def email_log():
     if session['logged_in']:
         mylist = []
         for entry in EmailLog.select():
-            dict_query = {}
-            dict_query['subject'] = entry.subject
-            dict_query['content'] = entry.content
-            dict_query['mode'] = entry.mode
-            dict_query['time'] = entry.timestamp
-            dict_query['recipient_name'] = entry.recipient_name
-            dict_query['recipient_email'] = entry.recipient_email
-            dict_query['status'] = entry.status
-            mylist.append(dict_query)
-        return render_template('email_log.html', entries=mylist)
+            data_list = []
+            data_list.append(entry.subject)
+            data_list.append(entry.content)
+            data_list.append(entry.mode)
+            data_list.append(entry.timestamp)
+            data_list.append(entry.recipient_name)
+            data_list.append(entry.recipient_email)
+            data_list.append(entry.status)
+            mylist.append(data_list)
+        return render_template('listing.html', title="Email log", entries=mylist,
+                               titles=["Recipient's name", "Recipient's email", "Email Subject",
+                                       "Email Content", "Email Type", "Time", "Status"])
     return redirect(url_for('admin'))
 
 

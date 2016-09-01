@@ -1,0 +1,28 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <title>{{title}}]</title>
+</head>
+
+{% extends "admin.html" %}
+{% block body %}
+
+<table border=3>
+    <tr>
+        {% for title in titles %}
+        <td>{{title}}</td>
+        {% endfor %}
+    </tr>
+    {% for entry in entries %}
+    <tr>
+        {% for cloumn in entry %}
+            <td>{{entry[loop.index - 1]}}</td>
+        {% endfor %}
+    </tr>
+    {% endfor %}
+</table>
+
+{% endblock %}
+
+</html>
+
