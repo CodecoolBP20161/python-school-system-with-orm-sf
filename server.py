@@ -19,6 +19,7 @@ def digest(message):
     return dig.hexdigest()
 
 
+
 @app.route('/admin/login', methods=['GET', 'POST'])
 def login():
     error = None
