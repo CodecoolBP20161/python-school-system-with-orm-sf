@@ -17,5 +17,3 @@ class Cities():
             return sorted(closest, key=closest.get)[0]
         except:
             return "Budapest"
-
-print(Cities.closest('Makó'))
