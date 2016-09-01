@@ -6,14 +6,6 @@
     <link rel="stylesheet" href="/static/css/admin_style.css">
 </head>
 
-{% with messages = get_flashed_messages() %}
-  {% if messages %}
-    {% for message in messages %}
-        <p>{{ message }}</p>
-    {% endfor %}
-  {% endif %}
-{% endwith %}
-
 <div class="header"></div>
 
 <div style="text-align:right">
@@ -27,6 +19,15 @@
 <input type="submit" value="Log out" class="myButton">
 </form>
 </div>
+
 {% block body %}{% endblock %}
+
+{% with messages = get_flashed_messages() %}
+  {% if messages %}
+    {% for message in messages %}
+        <p>{{ message }}</p>
+    {% endfor %}
+  {% endif %}
+{% endwith %}
 
 </html>
