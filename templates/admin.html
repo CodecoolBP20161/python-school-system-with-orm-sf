@@ -1,6 +1,29 @@
 <!DOCTYPE html>
 <html>
-<p>Make here the head</p>
+<head>
+    <meta charset='UTF-8'>
+    <title>Admin</title>
+    <link rel="stylesheet" href="/static/css/admin_style.css">
+</head>
+
+{% with messages = get_flashed_messages() %}
+  {% if messages %}
+    {% for message in messages %}
+        <p>{{ message }}</p>
+    {% endfor %}
+  {% endif %}
+{% endwith %}
+
+<div class="header"></div>
+
+<div style="text-align:right">
+<form action="{{ url_for('email_log') }}" method='GET'>
+<input type="submit" value="Email Addresses" class="myButton">
+</form>
+<form action="{{ url_for('logout') }}" method='GET'>
+<input type="submit" value="Log out" class="myButton">
+</form>
+</div>
 {% block body %}{% endblock %}
 
 </html>
