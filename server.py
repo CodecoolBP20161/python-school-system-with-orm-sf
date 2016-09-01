@@ -80,12 +80,12 @@ def email_log():
         mylist = []
         for entry in EmailLog.select():
             data_list = []
+            data_list.append(entry.recipient_name)
+            data_list.append(entry.recipient_email)
             data_list.append(entry.subject)
             data_list.append(entry.content)
             data_list.append(entry.mode)
             data_list.append(entry.timestamp)
-            data_list.append(entry.recipient_name)
-            data_list.append(entry.recipient_email)
             data_list.append(entry.status)
             mylist.append(data_list)
         return render_template('listing.html', title="Email log", entries=mylist,
