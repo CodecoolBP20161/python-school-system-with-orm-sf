@@ -17,6 +17,9 @@
 <div class="header"></div>
 
 <div style="text-align:right">
+<form action="{{ url_for('list_applicants') }}" method='GET'>
+<input type="submit" value="Applicants" class="myButton">
+</form>
 <form action="{{ url_for('email_log') }}" method='GET'>
 <input type="submit" value="Email Log" class="myButton">
 </form>

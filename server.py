@@ -115,5 +115,25 @@ def submit_applicant():
     return render_template('applicant_form.html', form=form)
 
 
+@app.route('/admin/applicants', methods=['GET'])
+def list_applicants():
+    if session['logged_in']:
+        query = Applicant.select().join(School).switch(Applicant).join(Interview)
+        entries = []
+        for applicant in query:
+            data_list = []
+            data_list.append(applicant.application_code)
+            data_list.append(applicant.first_name + " " + applicant.last_name)
+            data_list.append(applicant.email)
+            data_list.append(applicant.city)
+            data_list.append(applicant.school.location)
+            data_list.append(applicant.interview_slot.start)
+            entries.append(data_list)
+
+        return render_template('listing.html', title="Applicants", entries=entries,
+                                   titles=["Application Code", "Name", "Email", "City", "School", "Interview time"])
+    return redirect('home')
+
+
 if __name__ == '__main__':
     app.run()
