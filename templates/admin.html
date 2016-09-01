@@ -7,7 +7,7 @@
 </head>
 
 <div class="header"></div>
-
+<br>
 <div style="text-align:right">
 <form action="{{ url_for('list_applicants') }}" method='GET'>
 <input type="submit" value="Applicants" class="myButton">
@@ -19,7 +19,7 @@
 <input type="submit" value="Log out" class="myButton">
 </form>
 </div>
-
+<br>
 {% block body %}{% endblock %}
 
 {% with messages = get_flashed_messages() %}
@@ -29,5 +29,7 @@
     {% endfor %}
   {% endif %}
 {% endwith %}
+<br>
+<div class="footer">© Codecool | Starfish 2016</div>
 
 </html>
