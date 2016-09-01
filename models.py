@@ -137,14 +137,6 @@ class Applicant(BaseModel):
         Mail.send(message, self.email, 'Application details')
 
 
-
-
-
-class City(BaseModel):
-    name = CharField()
-    school_near = ForeignKeyField(School, related_name='schools')
-
-
 class Question(BaseModel):
     status = CharField()
     time = DateTimeField()
