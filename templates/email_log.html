@@ -2,10 +2,14 @@
 <html lang="en">
 <head>
     <title>Email Log</title>
+    <link rel="stylesheet" href="/static/css/admin_style.css">
 </head>
 
 {% extends "admin.html" %}
 {% block body %}
+<form action="{{ url_for('admin') }}" method='GET'>
+<input type="submit" value="Back" class="myButton">
+</form>
 
 <table border=3>
     <tr>
