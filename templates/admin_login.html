@@ -17,15 +17,15 @@
 
     <form id="form" action= "{{ url_for('login') }}" method="post">
     <h1 style="font-family:helvetica;">Log in</h1>
-    <p style="font-family:helvetica;"><strong>User name</strong></p>
+    <p>User name</p>
     <p>{{form.username(style="width: 400px",required="true")}}</p>
-    <p style="font-family:helvetica;"><strong>Password</strong></p>
+    <p>Password</p>
     <p>{{form.password(style="width: 400px",required="true")}}</p>
     <p>{{form.submit}}</p>
 
     {% if error!=None %}
     <p>{{error}}</p>
     {% endif %}
-    
+
 </body>
 </html>
