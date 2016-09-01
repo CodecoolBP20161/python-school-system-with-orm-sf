@@ -81,7 +81,6 @@ def email_log():
             dict_query['recipient_email'] = entry.recipient_email
             dict_query['status'] = entry.status
             mylist.append(dict_query)
-
         return render_template('email_log.html', entries=mylist)
     return redirect(url_for('admin'))
 
