@@ -118,7 +118,7 @@ def submit_applicant():
 @app.route('/admin/applicants', methods=['GET'])
 def list_applicants():
     if session['logged_in']:
-        query = Applicant.select().join(School).switch(Applicant).join(Interview)
+        query = Applicant.select().join(School, JOIN.LEFT_OUTER).switch(Applicant).join(Interview, JOIN.LEFT_OUTER)
         entries = []
         for applicant in query:
             data_list = []
@@ -127,7 +127,10 @@ def list_applicants():
             data_list.append(applicant.email)
             data_list.append(applicant.city)
             data_list.append(applicant.school.location)
-            data_list.append(applicant.interview_slot.start)
+            try:
+                data_list.append(applicant.interview_slot.start)
+            except AttributeError:
+                data_list.append("")
             entries.append(data_list)
 
         return render_template('listing.html', title="Applicants", entries=entries,
