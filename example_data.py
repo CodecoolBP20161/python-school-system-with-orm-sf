@@ -36,26 +36,6 @@ def add_applicants():
                          status=applicant['status'], email=applicant['email'])
 
 
-
-cities = [
-    {'name': 'Budapest', 'school_near': 'Budapest'},
-    {'name': 'Debrecen', 'school_near': 'Miskolc'},
-    {'name': 'Eger', 'school_near': 'Miskolc'},
-    {'name': 'Los Angeles', 'school_near': 'Los Angeles'},
-    {'name': 'Székesfehérvár', 'school_near': 'Budapest'},
-    {'name': 'Krakkó', 'school_near': 'Krakkó'},
-    {'name': 'Dabas', 'school_near': 'Budapest'},
-    {'name': 'New York', 'school_near': 'Los Angeles'},
-    {'name': 'Varsó', 'school_near': 'Krakkó'},
-    {'name': 'Miskolc', 'school_near': 'Miskolc'}
-]
-
-
-def add_cities():
-    for city in cities:
-        City.create(name=city['name'], school_near=School.select().where(School.location == city['school_near']))
-
-
 mentors = [
     {'first_name': 'Miki', 'last_name': 'Beöthy', 'school': 'Budapest','email':'applicant.codecool@gmail.com'},
     {'first_name': 'Tomi', 'last_name': 'Tompa', 'school': 'Budapest','email':'applicant.codecool@gmail.com'},

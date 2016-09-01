@@ -1,6 +1,7 @@
 from peewee import *
 from connect import db
 from mail import Mail
+from distance import Cities
 
 class BaseModel(Model):
     """A base model that will use our Postgresql database"""
@@ -67,7 +68,8 @@ class Applicant(BaseModel):
             applicant.set_city()
 
     def set_city(self):
-        self.school = City.select(City.school_near).where(City.name == self.city)
+        school = Cities.closest(self.city)
+        self.school = School.select().where(School.location == school)
         self.save()
         self._send_app_code_school()
 
@@ -133,14 +135,6 @@ class Applicant(BaseModel):
         message = "Dear %s!\n\nYour Application code: %s\nAssigned school: %s\n\nFarewell" \
                   % (self.first_name + ' ' + self.last_name, self.application_code, self.school.location)
         Mail.send(message, self.email, 'Application details')
-
-
-
-
-
-class City(BaseModel):
-    name = CharField()
-    school_near = ForeignKeyField(School, related_name='schools')
 
 
 class Question(BaseModel):

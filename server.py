@@ -3,14 +3,21 @@ from wtforms import *
 from models import *
 from datetime import datetime
 from flask import session
+import hashlib
 
 
 app = Flask(__name__)
 app.secret_key = 'key'
 app.config.update(dict(
     USERNAME='admin',
-    PASSWORD='admin'
+    PASSWORD='21232f297a57a5a743894a0e4a801fc3'
 ))
+
+
+def digest(message):
+    dig = hashlib.md5(str(message).encode('UTF-8'))
+    return dig.hexdigest()
+
 
 
 @app.route('/admin/login', methods=['GET', 'POST'])
@@ -20,7 +27,7 @@ def login():
     if request.method == 'POST':
         if form.username.data != app.config['USERNAME']:
             error = 'Invalid username'
-        elif form.password.data != app.config['PASSWORD']:
+        elif digest(form.password.data) != app.config['PASSWORD']:
             error = 'Invalid password'
         else:
             session['logged_in'] = True
@@ -72,16 +79,18 @@ def email_log():
     if session['logged_in']:
         mylist = []
         for entry in EmailLog.select():
-            dict_query = {}
-            dict_query['subject'] = entry.subject
-            dict_query['content'] = entry.content
-            dict_query['mode'] = entry.mode
-            dict_query['time'] = entry.timestamp
-            dict_query['recipient_name'] = entry.recipient_name
-            dict_query['recipient_email'] = entry.recipient_email
-            dict_query['status'] = entry.status
-            mylist.append(dict_query)
-        return render_template('email_log.html', entries=mylist)
+            data_list = []
+            data_list.append(entry.subject)
+            data_list.append(entry.content)
+            data_list.append(entry.mode)
+            data_list.append(entry.timestamp)
+            data_list.append(entry.recipient_name)
+            data_list.append(entry.recipient_email)
+            data_list.append(entry.status)
+            mylist.append(data_list)
+        return render_template('listing.html', title="Email log", entries=mylist,
+                               titles=["Recipient's name", "Recipient's email", "Email Subject",
+                                       "Email Content", "Email Type", "Time", "Status"])
     return redirect(url_for('admin'))
 
 
