@@ -9,14 +9,6 @@
 
     </head>
     <body>
-        {% with messages = get_flashed_messages() %}
-          {% if messages %}
-            {% for message in messages %}
-                <p>{{ message }}</p>
-            {% endfor %}
-          {% endif %}
-        {% endwith %}
-
         <div class="header"></div>
 
         <div style="text-align:right">
@@ -27,5 +19,14 @@
                 <input type="submit" value="Log in" class="myButton">
             </form>
         </div>
+
+        {% with messages = get_flashed_messages() %}
+          {% if messages %}
+            {% for message in messages %}
+                <p>{{ message }}</p>
+            {% endfor %}
+          {% endif %}
+        {% endwith %}
+        
     </body>
 </html>
