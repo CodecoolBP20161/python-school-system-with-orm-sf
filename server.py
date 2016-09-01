@@ -45,7 +45,7 @@ def logout():
 
 @app.route('/admin', methods=['GET'])
 def admin():
-    return 'abrakadabra'
+    return render_template('admin.html')
 
 
 class MyForm(Form):
@@ -90,7 +90,7 @@ def email_log():
             mylist.append(dict_query)
 
         return render_template('email_log.html', entries=mylist)
-    return redirect(url_for('home'))
+    return redirect(url_for('admin'))
 
 
 def get_db(database=db):
