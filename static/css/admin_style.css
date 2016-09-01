@@ -1,8 +1,5 @@
-html,body {height:100%}
-
-body {
-    background-image: "/static/img/IMG_1766.jpg";
-    background-size: cover;
+p {
+	font-family: Helvetica;
 }
 
 form { display: inline; }
