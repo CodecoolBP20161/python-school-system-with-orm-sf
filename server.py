@@ -3,14 +3,21 @@ from wtforms import *
 from models import *
 from datetime import datetime
 from flask import session
+import hashlib
 
 
 app = Flask(__name__)
 app.secret_key = 'key'
 app.config.update(dict(
     USERNAME='admin',
-    PASSWORD='admin'
+    PASSWORD='21232f297a57a5a743894a0e4a801fc3'
 ))
+
+
+def digest(message):
+    dig = hashlib.md5(str(message).encode('UTF-8'))
+    return dig.hexdigest()
+
 
 
 @app.route('/admin/login', methods=['GET', 'POST'])
@@ -20,7 +27,7 @@ def login():
     if request.method == 'POST':
         if form.username.data != app.config['USERNAME']:
             error = 'Invalid username'
-        elif form.password.data != app.config['PASSWORD']:
+        elif digest(form.password.data) != app.config['PASSWORD']:
             error = 'Invalid password'
         else:
             session['logged_in'] = True
