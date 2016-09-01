@@ -12,7 +12,7 @@ form { display: inline; }
     height: 55px;
     background-color: #0d0d26;
     margin: 0 auto;
-    position: fixed;
+    position: absolute;;
     z-index: -1;
 }
 
@@ -40,7 +40,7 @@ form { display: inline; }
 	padding:9px 23px;
 	text-decoration:none;
 	text-shadow:0px 1px 0px #263666;
-    margin: 25px 0 0 0;
+    margin: 8px 0 0 0;
 }
 .myButton:hover {
 	background:-webkit-gradient(linear, left top, left bottom, color-stop(0.05, #0688fa), color-stop(1, #2dabf9));
