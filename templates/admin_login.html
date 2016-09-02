@@ -10,22 +10,25 @@
     <div class="header"></div>
     <br>
     <div style="text-align:right">
-    <form action="{{ url_for('logout') }}" method='GET'>
+    <form action="{{ url_for('home') }}" method='GET'>
     <input type="submit" value="Back" class="myButton">
     </form>
     </div>
 
-    <form id="form" action= "{{ url_for('login') }}" method="post">
-    <h1 style="font-family:helvetica;">Log in</h1>
-    <p>User name</p>
-    <p>{{form.username(style="width: 400px",required="true")}}</p>
-    <p>Password</p>
-    <p>{{form.password(style="width: 400px",required="true")}}</p>
-    <p>{{form.submit}}</p>
+    <div class="one">
+        <form id="form" action= "{{ url_for('login') }}" method="post">
+        <h1 style="font-family:helvetica;">Log in</h1>
+        <p>User name</p>
+        <p>{{form.username(style="width: 400px",required="true")}}</p>
+        <p>Password</p>
+        <p>{{form.password(style="width: 400px",required="true")}}</p><br>
+        <p>{{form.submit(class_="myButton")}}</p>
+    </div>
 
     {% if error!=None %}
     <p>{{error}}</p>
     {% endif %}
 
+    <div class="footer">© Codecool | Starfish 2016</div>
 </body>
 </html>

@@ -1,7 +1,6 @@
 from flask import Flask, render_template, request, url_for, redirect, flash
 from wtforms import *
 from models import *
-from datetime import datetime
 from flask import session
 import hashlib
 
@@ -56,6 +55,12 @@ class MyForm(Form):
     city = StringField('City')
     email = StringField('Email', validators=[validators.Email()])
     submit = SubmitField()
+    applicant_first_name = StringField('Applicant First Name')
+    applicant_last_name = StringField('Applicant Last Name')
+    applicant_app_code = StringField('Applicant AppCode')
+    applicant_email = StringField('Applicant Email')
+    applicant_city = StringField('Applicant City')
+    applicant_school = StringField('Applicant School')
 
 
 @app.before_request
@@ -115,10 +120,22 @@ def submit_applicant():
     return render_template('applicant_form.html', form=form)
 
 
-@app.route('/admin/applicants', methods=['GET'])
+@app.route('/admin/applicants', methods=['GET', 'POST'])
 def list_applicants():
     if session['logged_in']:
-        query = Applicant.select().join(School, JOIN.LEFT_OUTER).switch(Applicant).join(Interview, JOIN.LEFT_OUTER)
+        if request.method == 'POST':
+            form = MyForm(request.form, csrf_enabled=False)
+            query = Applicant.select().join(School, JOIN.LEFT_OUTER).switch(Applicant).join(Interview, JOIN.LEFT_OUTER) \
+                .where(Applicant.first_name.contains(form.applicant_first_name.data),
+                       Applicant.first_name.contains(form.applicant_last_name.data),
+                       Applicant.application_code.contains(form.applicant_app_code.data),
+                       Applicant.email.contains(form.applicant_email.data),
+                       Applicant.city.contains(form.applicant_city.data),
+                       School.location.contains(form.applicant_school.data))
+        else:
+            form = MyForm()
+            query = Applicant.select().join(School, JOIN.LEFT_OUTER).switch(Applicant).join(Interview, JOIN.LEFT_OUTER)
+
         entries = []
         for applicant in query:
             data_list = []
@@ -131,11 +148,13 @@ def list_applicants():
                 data_list.append(applicant.interview_slot.start)
             except AttributeError:
                 data_list.append("")
+
             entries.append(data_list)
 
-        return render_template('listing.html', title="Applicants", entries=entries,
-                                   titles=["Application Code", "Name", "Email", "City", "School", "Interview time"])
-    return redirect('home')
+        return render_template('applicant_filter.html', title="Applicants", entries=entries,
+                               titles=["Application Code", "Name", "Email", "City", "School", "Interview time"], form=form)
+    return redirect(url_for('home'))
+
 
 
 if __name__ == '__main__':
