@@ -143,11 +143,14 @@ def list_applicants():
             data_list.append(applicant.first_name + " " + applicant.last_name)
             data_list.append(applicant.email)
             data_list.append(applicant.city)
-            data_list.append(applicant.school.location)
+            try:
+                data_list.append(applicant.school.location)
+            except AttributeError:
+                data_list.append("Not yet set")
             try:
                 data_list.append(applicant.interview_slot.start)
             except AttributeError:
-                data_list.append("")
+                data_list.append("Not yet set")
 
             entries.append(data_list)
 
