@@ -27,6 +27,6 @@ def logger(func):
                             recipient_name=recipient_name, recipient_email=recipient_email, status=True)
         else:
             EmailLog.create(subject=subject, content=content, mode=mode, timestamp=timestamp,
-                            recipient_name=recipient_name, recipient_email=recipient_email, status=True)
+                            recipient_name=recipient_name, recipient_email=recipient_email, status=False)
 
     return inner
