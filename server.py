@@ -61,6 +61,7 @@ class MyForm(Form):
     applicant_email = StringField('Applicant Email')
     applicant_city = StringField('Applicant City')
     applicant_school = StringField('Applicant School')
+    applicant_interview = StringField('Applicant Interview')
 
 
 @app.before_request
@@ -125,13 +126,20 @@ def list_applicants():
     if session['logged_in']:
         if request.method == 'POST':
             form = MyForm(request.form, csrf_enabled=False)
+
+            interview_ids = [0]
+            for interview in Interview.select():
+                if str(form.applicant_interview.data) in str(interview.start):
+                    interview_ids.append(interview.id)
+
             query = Applicant.select().join(School, JOIN.LEFT_OUTER).switch(Applicant).join(Interview, JOIN.LEFT_OUTER) \
                 .where(Applicant.first_name.contains(form.applicant_first_name.data),
                        Applicant.first_name.contains(form.applicant_last_name.data),
                        Applicant.application_code.contains(form.applicant_app_code.data),
                        Applicant.email.contains(form.applicant_email.data),
                        Applicant.city.contains(form.applicant_city.data),
-                       School.location.contains(form.applicant_school.data))
+                       School.location.contains(form.applicant_school.data),
+                       Interview.id << interview_ids)
         else:
             form = MyForm()
             query = Applicant.select().join(School, JOIN.LEFT_OUTER).switch(Applicant).join(Interview, JOIN.LEFT_OUTER)
