@@ -12,10 +12,13 @@
 
 
         <body style="padding-top: 100px;">
-            <nav class="navbar navbar-fixed-top navbar-inverse">
-        <div class="container text-right">
-<a href="{{ url_for('home') }}">{{ text|safe }}<button name="one" class="btn btn-primary navbar-btn">Home</button></a>
-        </nav></div>
+        <nav class="navbar navbar-fixed-top navbar-inverse">
+            <div class="container-fluid">
+                <div class="nav navbar-right">
+                    <a href="{{ url_for('home') }}">{{ text|safe }}<button name="one" class="btn btn-primary navbar-btn">Home</button></a>
+                </div>
+            </div>
+        </nav>
 
         <div class="one">
             <h1 style="font-family:helvetica">Application form</h1>
@@ -41,7 +44,9 @@
 
 
     </body>
+    <footer>
     <div class="container text-center">
         <div class="navbar-fixed-bottom">© Codecool | Starfish 2016</div>
     </div>
+    </footer>
 </html>
