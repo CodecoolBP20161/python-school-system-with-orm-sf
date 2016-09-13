@@ -11,10 +11,10 @@
 <title>Home</title>
 </head>
 <body style="padding-top: 60px;">
-    <nav class="navbar navbar-default navbar-fixed-top">
+    <nav class="navbar navbar-default navbar-fixed-top navbar-inverse">
       <div class="container text-center">
-          <a href="{{ url_for('applicant_form') }}">{{ text|safe }}<button name="one" class="btn btn-primary navbar-btn" data-toggle="tooltip" title="You would never find out what this button does...!">Registration</button></a>
-          <a href="/admin/login">{{ text|safe }}<button name="two" class="btn btn-primary navbar-btn" data-toggle="tooltip" title="Please go home!">Log in</button></a>
+          <a href="{{ url_for('applicant_form') }}">{{ text|safe }}<button name="one" class="btn btn-primary navbar-btn" >Registration</button></a>
+          <a href="/admin/login">{{ text|safe }}<button name="two" class="btn btn-primary navbar-btn" ><span class="glyphicon glyphicon-log-out"></span>Log in</button></a>
       </div>
     </nav>
 
@@ -27,7 +27,9 @@
         {% endwith %}
 
 </body>
+<footer>
 <div class="container text-center">
     <div class="navbar navbar-fixed-bottom">© Codecool | Starfish 2016</div>
 </div>
+</footer>
 </html>
