@@ -11,7 +11,7 @@
 {% extends "admin.html" %}
 {% block body %}
 <div class="container-fluid">
-<table class="table table-bordered table-striped">
+<table class="table table-bordered table-striped table-hover">
     <form id="form" action= "{{ url_for('list_applicants') }}" method="post">
     <tr>
         <td>{{form.applicant_app_code(placeholder="App Code")}}</td>
