@@ -23,11 +23,13 @@
         <td>{{form.submit(class="btn btn-primary navbar-btn")}}</td>
     </tr>
     </form>
+    <thead>
     <tr>
         {% for title in titles %}
-        <td>{{title}}</td>
+        <th>{{title}}</th>
         {% endfor %}
     </tr>
+    </thead>
     {% for entry in entries %}
     <tr>
         {% for column in entry %}
