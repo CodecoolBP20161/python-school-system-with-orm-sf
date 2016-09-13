@@ -24,10 +24,8 @@ def login():
     error = None
     form = MyForm(request.form, csrf_enabled=False)
     if request.method == 'POST':
-        if form.username.data != app.config['USERNAME']:
-            error = 'Invalid username'
-        elif digest(form.password.data) != app.config['PASSWORD']:
-            error = 'Invalid password'
+        if form.username.data != app.config['USERNAME'] or digest(form.password.data) != app.config['PASSWORD']:
+            error = 'Invalid username or password!'
         else:
             session['logged_in'] = True
             flash('You were logged in')
@@ -169,4 +167,4 @@ def list_applicants():
 
 
 if __name__ == '__main__':
-    app.run()
+    app.run(host="192.168.160.43", port='5000')
