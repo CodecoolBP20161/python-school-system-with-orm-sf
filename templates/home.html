@@ -1,24 +1,22 @@
-<!doctype html>
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="utf-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <link rel="stylesheet" href="https://bootswatch.com/cerulean/bootstrap.min.css">
+    <link rel="stylesheet" href="/static/css/home_style.css">
 
-<html>
-    <head>
 
-        <meta charset='UTF-8'>
-        <title>Home</title>
-        <link rel="stylesheet" href="/static/css/home_style.css">
-
-    </head>
-    <body>
-        <div class="header"></div>
-
-        <div style="text-align:center">
-            <form action="{{ url_for('applicant_form') }}" method='GET'>
-                <input type="submit" value="Registration" class="myButton">
-            </form>
-            <form action="/admin/login">
-                <input type="submit" value="Log in" class="myButton2">
-            </form>
-        </div>
+<title>Home</title>
+</head>
+<body style="padding-top: 60px;">
+    <nav class="navbar navbar-default navbar-fixed-top navbar-inverse">
+      <div class="container text-center">
+          <a href="{{ url_for('applicant_form') }}">{{ text|safe }}<button name="one" class="btn btn-primary navbar-btn" >Registration</button></a>
+          <a href="/admin/login">{{ text|safe }}<button name="two" class="btn btn-primary navbar-btn" ><span class="glyphicon glyphicon-log-out"></span>Log in</button></a>
+      </div>
+    </nav>
 
         {% with messages = get_flashed_messages() %}
           {% if messages %}
@@ -28,6 +26,10 @@
           {% endif %}
         {% endwith %}
 
-    <div class="footer">© Codecool | Starfish 2016</div>
-    </body>
+</body>
+<footer>
+<div class="container text-center">
+    <div class="navbar navbar-fixed-bottom">© Codecool | Starfish 2016</div>
+</div>
+</footer>
 </html>
