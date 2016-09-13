@@ -1,35 +1,52 @@
 <!DOCTYPE html>
-<html>
+<html lang="en">
 <head>
     <meta charset='UTF-8'>
     <title>Admin</title>
+    <link rel="stylesheet" href="https://bootswatch.com/cerulean/bootstrap.min.css">
     <link rel="stylesheet" href="/static/css/admin_style.css">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
 </head>
-
-<div class="header"></div>
-<br>
-<div style="text-align:right">
-<form action="{{ url_for('list_applicants') }}" method='GET'>
-<input type="submit" value="Applicants" class="myButton">
-</form>
-<form action="{{ url_for('email_log') }}" method='GET'>
-<input type="submit" value="Email Log" class="myButton">
-</form>
-<form action="{{ url_for('logout') }}" method='GET'>
-<input type="submit" value="Log out" class="myButton">
-</form>
+<div class="container-fluid">
+    <nav class="navbar navbar-fixed-top navbar-inverse">
+          <div class="container-fluid">
+              <a href="{{ url_for('list_applicants') }}">{{ text|safe }}
+                  <button name="applicants" class="btn btn-primary navbar-btn" data-toggle="tooltip" title="List applicants">
+                      Applicants
+                  </button></a>
+              <a href="{{ url_for('email_log') }}">{{ text|safe }}
+                  <button name="email_log" class="btn btn-primary navbar-btn" data-toggle="tooltip" title="List email-logs">
+                      Email Log
+                  </button>
+              </a>
+              <div class="nav navbar-nav navbar-right">
+              <a href="{{ url_for('logout') }}">{{ text|safe }}
+                  <button name="log_out" class="btn btn-primary navbar-btn">
+                      <span class="glyphicon glyphicon-log-out"></span>Log out
+                  </button>
+              </a>
+              </div>
+          </div>
+    </nav>
 </div>
-<br>
-{% block body %}{% endblock %}
 
-{% with messages = get_flashed_messages() %}
-  {% if messages %}
-    {% for message in messages %}
-        <p>{{ message }}</p>
-    {% endfor %}
-  {% endif %}
-{% endwith %}
-<br>
-<div class="footer">© Codecool | Starfish 2016</div>
+<div class="container-fluid" id="body">
+    {% block body %}{% endblock %}
+</div>
+
+<div class="container-fluid">
+    {% with messages = get_flashed_messages() %}
+      {% if messages %}
+        {% for message in messages %}
+            <p>{{ message }}</p>
+        {% endfor %}
+      {% endif %}
+    {% endwith %}
+</div>
+<footer>
+    <div class="container-fluid text-center">
+        <div class="navbar navbar-fixed-bottom">© Codecool | Starfish 2016</div>
+    </div>
+</footer>
 
 </html>
