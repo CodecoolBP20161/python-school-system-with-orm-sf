@@ -8,37 +8,39 @@
     <meta name="viewport" content="width=device-width, initial-scale=1">
 </head>
 
-{% extends "admin.html" %}
-{% block body %}
-<div class="container-fluid">
-<table class="table table-bordered table-striped table-hover">
-    <form id="form" action= "{{ url_for('list_applicants') }}" method="post">
-    <tr>
-        <td>{{form.applicant_app_code(placeholder="App Code")}}</td>
-        <td>{{form.applicant_first_name(placeholder="First Name")}} {{form.applicant_last_name(placeholder="Last Name")}}</td>
-        <td>{{form.applicant_email(placeholder="Email")}}</td>
-        <td>{{form.applicant_city(placeholder="City")}}</td>
-        <td>{{form.applicant_school(placeholder="School")}}</td>
-        <td>{{form.applicant_interview(placeholder="Interview Time")}}</td>
-        <td>{{form.submit(class="btn btn-primary navbar-btn")}}</td>
-    </tr>
-    </form>
-    <thead>
-    <tr>
-        {% for title in titles %}
-        <th>{{title}}</th>
+<body>
+    {% extends "admin.html" %}
+    {% block body %}
+    <div class="container-fluid">
+    <table class="table table-bordered table-striped table-hover">
+        <form id="form" action= "{{ url_for('list_applicants') }}" method="post">
+        <tr>
+            <td>{{form.applicant_app_code(placeholder="App Code")}}</td>
+            <td>{{form.applicant_first_name(placeholder="First Name")}} {{form.applicant_last_name(placeholder="Last Name")}}</td>
+            <td>{{form.applicant_email(placeholder="Email")}}</td>
+            <td>{{form.applicant_city(placeholder="City")}}</td>
+            <td>{{form.applicant_school(placeholder="School")}}</td>
+            <td>{{form.applicant_interview(placeholder="Interview Time")}}</td>
+            <td>{{form.submit(class="btn btn-primary navbar-btn")}}</td>
+        </tr>
+        </form>
+        <thead>
+        <tr>
+            {% for title in titles %}
+            <th>{{title}}</th>
+            {% endfor %}
+        </tr>
+        </thead>
+        {% for entry in entries %}
+        <tr>
+            {% for column in entry %}
+                <td>{{column}}</td>
+            {% endfor %}
+        </tr>
         {% endfor %}
-    </tr>
-    </thead>
-    {% for entry in entries %}
-    <tr>
-        {% for column in entry %}
-            <td>{{column}}</td>
-        {% endfor %}
-    </tr>
-    {% endfor %}
-</table>
-</div>
-{% endblock %}
+    </table>
+    </div>
+    {% endblock %}
+</body>
 
 </html>

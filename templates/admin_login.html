@@ -1,32 +1,38 @@
-    <!DOCTYPE html>
-    <html lang="en">
-      <head>
-        <meta charset="utf-8">
-        <meta http-equiv="X-UA-Compatible" content="IE=edge">
-        <meta name="viewport" content="width=device-width, initial-scale=1">
-        <link rel="stylesheet" href="https://bootswatch.com/cerulean/bootstrap.min.css">
-        <link rel="stylesheet" href="/static/css/admin_login.css">
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="utf-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <link rel="stylesheet" href="https://bootswatch.com/cerulean/bootstrap.min.css">
+    <link rel="stylesheet" href="/static/css/admin_login.css">
 
 
     <title>Home</title>
-    </head>
-    <body style="padding-top: 60px;">
-        <div class="container-fluid">
-            <nav class="navbar navbar-fixed-top navbar-inverse">
-                  <div class="container-fluid">
-                      <div class="nav navbar-nav navbar-right" style="padding-right: 20px">
-                      <a href="{{ url_for('home') }}">{{ text|safe }}
-                          <button name="log_out" class="btn btn-primary navbar-btn">Home
-                          </button>
-                      </a>
-                      </div>
+</head>
+
+<body>
+    <div class="container-fluid">
+        <nav class="navbar navbar-fixed-top navbar-inverse">
+              <div class="container-fluid">
+                  <div class="nav navbar-nav navbar-right" style="padding-right: 20px">
+                  <a href="{{ url_for('home') }}">{{ text|safe }}
+                      <button name="log_out" class="btn btn-primary navbar-btn">Home
+                      </button>
+                  </a>
                   </div>
-            </nav>
-        </div>
+              </div>
+        </nav>
+    </div>
 
     <div class="one">
         <form id="form" action= "{{ url_for('login') }}" method="post">
-        <h1 style="font-family:helvetica;">Log in</h1>
+
+        {% if error!=None %}
+            <h4><span class="label label-warning">{{ error }}</span></h4>
+        {% endif %}
+
+        <h1>Log in</h1>
         <p>User name</p>
         <p>{{form.username(style="width: 400px",required="true")}}</p>
         <p>Password</p>
@@ -35,14 +41,11 @@
         </form>
     </div>
 
-    {% if error!=None %}
-    <p>{{error}}</p>
-    {% endif %}
+<footer>
+    <div class="container-fluid text-center">
+        <div class="navbar navbar-fixed-bottom">© Codecool | Starfish 2016</div>
+    </div>
+</footer>
 
-    <footer>
-        <div class="container-fluid text-center">
-            <div class="navbar navbar-fixed-bottom">© Codecool | Starfish 2016</div>
-        </div>
-    </footer>
 </body>
 </html>

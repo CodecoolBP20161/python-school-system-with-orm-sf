@@ -11,7 +11,7 @@
     </head>
 
 
-        <body style="padding-top: 100px;">
+    <body>
         <nav class="navbar navbar-fixed-top navbar-inverse">
             <div class="container-fluid">
                 <div class="nav navbar-right" style="padding-right: 20px">
@@ -21,7 +21,7 @@
         </nav>
 
         <div class="one">
-            <h1 style="font-family:helvetica">Application form</h1>
+            <h1>Application form</h1>
             <form id="form" action= "{{ url_for('submit_applicant') }}" method="post">
             <p>First name</p>
             <p>{{form.first_name(style="width: 400px",required="true")}}</p>
@@ -44,10 +44,12 @@
         {% endwith %}
 
 
-    </body>
     <footer>
     <div class="container text-center">
         <div class="navbar-fixed-bottom">© Codecool | Starfish 2016</div>
     </div>
     </footer>
+
+    </body>
+
 </html>

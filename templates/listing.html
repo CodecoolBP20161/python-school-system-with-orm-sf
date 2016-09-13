@@ -5,31 +5,32 @@
     <meta name="viewport" content="width=device-width, initial-scale=1">
     <title>{{title}}]</title>
 </head>
+<body>
+    {% extends "admin.html" %}
+    {% block body %}
+    <div class="container-fluid">
+    <br>
+    <table class="table table-bordered table-striped table-hover">
+        <thead>
+        <tr>
 
-{% extends "admin.html" %}
-{% block body %}
-<div class="container-fluid">
-<br>
-<table class="table table-bordered table-striped table-hover">
-    <thead>
-    <tr>
+            {% for title in titles %}
+            <th>{{title}}</th>
+            {% endfor %}
 
-        {% for title in titles %}
-        <th>{{title}}</th>
+
+        </tr>
+        </thead>
+        {% for entry in entries %}
+        <tr>
+            {% for column in entry %}
+                <td>{{column}}</td>
+            {% endfor %}
+        </tr>
         {% endfor %}
-
-
-    </tr>
-    </thead>
-    {% for entry in entries %}
-    <tr>
-        {% for column in entry %}
-            <td>{{column}}</td>
-        {% endfor %}
-    </tr>
-    {% endfor %}
-</table>
-</div>
-{% endblock %}
+    </table>
+    </div>
+    {% endblock %}
+</body>
 
 </html>
