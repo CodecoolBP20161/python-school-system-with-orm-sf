@@ -1,66 +1,70 @@
 from models import *
 from collections import OrderedDict
 import admin
+from applicant import ApplicantLogin
 
 
-def print_query(object_list, titles):
-    import itertools as IT
+def print_query(object_list):
+    import os
 
-    data_frame = OrderedDict()
-    for i in range(len(titles)):
-        datas = []
-        for obj in object_list:
-            if titles[i] == 'interview_slot':
-                interview_start = [iv for iv in Interview.select()
-                                                         .where(Interview.id == obj.__dict__['_data'][titles[i]])]
-                if interview_start:
-                    datas.append(interview_start[0].start)
-                else:
-                    datas.append('None')
-
-            elif titles[i] == 'school':
-                school_location = [iv for iv in School.select()
-                                                      .where(School.id == obj.__dict__['_data'][titles[i]])]
-                if school_location:
-                    datas.append(school_location[0].location)
-                else:
-                    datas.append('None')
-
-            elif titles[i] == 'mentor':
-                mentor_name = [iv for iv in Mentor.select()
-                    .where(Mentor.id == obj.__dict__['_data'][titles[i]])]
-                if mentor_name:
-                    datas.append(mentor_name[0].first_name)
-                else:
-                    datas.append('None')
-            else:
-                datas.append(obj.__dict__['_data'][titles[i]])
-        data_frame[titles[i]] = datas
-
-    matrix = zip(*[value if isinstance(value, list) else IT.repeat(value) for key, value in data_frame.items()])
-    print(''.join(['{:15}'.format(key) for key in data_frame.keys()]))
-    for row in matrix:
-        print(''.join(['{:15}'.format(str(item)) for item in row]))
+    vars = []
+    for i in object_list.sql()[1]:
+        vars.append(i)
+    vars = tuple(vars)
+    q_sql_with_pars = '"' + object_list.sql()[0] + '"'
+    q_sql = q_sql_with_pars % vars
+    for i in object_list.sql()[1]:
+        if i is None:
+            q_sql = q_sql.replace('None', 'Null')
+        elif i == '%%':
+            q_sql = q_sql.replace(i, "'" + "%" + "'")
+        elif isinstance(i, str):
+            q_sql = q_sql.replace(i, "'" + i + "'")
+    os.system('psql -c ' + q_sql)
 
 
 def select_all_applicants():
     """Show all applicants"""
-    return Applicant.select()
+    return Applicant.select(*admin.selection_dict['applicant_without_school'])
 
 
 def select_all_interviews():
     """Show all interview slots"""
-    return Interview.select()
+    return Interview.select(*admin.selection_dict['interview']).join(AssignMentor, JOIN.LEFT_OUTER).join(Mentor, JOIN.LEFT_OUTER)
+
+
+def select_all_questions():
+    """Show all questions"""
+    return Question.select(*admin.selection_dict['question']).join(Applicant, JOIN.LEFT_OUTER).switch(Question).join(Mentor, JOIN.LEFT_OUTER)
 
 
 def call_applicant_submenu():
     """Select applicants by filters"""
     menu_loop(admin_applicants_menu)
 
+
 def call_interview_submenu():
     """Select interviews by filters"""
     menu_loop(admin_interview_menu)
 
+
+def call_question_submenu():
+    """Select question by filters"""
+    menu_loop(admin_question_menu)
+
+
+def call_admin_menu():
+    """Admin menu"""
+    if input('\nGive me the admin password: ') == '123':
+        menu_loop(admin_menu)
+    else:
+        print('The password is not valid!')
+
+
+def call_applicant_menu():
+    """Applicant menu"""
+    if ApplicantLogin.login():
+        menu_loop(applicant_menu)
 
 
 def menu_loop(menu):
@@ -74,11 +78,8 @@ def menu_loop(menu):
 
         if choice in menu:
             obj_list = menu[choice]()
-            print('')
             try:
-                titles = []
-                titles.extend(obj_list[0].__dict__['_data'].keys())
-                print_query(obj_list, titles)
+                print_query(obj_list)
             except:
                 pass
 
@@ -94,8 +95,11 @@ admin_applicants_menu = OrderedDict([
 admin_menu = OrderedDict([
     ('1', select_all_applicants),
     ('2', select_all_interviews),
-    ('3', call_applicant_submenu),
-    ('4', call_interview_submenu)
+    ('3', select_all_questions),
+    ('4', call_applicant_submenu),
+    ('5', call_interview_submenu),
+    ('6', call_question_submenu),
+    ('7', admin.question_by_id_assign_mentor)
 ])
 
 admin_interview_menu = OrderedDict([
@@ -103,4 +107,23 @@ admin_interview_menu = OrderedDict([
     ('2', admin.interview_by_application_code),
     ('3', admin.interview_by_mentor),
     ('4', admin.interview_by_time)
+])
+
+admin_question_menu = OrderedDict([
+    ('1', admin.question_by_status),
+    ('2', admin.question_by_name),
+    ('3', admin.question_by_school),
+    ('4', admin.question_by_app_code),
+    ('5', admin.question_by_time)
+
+])
+
+main_menu = OrderedDict([
+    ('1', call_applicant_menu),
+    ('2', call_admin_menu)
+])
+
+applicant_menu = OrderedDict([
+    ('1', ApplicantLogin.status),
+    ('2', ApplicantLogin.by_date_school_mentor)
 ])

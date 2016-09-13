@@ -1,0 +1,45 @@
+<!doctype html>
+
+<html>
+    <head>
+
+        <title>Applicant</title>
+        <link rel="stylesheet" href="/static/css/registration_style.css">
+
+    </head>
+
+    <body>
+        <div class="header"></div>
+        <br>
+
+        <div style="text-align:right">
+        <form action="{{ url_for('home') }}" method='GET'>
+        <input type="submit" value="Home" class="myButton">
+        </form>
+        </div>
+
+        <div class="one">
+            <h1 style="font-family:helvetica">Application form</h1>
+            <form id="form" action= "{{ url_for('submit_applicant') }}" method="post">
+            <p>First name</p>
+            <p>{{form.first_name(style="width: 400px",required="true")}}</p>
+            <p>Last name</p>
+            <p>{{form.last_name(style="width: 400px",required="true")}}</p>
+            <p>City</p>
+            <p>{{form.city(style="width: 400px",required="true")}}</p>
+            <p>Email</p>
+            <p>{{form.email(required="true")}}</p><br>
+            <p>{{form.submit(class_="myButton")}}</p>
+        </div>
+
+        {% with messages = get_flashed_messages() %}
+          {% if messages %}
+            {% for message in messages %}
+                <p>{{ message }}</p>
+            {% endfor %}
+          {% endif %}
+        {% endwith %}
+
+        <div class="footer">© Codecool | Starfish 2016</div>
+    </body>
+</html>

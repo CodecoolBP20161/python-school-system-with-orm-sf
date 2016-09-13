@@ -1,0 +1,35 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <meta charset='UTF-8'>
+    <title>Admin</title>
+    <link rel="stylesheet" href="/static/css/admin_style.css">
+</head>
+
+<div class="header"></div>
+<br>
+<div style="text-align:right">
+<form action="{{ url_for('list_applicants') }}" method='GET'>
+<input type="submit" value="Applicants" class="myButton">
+</form>
+<form action="{{ url_for('email_log') }}" method='GET'>
+<input type="submit" value="Email Log" class="myButton">
+</form>
+<form action="{{ url_for('logout') }}" method='GET'>
+<input type="submit" value="Log out" class="myButton">
+</form>
+</div>
+<br>
+{% block body %}{% endblock %}
+
+{% with messages = get_flashed_messages() %}
+  {% if messages %}
+    {% for message in messages %}
+        <p>{{ message }}</p>
+    {% endfor %}
+  {% endif %}
+{% endwith %}
+<br>
+<div class="footer">© Codecool | Starfish 2016</div>
+
+</html>
