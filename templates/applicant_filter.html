@@ -2,12 +2,16 @@
 <html lang="en">
 <head>
     <title>{{title}}]</title>
+    <meta charset='UTF-8'>
+    <link rel="stylesheet" href="https://bootswatch.com/cerulean/bootstrap.min.css">
+    <link rel="stylesheet" href="/static/css/admin_style.css">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
 </head>
 
 {% extends "admin.html" %}
 {% block body %}
-
-<table border=3>
+<div class="container-fluid">
+<table class="table table-bordered table-striped">
     <form id="form" action= "{{ url_for('list_applicants') }}" method="post">
     <tr>
         <td>{{form.applicant_app_code(placeholder="App Code")}}</td>
@@ -16,13 +20,16 @@
         <td>{{form.applicant_city(placeholder="City")}}</td>
         <td>{{form.applicant_school(placeholder="School")}}</td>
         <td>{{form.applicant_interview(placeholder="Interview Time")}}</td>
-        <td>{{form.submit(value="Search")}}</td>
+        <td>{{form.submit(class="btn btn-primary navbar-btn")}}</td>
     </tr>
+    </form>
+    <thead>
     <tr>
         {% for title in titles %}
-        <td>{{title}}</td>
+        <th>{{title}}</th>
         {% endfor %}
     </tr>
+    </thead>
     {% for entry in entries %}
     <tr>
         {% for column in entry %}
@@ -31,7 +38,7 @@
     </tr>
     {% endfor %}
 </table>
-
+</div>
 {% endblock %}
 
 </html>
