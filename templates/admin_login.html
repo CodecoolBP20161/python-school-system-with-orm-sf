@@ -24,22 +24,32 @@
               </div>
         </nav>
     </div>
+    <div class="row">
+      <div class="col-sm-4">
+      </div>
+      <div class="col-sm-4">
+          <div class="container-fluid text-center" id="one">
+                <form id="form" action= "{{ url_for('login') }}" method="post">
 
-    <div class="one">
-        <form id="form" action= "{{ url_for('login') }}" method="post">
+                {% if error!=None %}
+                    <h4><span class="label label-warning">{{ error }}</span></h4>
+                {% endif %}
 
-        {% if error!=None %}
-            <h4><span class="label label-warning">{{ error }}</span></h4>
-        {% endif %}
-
-        <h1>Log in</h1>
-        <p>User name</p>
-        <p>{{form.username(style="width: 400px",required="true")}}</p>
-        <p>Password</p>
-        <p>{{form.password(style="width: 400px",required="true")}}</p><br>
-        <p>{{form.submit(class_="btn btn-primary navbar-btn")}}</p>
-        </form>
+                <h1>Log in</h1>
+                <p>User name</p>
+                <div class="form-group">
+                {{form.username(required="true")}}
+                </div>
+                <p>Password</p>
+                {{form.password(required="true")}}<br>
+                {{form.submit(class_="btn btn-primary navbar-btn")}}
+                </form>
+          </div>
+      </div>
+      <div class="col-sm-4">
+      </div>
     </div>
+
 
 <footer>
     <div class="container-fluid text-center">

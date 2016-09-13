@@ -1,10 +1,25 @@
 body {
 	background-image: url('/static/img/3.jpg');
-	background-repeat: no-repeat;
-	background-size: cover;
-	font-family: Helvetica;
-	padding-top: 60px;
+    background-size: cover;
+    top: 0;
+    right: 0;
+    bottom: 0;
+    left: 0;
+    overflow: hidden;
 }
+
+
+/*#fullscreen {*/
+   /*background-size: cover;*/
+   /*position: fixed;*/
+   /*top: 0;*/
+   /*right: 0;*/
+   /*bottom: 0;*/
+   /*left: 0;*/
+   /*overflow: hidden;*/
+
+/*}*/
+
 
 .navbar-fixed-bottom {
 	color: white;
@@ -14,27 +29,16 @@ body {
 	padding: 1rem;
 }
 
-
-
-
-
-  div.one {
-	width: 440px;
-    height: 350px;
+#one {
+    margin-top: 100px;
 	border-width: 2px;
 	background-color: white;
 	filter:alpha(opacity=50);
-  filter: progid:DXImageTransform.Microsoft.Alpha(opacity=0.05);
-  opacity:.90;
-  z-index: -1;
+    filter: progid:DXImageTransform.Microsoft.Alpha(opacity=0.05);
+    opacity:.90;
+    z-index: -1;
 	border-color: lightgrey;
 	border-style: solid;
-	padding: 15px 20px 0;
-	margin-bottom: 5px;
-	margin-left: 15px;
-	position: absolute;
-	left: 30%;
-	top: 15%;
 }
 
 
@@ -93,4 +97,4 @@ body {
 .myButton:active {
 	position:relative;
 	top:1px;
-}*/
+}
