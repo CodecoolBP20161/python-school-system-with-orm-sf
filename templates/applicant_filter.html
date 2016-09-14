@@ -14,13 +14,18 @@
     <table class="table table-bordered table-striped table-hover">
         <form id="form" action= "{{ url_for('list_applicants') }}" method="post">
         <tr>
-            <td>{{form.applicant_app_code(placeholder="App Code")}}</td>
-            <td>{{form.applicant_first_name(placeholder="First Name")}} {{form.applicant_last_name(placeholder="Last Name")}}</td>
-            <td>{{form.applicant_email(placeholder="Email")}}</td>
-            <td>{{form.applicant_city(placeholder="City")}}</td>
-            <td>{{form.applicant_school(placeholder="School")}}</td>
-            <td>{{form.applicant_interview(placeholder="Interview Time")}}</td>
+            <id class="container-fluid">
+            <td>{{form.applicant_app_code(placeholder="App Code", class="form-control")}}</td>
+            <td>
+                {{form.applicant_first_name(placeholder="First Name", class="form-control")}}
+                {{form.applicant_last_name(placeholder="Last Name", class="form-control")}}
+            </td>
+            <td>{{form.applicant_email(placeholder="Email", class="form-control")}}</td>
+            <td>{{form.applicant_city(placeholder="City", class="form-control")}}</td>
+            <td>{{form.applicant_school(placeholder="School", class="form-control")}}</td>
+            <td>{{form.applicant_interview(placeholder="Interview Time", class="form-control")}}</td>
             <td>{{form.submit(class="btn btn-primary navbar-btn", value="Filter")}}</td>
+            </id>
         </tr>
         </form>
         <thead>
@@ -59,6 +64,13 @@
                                 {% else %}
                                     {{entry[i]}}
                                 {% endif %}
+                         </td>
+                        <td>
+                                <form action="{{ url_for('delete_applicant', id=entry[0])}}" method="post">
+                                    <button name="delete_applicant" class="btn btn-primary navbar-btn btn-block btn-xs" data-toggle="tooltip"
+                                            title="Remove applicant from database (and from school :P)">Remove
+                                    </button>
+                                </form>
                          </td>
                     {% endif %}
                 {% endfor %}
