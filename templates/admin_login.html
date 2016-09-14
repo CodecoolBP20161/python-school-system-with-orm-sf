@@ -37,13 +37,15 @@
                 {% endif %}
 
                 <h1>Log in</h1>
-                <p>User name</p>
                 <div class="form-group">
-                {{form.username(required="true", class="form-control")}}
-                <p>Password</p>
-                {{form.password(class="form-control", required="true")}}<br>
-                {{form.submit(class_="btn btn-primary navbar-btn")}}
+                    <label for="user">User name</label>
+                    {{form.username(required="true", class="form-control", id="user")}}
                 </div>
+                <div class="form-group">
+                    <label for="pwd">Password</label>
+                    {{form.password(class="form-control", required="true", id="pwd")}}<br>
+                    {{form.submit(class_="btn btn-primary navbar-btn")}}
+                    </div>
                 </form>
           </div>
       </div>
