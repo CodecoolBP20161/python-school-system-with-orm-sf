@@ -15,7 +15,7 @@ app.config.update(dict(
 
 
 def validate(name):
-    pattern = r"^([a-z]|[A-Z]+[,.]?[ ]?|[a-z]+['-]?)+$"
+    pattern = r"^([a-z]|[A-Z]|[áéíóőÁÉÍÓŐ]+[,.]?[ ]?|[a-z][áéíóőÁÉÍÓŐ]+['-]?)+$"
     if re.match(pattern, name):
         return True
     else:
@@ -123,16 +123,15 @@ def applicant_form():
 
 @app.route('/registration/submit', methods=['POST'])
 def submit_applicant():
-    total = 0
     form = MyForm(request.form, csrf_enabled=False)
-    if not form.validate() and not Applicant.select().where(Applicant.email == form.email.data).exists():
-        flash('Invalid or registered email address!')
     if not validate(form.first_name.data):
         flash('Invalid First name format')
     if not validate(form.last_name.data):
         flash('Invalid Last name format')
     if not validate(form.city.data):
         flash('Invalid City name format')
+    if not form.validate() and Applicant.select().where(Applicant.email == form.email.data).exists():
+        flash('Invalid or registered email address!')
     if '_flashes' not in session :
             Applicant.create(first_name=form.first_name.data, last_name=form.last_name.data,
                          city=form.city.data, email=form.email.data, status='new')
