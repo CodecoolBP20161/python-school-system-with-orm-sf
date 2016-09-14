@@ -22,7 +22,7 @@ class Mail():
             server.quit()
         except TypeError:
             print("Login creditentials are not properly set,please set them in config.json")
-            exit()
+
 
     @staticmethod
     def format():
