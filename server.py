@@ -166,6 +166,16 @@ def list_applicants():
     return redirect(url_for('home'))
 
 
+@app.route('/admin/applicants/add_school/<id>', methods=['POST'])
+def add_school(id):
+    from models import set_city
+    if session['logged in']:
+        applicant = Applicant.select().where(id == Applicant.id)[0]
+        applicant.set_city()
+    return redirect(url_for('list_applicants'))
+
+
+
 
 if __name__ == '__main__':
     app.run()
