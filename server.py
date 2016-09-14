@@ -146,6 +146,7 @@ def list_applicants():
         entries = []
         for applicant in query:
             data_list = []
+            data_list.append(applicant.id)
             data_list.append(applicant.application_code)
             data_list.append(applicant.first_name + " " + applicant.last_name)
             data_list.append(applicant.email)
@@ -168,8 +169,8 @@ def list_applicants():
 
 @app.route('/admin/applicants/add_school/<id>', methods=['POST'])
 def add_school(id):
-    from models import set_city
-    if session['logged in']:
+    from models import Applicant
+    if session['logged_in']:
         applicant = Applicant.select().where(id == Applicant.id)[0]
         applicant.set_city()
     return redirect(url_for('list_applicants'))

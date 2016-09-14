@@ -32,9 +32,16 @@
         </thead>
         {% for entry in entries %}
         <tr>
-            {% for column in entry %}
+            {% for column in entry[1::] %}
                 <td>{{column}}</td>
             {% endfor %}
+            <form action="{{ url_for('add_school', id=entry[0])}}" method="post">
+                <td>
+                    <button name="add_school" class="btn btn-primary navbar-btn" data-toggle="tooltip"
+                            title="assign a school to the applicant">Add school
+                    </button>
+                </td>
+            </form>
         </tr>
         {% endfor %}
     </table>
