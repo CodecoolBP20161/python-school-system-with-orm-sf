@@ -11,11 +11,18 @@
     {% extends "admin.html" %}
     {% block body %}
 
-    <div class="container-fluid text-right">
-        <div class="col-md-2 col-md-offset-10">
+    <div class="container-fluid">
+        <div class="col-md-2 col-md-offset-8">
             <form action="{{ url_for('assign_school_all')}}" method="post">
                 <button name="assign_school_all" class="btn btn-primary navbar-btn btn-block btn-xs" data-toggle="tooltip"
                         title="Assign school to all applicants (Be patient! It's so slow!)">Assign school to all
+                </button>
+            </form>
+        </div>
+        <div class="col-md-2">
+            <form action="{{ url_for('assign_interview_all')}}" method="post">
+                <button name="assign_interview_all" class="btn btn-primary navbar-btn btn-block btn-xs" data-toggle="tooltip"
+                        title="Assign interview to all applicants (Be patient! It's so slow!)">Assign interview to all
                 </button>
             </form>
         </div>

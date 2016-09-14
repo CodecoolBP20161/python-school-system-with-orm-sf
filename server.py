@@ -241,5 +241,12 @@ def assign_school_all():
     return redirect(url_for('list_applicants'))
 
 
+@app.route('/admin/applicants/assign_interview_all', methods=['post'])
+def assign_interview_all():
+    if session['logged_in']:
+        Applicant.assign_interview_slot()
+    return redirect(url_for('list_applicants'))
+
+
 if __name__ == '__main__':
     app.run()
