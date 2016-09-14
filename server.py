@@ -29,14 +29,9 @@ def emailvalidate(mail):
         return False
 
 
-
-
-
-
 def digest(message):
     dig = hashlib.md5(str(message).encode('UTF-8'))
     return dig.hexdigest()
-
 
 
 @app.route('/admin/login', methods=['GET', 'POST'])
@@ -109,7 +104,7 @@ def email_log():
             data_list.append(entry.subject)
             data_list.append(entry.content)
             data_list.append(entry.mode)
-            data_list.append(entry.timestamp)
+            data_list.append(entry.timestamp.strftime('%y-%m-%d  %H:%M'))
             data_list.append(entry.status)
             mylist.append(data_list)
         return render_template('listing.html', title="Email log", entries=mylist,
@@ -143,7 +138,7 @@ def submit_applicant():
     if '_flashes' not in session :
             Applicant.create(first_name=form.first_name.data, last_name=form.last_name.data,
                          city=form.city.data, email=form.email.data, status='new')
-            flash("Registration successfull!")
+            flash("Registration successful!")
             return redirect(url_for('home'))
 
     return render_template('applicant_form.html', form=form)
@@ -175,6 +170,7 @@ def list_applicants():
         entries = []
         for applicant in query:
             data_list = []
+            data_list.append(applicant.id)
             data_list.append(applicant.application_code)
             data_list.append(applicant.first_name + " " + applicant.last_name)
             data_list.append(applicant.email)
@@ -193,6 +189,27 @@ def list_applicants():
         return render_template('applicant_filter.html', title="Applicants", entries=entries,
                                titles=["Application Code", "Name", "Email", "City", "School", "Interview time"], form=form)
     return redirect(url_for('home'))
+
+
+@app.route('/admin/applicants/add_school/<id>', methods=['POST'])
+def add_school(id):
+    from models import Applicant
+    if session['logged_in']:
+        applicant = Applicant.select().where(id == Applicant.id)[0]
+        applicant.set_app_code()
+        applicant.set_city()
+    return redirect(url_for('list_applicants'))
+
+
+@app.route('/admin/applicants/add_interview/<id>', methods=['POST'])
+def add_interview(id):
+    from models import Applicant
+    if session['logged_in']:
+        applicant = Applicant.select().where(id == Applicant.id)[0]
+        if not applicant.assign_slot_with_mentors():
+            flash('Not enough interview slot!')
+    return redirect(url_for('list_applicants'))
+
 
 
 

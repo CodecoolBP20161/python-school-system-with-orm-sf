@@ -92,7 +92,6 @@ class Applicant(BaseModel):
             applicant.assign_slot_with_mentors()
 
     def assign_slot_with_mentors(self):
-        print(self.first_name)
         query = Interview.select().where(Interview.free)
         have_slot = True
         j = 0
@@ -101,9 +100,9 @@ class Applicant(BaseModel):
             try:
                 slot = slots[j]
             except IndexError:
-                print('Not enough interview slot')
+                # print('Not enough interview slot')
                 have_slot = False
-                continue
+                return have_slot
             query = (AssignMentor.select(Mentor.id)
                      .join(Mentor).switch(AssignMentor).join(Interview)
                      .where(slot.start == Interview.start))
@@ -122,7 +121,7 @@ class Applicant(BaseModel):
             self._send_interview_slot_email(query2)
             for mentor in query2[:2]:
                 mentor._send_interview_details(slot, applicant=self)
-            have_slot = False
+            return True
 
     def _send_interview_slot_email(self, mentors):
         message = "Dear %s!\n\nYour interview's time: %s\nAssigned mentors: %s, %s\n\n See you soon!" \

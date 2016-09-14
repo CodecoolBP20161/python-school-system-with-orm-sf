@@ -20,7 +20,7 @@
             <td>{{form.applicant_city(placeholder="City")}}</td>
             <td>{{form.applicant_school(placeholder="School")}}</td>
             <td>{{form.applicant_interview(placeholder="Interview Time")}}</td>
-            <td>{{form.submit(class="btn btn-primary navbar-btn")}}</td>
+            <td>{{form.submit(class="btn btn-primary navbar-btn", value="Filter")}}</td>
         </tr>
         </form>
         <thead>
@@ -32,9 +32,36 @@
         </thead>
         {% for entry in entries %}
         <tr>
-            {% for column in entry %}
+            {% for column in entry[1:5] %}
                 <td>{{column}}</td>
             {% endfor %}
+                {% for i in range(5, 7) %}
+                    {% if i == 5 %}
+                        <td>
+                            {% if entry[i] == "Not yet set" %}
+                            <form action="{{ url_for('add_school', id=entry[0])}}" method="post">
+                                <button name="add_school" class="btn btn-primary navbar-btn btn-block btn-xs" data-toggle="tooltip"
+                                        title="assign a school to the applicant">Add school
+                                </button>
+                            </form>
+                            {% else %}
+                                {{entry[i]}}
+                            {% endif %}
+                        </td>
+                    {% else %}
+                        <td>
+                                {% if entry[i] == "Not yet set" %}
+                                <form action="{{ url_for('add_interview', id=entry[0])}}" method="post">
+                                    <button name="add_interview" class="btn btn-primary navbar-btn btn-block btn-xs" data-toggle="tooltip"
+                                            title="assign an interview to the applicant">Add interview
+                                    </button>
+                                </form>
+                                {% else %}
+                                    {{entry[i]}}
+                                {% endif %}
+                         </td>
+                    {% endif %}
+                {% endfor %}
         </tr>
         {% endfor %}
     </table>
