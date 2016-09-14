@@ -24,13 +24,13 @@
             <h1>Application form</h1>
             <form id="form" action= "{{ url_for('submit_applicant') }}" method="post">
             <p>First name</p>
-            <p>{{form.first_name(style="width: 400px",required="true")}}</p>
+            <p>{{form.first_name(style="width: 400px",required="true", placeholder="Enter here your first name")}}</p>
             <p>Last name</p>
-            <p>{{form.last_name(style="width: 400px",required="true")}}</p>
+            <p>{{form.last_name(style="width: 400px",required="true", placeholder="Enter here your last name")}}</p>
             <p>City</p>
-            <p>{{form.city(style="width: 400px",required="true")}}</p>
+            <p>{{form.city(style="width: 400px",required="true", placeholder="Enter here the city where you are living")}}</p>
             <p>Email</p>
-            <p>{{form.email(required="true")}}</p><br>
+            <p>{{form.email(required="true", placeholder="Your e-mail address")}}</p><br>
             <p>{{form.submit(class_= "btn btn-primary navbar-btn")}}</p>
             </form>
         </div>
