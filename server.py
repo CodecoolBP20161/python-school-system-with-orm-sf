@@ -187,9 +187,11 @@ def list_applicants():
 @app.route('/admin/applicants/add_school/<id>', methods=['POST'])
 def add_school(id):
     from models import Applicant
+    from code_gener import solution, passwordgen
     if session['logged_in']:
         applicant = Applicant.select().where(id == Applicant.id)[0]
-        applicant.set_app_code()
+        applicant.application_code = solution()
+        applicant.save()
         applicant.set_city()
     return redirect(url_for('list_applicants'))
 
@@ -202,8 +204,6 @@ def add_interview(id):
         if not applicant.assign_slot_with_mentors():
             flash('Not enough interview slot!')
     return redirect(url_for('list_applicants'))
-
-
 
 
 if __name__ == '__main__':
