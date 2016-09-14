@@ -130,9 +130,10 @@ def submit_applicant():
         flash('Invalid Last name format')
     if not validate(form.city.data):
         flash('Invalid City name format')
-    if not form.validate() and Applicant.select().where(Applicant.email == form.email.data).exists():
+    if form.validate() is False or Applicant.select().where(Applicant.email == form.email.data).exists():
         flash('Invalid or registered email address!')
-    if '_flashes' not in session :
+    print(form.validate())
+    if '_flashes' not in session and form.validate():
             Applicant.create(first_name=form.first_name.data, last_name=form.last_name.data,
                          city=form.city.data, email=form.email.data, status='new')
             flash("Registration successfull!")
