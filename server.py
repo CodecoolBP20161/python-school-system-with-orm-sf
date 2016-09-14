@@ -22,14 +22,9 @@ def validate(name):
         return False
 
 
-
-
-
-
 def digest(message):
     dig = hashlib.md5(str(message).encode('UTF-8'))
     return dig.hexdigest()
-
 
 
 @app.route('/admin/login', methods=['GET', 'POST'])
@@ -136,7 +131,7 @@ def submit_applicant():
     if '_flashes' not in session and form.validate():
             Applicant.create(first_name=form.first_name.data, last_name=form.last_name.data,
                          city=form.city.data, email=form.email.data, status='new')
-            flash("Registration successfull!")
+            flash("Registration successful!")
             return redirect(url_for('home'))
 
     return render_template('applicant_form.html', form=form)
