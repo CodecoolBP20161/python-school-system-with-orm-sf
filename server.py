@@ -3,6 +3,7 @@ from wtforms import *
 from models import *
 from flask import session
 import hashlib
+import re
 
 
 app = Flask(__name__)
@@ -11,6 +12,14 @@ app.config.update(dict(
     USERNAME='admin',
     PASSWORD='21232f297a57a5a743894a0e4a801fc3'
 ))
+
+
+def validate(name):
+    pattern = r'^[\p{L}\s'.-]+$'
+    return re.match(pattern, name)
+
+
+
 
 
 def digest(message):
