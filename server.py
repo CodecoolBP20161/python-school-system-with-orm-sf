@@ -105,7 +105,10 @@ def email_log():
             data_list.append(entry.content)
             data_list.append(entry.mode)
             data_list.append(entry.timestamp.strftime('%y-%m-%d  %H:%M'))
-            data_list.append(entry.status)
+            if entry.status:
+                data_list.append('Sent')
+            else:
+                data_list.append('Not Sent')
             mylist.append(data_list)
         return render_template('listing.html', title="Email log", entries=mylist,
                                titles=["Recipient's name", "Recipient's email", "Email Subject",
