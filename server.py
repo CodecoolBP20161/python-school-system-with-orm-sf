@@ -238,6 +238,7 @@ def delete_applicant(id):
 def assign_school_all():
     if session['logged_in']:
         Applicant.finding_city()
+        Applicant.set_app_code()
     return redirect(url_for('list_applicants'))
 
 
@@ -249,4 +250,4 @@ def assign_interview_all():
 
 
 if __name__ == '__main__':
-    app.run()
+    app.run(host='192.168.0.234', port='5000')
