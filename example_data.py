@@ -18,15 +18,15 @@ def add_schools():
 
 applicants = [
     {'first_name': 'Kata', 'last_name': 'Kiss', 'city': 'Budapest', 'status': 'applied', 'email': 'applicant.codecool@gmail.com'},
-    {'first_name': 'Zoltán', 'last_name': 'Nagy', 'city': 'Debrecen','status': 'applied', 'email': 'applicant.codecool@gmail.com'},
-    {'first_name': 'László', 'last_name': 'Közepes', 'city': 'Eger','status': 'applied', 'email': 'applicant.codecool@gmail.com'},
-    {'first_name': 'Ryan', 'last_name': 'Gostling', 'city': 'Los Angeles','status': 'applied','email':'applicant.codecool@gmail.com'},
-    {'first_name': 'Lilla', 'last_name': 'Lila', 'city': 'Székesfehérvár','status': 'applied', 'email':'applicant.codecool@gmail.com'},
-    {'first_name': 'Alina', 'last_name': 'Kolowa', 'city': 'Krakkó','status': 'applied', 'email': 'applicant.codecool@gmail.com'},
-    {'first_name': 'Tibor', 'last_name': 'Valami', 'city': 'Dabas','status': 'applied', 'email': 'applicant.codecool@gmail.com'},
-    {'first_name': 'Max', 'last_name': 'Well', 'city': 'New York','status': 'applied', 'email': 'applicant.codecool@gmail.com'},
-    {'first_name': 'Marek', 'last_name': 'Saro', 'city': 'Varsó','status': 'applied', 'email':'applicant.codecool@gmail.com'},
-    {'first_name': 'Miklós', 'last_name': 'Siklós', 'city': 'Miskolc','status': 'applied', 'email': 'applicant.codecool@gmail.com'}
+    {'first_name': 'Zoltán', 'last_name': 'Nagy', 'city': 'Debrecen','status': 'applied', 'email': 'applicant.codecool+a1@gmail.com'},
+    {'first_name': 'László', 'last_name': 'Közepes', 'city': 'Eger','status': 'applied', 'email': 'applicant.codecool+a2@gmail.com'},
+    {'first_name': 'Ryan', 'last_name': 'Gostling', 'city': 'Los Angeles','status': 'applied','email':'applicant.codecool+a3@gmail.com'},
+    {'first_name': 'Lilla', 'last_name': 'Lila', 'city': 'Székesfehérvár','status': 'applied', 'email':'applicant.codecool+a4@gmail.com'},
+    {'first_name': 'Alina', 'last_name': 'Kolowa', 'city': 'Krakkó','status': 'applied', 'email': 'applicant.codecool+a5@gmail.com'},
+    {'first_name': 'Tibor', 'last_name': 'Valami', 'city': 'Dabas','status': 'applied', 'email': 'applicant.codecool+a6@gmail.com'},
+    {'first_name': 'Max', 'last_name': 'Well', 'city': 'New York','status': 'applied', 'email': 'applicant.codecool+a7@gmail.com'},
+    {'first_name': 'Marek', 'last_name': 'Saro', 'city': 'Varsó','status': 'applied', 'email':'applicant.codecool+a8@gmail.com'},
+    {'first_name': 'Miklós', 'last_name': 'Siklós', 'city': 'Miskolc','status': 'applied', 'email': 'applicant.codecool+a9@gmail.com'}
 ]
 
 
@@ -37,15 +37,15 @@ def add_applicants():
 
 
 mentors = [
-    {'first_name': 'Miki', 'last_name': 'Beöthy', 'school': 'Budapest','email':'applicant.codecool@gmail.com'},
-    {'first_name': 'Tomi', 'last_name': 'Tompa', 'school': 'Budapest','email':'applicant.codecool@gmail.com'},
-    {'first_name': 'Dani', 'last_name': 'Salamon', 'school': 'Budapest','email':'applicant.codecool@gmail.com'},
-    {'first_name': 'Zoli', 'last_name': 'Ász', 'school': 'Miskolc','email':'applicant.codecool@gmail.com'},
-    {'first_name': 'Pista', 'last_name': 'Kovács', 'school': 'Miskolc','email':'applicant.codecool@gmail.com'},
-    {'first_name': 'Imre', 'last_name': 'Szabó', 'school': 'Miskolc','email':'applicant.codecool@gmail.com'},
-    {'first_name': 'Hrosic', 'last_name': 'Czukor', 'school': 'Krakkó','email':'applicant.codecool@gmail.com'},
-    {'first_name': 'Béla', 'last_name': 'Lengyel', 'school': 'Krakkó','email':'applicant.codecool@gmail.com'},
-    {'first_name': 'Réka', 'last_name': 'Sárga', 'school': 'Krakkó','email':'applicant.codecool@gmail.com'}
+    {'first_name': 'Miki', 'last_name': 'Beöthy', 'school': 'Budapest','email':'applicant.codecool+m@gmail.com'},
+    {'first_name': 'Tomi', 'last_name': 'Tompa', 'school': 'Budapest','email':'applicant.codecool+m1@gmail.com'},
+    {'first_name': 'Dani', 'last_name': 'Salamon', 'school': 'Budapest','email':'applicant.codecool+m2@gmail.com'},
+    {'first_name': 'Zoli', 'last_name': 'Ász', 'school': 'Miskolc','email':'applicant.codecool+m3@gmail.com'},
+    {'first_name': 'Pista', 'last_name': 'Kovács', 'school': 'Miskolc','email':'applicant.codecool+m4@gmail.com'},
+    {'first_name': 'Imre', 'last_name': 'Szabó', 'school': 'Miskolc','email':'applicant.codecool+m5@gmail.com'},
+    {'first_name': 'Hrosic', 'last_name': 'Czukor', 'school': 'Krakkó','email':'applicant.codecool+m6@gmail.com'},
+    {'first_name': 'Béla', 'last_name': 'Lengyel', 'school': 'Krakkó','email':'applicant.codecool+m7@gmail.com'},
+    {'first_name': 'Réka', 'last_name': 'Sárga', 'school': 'Krakkó','email':'applicant.codecool+m8@gmail.com'}
 
 ]
 
