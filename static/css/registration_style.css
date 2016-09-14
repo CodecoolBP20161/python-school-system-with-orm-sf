@@ -6,9 +6,7 @@ body {
 	padding-top: 100px;
 }
 
-div.one {
-	width: 440px;
-    height: 450px;
+#one {
 	border-width: 2px;
 	background-color: white;
 	filter:alpha(opacity=50);
@@ -17,13 +15,8 @@ div.one {
     z-index: -1;
 	border-color: lightgrey;
 	border-style: solid;
-	padding: 15px 10px 0;
-	margin-bottom: 5px;
-	margin-left: 15px;
-	position: absolute;
-	left: 30%;
-	top: 15%;
 }
+
 
 .navbar-fixed-bottom {
 	color: white;
@@ -32,4 +25,18 @@ div.one {
     background-color: #cc0000;
 	position: absolute;
 	padding: 1rem;
+}
+.footer {
+	color: white;
+    width: 100%;
+    height: 10px;
+    background-color: #cc0000;
+    margin: 0 auto;
+    position: absolute;
+	right: 0;
+    bottom: 0;
+    left: 0;
+    padding: 1rem;
+	margin: 0 0 0 -32px;
+	text-align: center;
 }

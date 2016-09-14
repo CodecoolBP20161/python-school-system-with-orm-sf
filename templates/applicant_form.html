@@ -20,30 +20,35 @@
             </div>
         </nav>
 
-        <div class="one">
-            {% with messages = get_flashed_messages() %}
-                {% if messages %}
-                    {% for message in messages %}
-                        <h4><span class="label label-warning">{{ message }}</span></h4>
-                    {% endfor %}
-                {% endif %}
-             {% endwith %}
-            <h1>Application form</h1>
-            <form id="form" action= "{{ url_for('submit_applicant') }}" method="post">
-            <p>First name</p>
-            <p>{{form.first_name(style="width: 400px",required="true", placeholder="Enter here your first name")}}</p>
-            <p>Last name</p>
-            <p>{{form.last_name(style="width: 400px",required="true", placeholder="Enter here your last name")}}</p>
-            <p>City</p>
-            <p>{{form.city(style="width: 400px",required="true", placeholder="Enter here the city where you are living")}}</p>
-            <p>Email</p>
-            <p>{{form.email(required="true", placeholder="Your e-mail address")}}</p><br>
-            <p>{{form.submit(class_= "btn btn-primary navbar-btn")}}</p>
-            </form>
+<div class="row">
+    <div class="col-lg-4"></div>
+     <div class="col-lg-4">
+        <div class="container-fluid text-left" id="one">
+                <form id="form" action= "{{ url_for('submit_applicant') }}" method="post">
+                {% with messages = get_flashed_messages() %}
+                    {% if messages %}
+                        {% for message in messages %}
+                            <h5><span class="label label-warning">{{ message }}</span></h5>
+                        {% endfor %}
+                    {% endif %}
+                 {% endwith %}
+                    <h1>Application Form</h1>
+                    <div class="form-group">
+                    <p>First name</p>
+                    {{form.first_name(required="true", placeholder="Enter here your first name",class="form-control")}}
+                    <p>Last name</p>
+                    {{form.last_name(required="true", placeholder="Enter here your last name",class="form-control")}}
+                    <p>City</p>
+                    {{form.city(required="true", placeholder="Enter here the city where you are living",class="form-control")}}
+                    <p>Email</p>
+                    {{form.email(required="true", placeholder="Your e-mail address",class="form-control")}}<br>
+                    {{form.submit(class_= "btn btn-primary navbar-btn")}}
+                    </div>
+                </form>
+            </div>
         </div>
-
-
-
+    <div class="col-lg-4"></div>
+</div>
 
     <footer>
     <div class="container text-center">
