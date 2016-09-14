@@ -172,6 +172,7 @@ def add_school(id):
     from models import Applicant
     if session['logged_in']:
         applicant = Applicant.select().where(id == Applicant.id)[0]
+        applicant.set_app_code()
         applicant.set_city()
     return redirect(url_for('list_applicants'))
 
