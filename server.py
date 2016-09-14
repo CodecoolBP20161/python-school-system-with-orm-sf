@@ -111,11 +111,12 @@ def applicant_form():
 @app.route('/registration/submit', methods=['POST'])
 def submit_applicant():
     form = MyForm(request.form, csrf_enabled=False)
-    if form.validate():
+    if form.validate() and not Applicant.select().where(Applicant.email == form.email.data).exists():
         Applicant.create(first_name=form.first_name.data, last_name=form.last_name.data,
-                         city=form.city.data, email=form.email.data, status='new')
+                     city=form.city.data, email=form.email.data, status='new')
         return redirect(url_for('home'))
-    flash('Invalid email address!')
+    else:
+        flash('Invalid or registrated email address!')
     return render_template('applicant_form.html', form=form)
 
 
@@ -167,4 +168,4 @@ def list_applicants():
 
 
 if __name__ == '__main__':
-    app.run(host="192.168.160.43", port='5000')
+    app.run()
