@@ -168,6 +168,7 @@ def list_applicants():
         entries = []
         for applicant in query:
             data_list = []
+            data_list.append(applicant.id)
             data_list.append(applicant.application_code)
             data_list.append(applicant.first_name + " " + applicant.last_name)
             data_list.append(applicant.email)
@@ -186,6 +187,27 @@ def list_applicants():
         return render_template('applicant_filter.html', title="Applicants", entries=entries,
                                titles=["Application Code", "Name", "Email", "City", "School", "Interview time"], form=form)
     return redirect(url_for('home'))
+
+
+@app.route('/admin/applicants/add_school/<id>', methods=['POST'])
+def add_school(id):
+    from models import Applicant
+    if session['logged_in']:
+        applicant = Applicant.select().where(id == Applicant.id)[0]
+        applicant.set_app_code()
+        applicant.set_city()
+    return redirect(url_for('list_applicants'))
+
+
+@app.route('/admin/applicants/add_interview/<id>', methods=['POST'])
+def add_interview(id):
+    from models import Applicant
+    if session['logged_in']:
+        applicant = Applicant.select().where(id == Applicant.id)[0]
+        if not applicant.assign_slot_with_mentors():
+            flash('Not enough interview slot!')
+    return redirect(url_for('list_applicants'))
+
 
 
 
