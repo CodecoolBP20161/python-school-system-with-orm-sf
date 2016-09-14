@@ -177,6 +177,16 @@ def add_school(id):
     return redirect(url_for('list_applicants'))
 
 
+@app.route('/admin/applicants/add_interview/<id>', methods=['POST'])
+def add_interview(id):
+    from models import Applicant
+    if session['logged_in']:
+        applicant = Applicant.select().where(id == Applicant.id)[0]
+        if not applicant.assign_slot_with_mentors():
+            flash('Not enough interview slot!')
+    return redirect(url_for('list_applicants'))
+
+
 
 
 if __name__ == '__main__':
