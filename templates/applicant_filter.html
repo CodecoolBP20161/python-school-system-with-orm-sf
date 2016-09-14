@@ -39,14 +39,14 @@
                     <td>
                         {% if entry[5] == "Not yet set" %}
                         <form action="{{ url_for('add_school', id=entry[0])}}" method="post">
-                            <button name="add_school" class="btn btn-primary navbar-btn" data-toggle="tooltip"
+                            <button name="add_school" class="btn btn-primary navbar-btn btn-block btn-xs" data-toggle="tooltip"
                                     title="assign a school to the applicant">Add school
                             </button>
                         </form>
                         {% endif %}
                         {% if entry[6] == "Not yet set" %}
                         <form action="{{ url_for('add_interview', id=entry[0])}}" method="post">
-                            <button name="add_interview" class="btn btn-primary navbar-btn" data-toggle="tooltip"
+                            <button name="add_interview" class="btn btn-primary navbar-btn btn-block btn-xs" data-toggle="tooltip"
                                     title="assign an interview to the applicant">Add interview
                             </button>
                         </form>
