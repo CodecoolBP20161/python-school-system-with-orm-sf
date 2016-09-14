@@ -21,6 +21,13 @@ def validate(name):
     else:
         return False
 
+def emailvalidate(mail):
+    pattern = r"^[a-zA-Z0-9.!#$%&'*+/=?^_`{|}~-]+@[a-zA-Z0-9](?:[a-zA-Z0-9-]{0,61}[a-zA-Z0-9])?(?:\.[a-zA-Z0-9](?:[a-zA-Z0-9-]{0,61}[a-zA-Z0-9])?)*$"
+    if re.match(pattern, mail):
+        return True
+    else:
+        return False
+
 
 
 
@@ -130,10 +137,10 @@ def submit_applicant():
         flash('Invalid Last name format')
     if not validate(form.city.data):
         flash('Invalid City name format')
-    if form.validate() is False or Applicant.select().where(Applicant.email == form.email.data).exists():
+    if emailvalidate(form.email.data) is False or Applicant.select().where(Applicant.email == form.email.data).exists():
         flash('Invalid or registered email address!')
     print(form.validate())
-    if '_flashes' not in session and form.validate():
+    if '_flashes' not in session :
             Applicant.create(first_name=form.first_name.data, last_name=form.last_name.data,
                          city=form.city.data, email=form.email.data, status='new')
             flash("Registration successfull!")
