@@ -209,8 +209,29 @@ def add_interview(id):
     if session['logged_in']:
         applicant = Applicant.select().where(id == Applicant.id)[0]
         if not applicant.assign_slot_with_mentors():
-            flash('Not enough interview slot!')
+            flash('Not enough interview slot at the assigned school!')
     return redirect(url_for('list_applicants'))
+
+
+@app.route('/admin/applicants/delete_applicant/<id>', methods=['POST'])
+def delete_applicant(id):
+    print(id)
+    if session['logged_in']:
+        applicant = Applicant.select().where(Applicant.id == id)[0]
+        try:
+            interview = Interview.select().where(Interview.id == applicant.interview_slot)[0]
+            interview.free = True
+            interview.save()
+            AssignMentor.delete().where(AssignMentor.interview == interview).execute()
+        except IndexError:
+            pass
+
+        Question.delete().where(Question.applicant == applicant).execute()
+
+        Applicant.delete().where(Applicant.id == id).execute()
+        return redirect(url_for('list_applicants'))
+
+
 
 
 if __name__ == '__main__':
