@@ -6,6 +6,8 @@
     <link rel="stylesheet" href="https://bootswatch.com/cerulean/bootstrap.min.css">
     <link rel="stylesheet" href="/static/css/admin_style.css">
     <meta name="viewport" content="width=device-width, initial-scale=1">
+    <script src="https://ajax.googleapis.com/ajax/libs/jquery/1.12.4/jquery.min.js"></script>
+    <script src="http://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/js/bootstrap.min.js"></script>
 </head>
 <body>
     {% extends "admin.html" %}
@@ -82,11 +84,39 @@
                                 {% endif %}
                          </td>
                         <td>
-                                <form action="{{ url_for('delete_applicant', id=entry[0])}}" method="post">
-                                    <button name="delete_applicant" class="btn btn-primary navbar-btn btn-block btn-xs" data-toggle="tooltip"
-                                            title="Remove applicant from database (and from school :P)">Remove
-                                    </button>
-                                </form>
+                              <button name="delete_applicant" class="btn btn-primary navbar-btn btn-block btn-xs"
+                                            data-toggle="modal" data-target="#DeleteModal">Remove
+                                </button>
+                              <div class="modal fade" id="DeleteModal" role="dialog">
+                                <div class="modal-dialog">
+                                  <div class="modal-content">
+                                    <div class="modal-header">
+                                      <button type="button" class="close" data-dismiss="modal">&times;</button>
+                                      <h4 class="modal-title">Confirmation</h4>
+                                    </div>
+                                    <div class="modal-body">
+                                      <p>Are sure want to remove this applicant?</p>
+                                    </div>
+                                    <div class="modal-footer">
+                                        <div class="row">
+                                            <div class="col-md-3 col-md-offset-3">
+                                                <form action="{{ url_for('delete_applicant', id=entry[0])}}" method="post">
+                                                    <button name="delete_applicant" class="btn btn-primary navbar-btn btn-block btn-xs">
+                                                        Yes
+                                                    </button>
+                                                </form>
+                                            </div>
+                                            <div class="col-md-3">
+                                                <button class="btn btn-primary navbar-btn btn-block btn-xs" data-dismiss="modal">
+                                                    No
+                                                </button>
+                                            </div>
+                                        </div>
+                                    </div>
+                                  </div>
+
+                                </div>
+                              </div>
                          </td>
                     {% endif %}
                 {% endfor %}
