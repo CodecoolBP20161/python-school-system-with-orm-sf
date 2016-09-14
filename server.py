@@ -196,7 +196,6 @@ def list_applicants():
 
 @app.route('/admin/applicants/add_school/<id>', methods=['POST'])
 def add_school(id):
-    from models import Applicant
     from code_gener import solution, passwordgen
     if session['logged_in']:
         applicant = Applicant.select().where(id == Applicant.id)[0]
@@ -235,7 +234,20 @@ def delete_applicant(id):
         return redirect(url_for('list_applicants'))
 
 
+@app.route('/admin/applicants/assign_schools_all', methods=['post'])
+def assign_school_all():
+    if session['logged_in']:
+        Applicant.finding_city()
+        Applicant.set_app_code()
+    return redirect(url_for('list_applicants'))
+
+
+@app.route('/admin/applicants/assign_interview_all', methods=['post'])
+def assign_interview_all():
+    if session['logged_in']:
+        Applicant.assign_interview_slot()
+    return redirect(url_for('list_applicants'))
 
 
 if __name__ == '__main__':
-    app.run()
+    app.run(host='192.168.0.234', port='5000')

@@ -6,15 +6,34 @@
     <link rel="stylesheet" href="https://bootswatch.com/cerulean/bootstrap.min.css">
     <link rel="stylesheet" href="/static/css/admin_style.css">
     <meta name="viewport" content="width=device-width, initial-scale=1">
+    <script src="https://ajax.googleapis.com/ajax/libs/jquery/1.12.4/jquery.min.js"></script>
+    <script src="http://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/js/bootstrap.min.js"></script>
 </head>
 <body>
     {% extends "admin.html" %}
     {% block body %}
+
+    <div class="container-fluid">
+        <div class="col-md-2 col-md-offset-8">
+            <form action="{{ url_for('assign_school_all')}}" method="post">
+                <button name="assign_school_all" class="btn btn-primary navbar-btn btn-block btn-xs" data-toggle="tooltip"
+                        title="Assign school to all applicants (Be patient! It's so slow!)">Assign school to all
+                </button>
+            </form>
+        </div>
+        <div class="col-md-2">
+            <form action="{{ url_for('assign_interview_all')}}" method="post">
+                <button name="assign_interview_all" class="btn btn-primary navbar-btn btn-block btn-xs" data-toggle="tooltip"
+                        title="Assign interview to all applicants (Be patient! It's so slow!)">Assign interview to all
+                </button>
+            </form>
+        </div>
+    </div>
+
     <div class="container-fluid">
     <table class="table table-bordered table-striped table-hover">
         <form id="form" action= "{{ url_for('list_applicants') }}" method="post">
         <tr>
-            <id class="container-fluid">
             <td>{{form.applicant_app_code(placeholder="App Code", class="form-control")}}</td>
             <td>
                 {{form.applicant_first_name(placeholder="First Name", class="form-control")}}
@@ -25,7 +44,6 @@
             <td>{{form.applicant_school(placeholder="School", class="form-control")}}</td>
             <td>{{form.applicant_interview(placeholder="Interview Time", class="form-control")}}</td>
             <td>{{form.submit(class="btn btn-primary navbar-btn", value="Filter")}}</td>
-            </id>
         </tr>
         </form>
         <thead>
@@ -66,11 +84,39 @@
                                 {% endif %}
                          </td>
                         <td>
-                                <form action="{{ url_for('delete_applicant', id=entry[0])}}" method="post">
-                                    <button name="delete_applicant" class="btn btn-primary navbar-btn btn-block btn-xs" data-toggle="tooltip"
-                                            title="Remove applicant from database (and from school :P)">Remove
-                                    </button>
-                                </form>
+                              <button name="delete_applicant" class="btn btn-primary navbar-btn btn-block btn-xs"
+                                            data-toggle="modal" data-target="#DeleteModal">Remove
+                                </button>
+                              <div class="modal fade" id="DeleteModal" role="dialog">
+                                <div class="modal-dialog">
+                                  <div class="modal-content">
+                                    <div class="modal-header">
+                                      <button type="button" class="close" data-dismiss="modal">&times;</button>
+                                      <h4 class="modal-title">Confirmation</h4>
+                                    </div>
+                                    <div class="modal-body">
+                                      <p>Are sure want to remove this applicant?</p>
+                                    </div>
+                                    <div class="modal-footer">
+                                        <div class="row">
+                                            <div class="col-md-3 col-md-offset-3">
+                                                <form action="{{ url_for('delete_applicant', id=entry[0])}}" method="post">
+                                                    <button name="delete_applicant" class="btn btn-primary navbar-btn btn-block btn-xs">
+                                                        Yes
+                                                    </button>
+                                                </form>
+                                            </div>
+                                            <div class="col-md-3">
+                                                <button class="btn btn-primary navbar-btn btn-block btn-xs" data-dismiss="modal">
+                                                    No
+                                                </button>
+                                            </div>
+                                        </div>
+                                    </div>
+                                  </div>
+
+                                </div>
+                              </div>
                          </td>
                     {% endif %}
                 {% endfor %}
