@@ -213,5 +213,14 @@ def add_interview(id):
     return redirect(url_for('list_applicants'))
 
 
+@app.route('/admin/applicants/delete_applicant/<id>', methods=['POST'])
+def delete_applicant(id):
+    if session['logged_in']:
+        Applicant.delete().where(Applicant.id == id)
+        return redirect(url_for('list_applicants'))
+
+
+
+
 if __name__ == '__main__':
     app.run()
