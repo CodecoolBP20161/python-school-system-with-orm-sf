@@ -15,8 +15,12 @@ app.config.update(dict(
 
 
 def validate(name):
-    pattern = r'^[\p{L}\s'.-]+$'
-    return re.match(pattern, name)
+    pattern = r"^([a-z]|[A-Z]+[,.]?[ ]?|[a-z]+['-]?)+$"
+    if re.match(pattern, name):
+        return True
+    else:
+        return False
+
 
 
 
@@ -119,13 +123,22 @@ def applicant_form():
 
 @app.route('/registration/submit', methods=['POST'])
 def submit_applicant():
+    total = 0
     form = MyForm(request.form, csrf_enabled=False)
-    if form.validate() and not Applicant.select().where(Applicant.email == form.email.data).exists():
-        Applicant.create(first_name=form.first_name.data, last_name=form.last_name.data,
-                     city=form.city.data, email=form.email.data, status='new')
-        return redirect(url_for('home'))
-    else:
-        flash('Invalid or registrated email address!')
+    if not form.validate() and not Applicant.select().where(Applicant.email == form.email.data).exists():
+        flash('Invalid or registered email address!')
+    if not validate(form.first_name.data):
+        flash('Invalid First name format')
+    if not validate(form.last_name.data):
+        flash('Invalid Last name format')
+    if not validate(form.city.data):
+        flash('Invalid City name format')
+    if '_flashes' not in session :
+            Applicant.create(first_name=form.first_name.data, last_name=form.last_name.data,
+                         city=form.city.data, email=form.email.data, status='new')
+            flash("Registration successfull!")
+            return redirect(url_for('home'))
+
     return render_template('applicant_form.html', form=form)
 
 
