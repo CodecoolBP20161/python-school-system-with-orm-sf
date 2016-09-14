@@ -9,6 +9,7 @@ body {
 }
 
 #one {
+	margin-top: 70px;
 	border-width: 2px;
 	background-color: white;
 	filter:alpha(opacity=50);
