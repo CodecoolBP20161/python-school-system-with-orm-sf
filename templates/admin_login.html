@@ -4,6 +4,8 @@
     <meta charset="utf-8">
     <meta http-equiv="X-UA-Compatible" content="IE=edge">
     <meta name="viewport" content="width=device-width, initial-scale=1">
+    <script src="https://ajax.googleapis.com/ajax/libs/jquery/1.12.4/jquery.min.js"></script>
+    <script src="http://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/js/bootstrap.min.js"></script>
     <link rel="stylesheet" href="https://bootswatch.com/cerulean/bootstrap.min.css">
     <link rel="stylesheet" href="/static/css/admin_login.css">
 
@@ -24,22 +26,30 @@
               </div>
         </nav>
     </div>
+    <div class="row">
+        <div class="col-lg-4"></div>
+      <div class="col-lg-4">
+          <div class="container-fluid text-center" id="one">
+                <form id="form" action= "{{ url_for('login') }}" method="post">
 
-    <div class="one">
-        <form id="form" action= "{{ url_for('login') }}" method="post">
+                {% if error!=None %}
+                    <h4><span class="label label-warning">{{ error }}</span></h4>
+                {% endif %}
 
-        {% if error!=None %}
-            <h4><span class="label label-warning">{{ error }}</span></h4>
-        {% endif %}
-
-        <h1>Log in</h1>
-        <p>User name</p>
-        <p>{{form.username(style="width: 400px",required="true")}}</p>
-        <p>Password</p>
-        <p>{{form.password(style="width: 400px",required="true")}}</p><br>
-        <p>{{form.submit(class_="btn btn-primary navbar-btn")}}</p>
-        </form>
+                <h1>Log in</h1>
+                <p>User name</p>
+                <div class="form-group">
+                {{form.username(required="true", class="form-control")}}
+                <p>Password</p>
+                {{form.password(class="form-control", required="true")}}<br>
+                {{form.submit(class_="btn btn-primary navbar-btn")}}
+                </div>
+                </form>
+          </div>
+      </div>
+      <div class="col-lg-4"></div>
     </div>
+
 
 <footer>
     <div class="container-fluid text-center">
