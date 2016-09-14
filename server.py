@@ -155,12 +155,12 @@ def list_applicants():
 
             query = Applicant.select().join(School, JOIN.LEFT_OUTER).switch(Applicant).join(Interview, JOIN.LEFT_OUTER) \
                 .where(Applicant.first_name.contains(form.applicant_first_name.data),
-                       Applicant.first_name.contains(form.applicant_last_name.data),
-                       Applicant.application_code.contains(form.applicant_app_code.data),
+                       Applicant.last_name.contains(form.applicant_last_name.data),
+                       (Applicant.application_code.contains(form.applicant_app_code.data)),
                        Applicant.email.contains(form.applicant_email.data),
                        Applicant.city.contains(form.applicant_city.data),
-                       School.location.contains(form.applicant_school.data),
-                       Interview.id << interview_ids)
+                       (School.location.contains(form.applicant_school.data)),
+                       (Interview.id << interview_ids))
         else:
             form = MyForm()
             query = Applicant.select().join(School, JOIN.LEFT_OUTER).switch(Applicant).join(Interview, JOIN.LEFT_OUTER)
