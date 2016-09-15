@@ -1,33 +1,42 @@
-<!doctype html>
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="utf-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <link rel="stylesheet" href="https://bootswatch.com/cerulean/bootstrap.min.css">
+    <link rel="stylesheet" href="/static/css/home_style.css">
+    <title>Home</title>
+  </head>
 
-<html>
-    <head>
+<body>
 
-        <meta charset='UTF-8'>
-        <title>Home</title>
-        <link rel="stylesheet" href="/static/css/home_style.css">
+    <div>
+        <nav class="navbar navbar-default navbar-fixed-top navbar-inverse">
+          <div class="container text-center">
+              <a href="{{ url_for('applicant_form') }}">{{ text|safe }}<button name="one" class="btn btn-primary navbar-btn" >Application form</button></a>
+              <a href="/admin/login">{{ text|safe }}<button name="two" class="btn btn-primary navbar-btn" ><span class="glyphicon glyphicon-log-in"></span>  Log in</button></a>
+          </div>
+        </nav>
 
-    </head>
-    <body>
-        <div class="header"></div>
+            {% with messages = get_flashed_messages() %}
+              {% if messages %}
+                {% for message in messages %}
+                    <div class="container-fluid text-center">
+                       <h4><span class="label label-info">{{ message }}</span></h4>
+                    </div>
+                {% endfor %}
+              {% endif %}
+            {% endwith %}
+    <div class="text-right" style="position:absolute; bottom: 50px; width: 100%;"><iframe src="https://www.facebook.com/plugins/like.php?href=https%3A%2F%2Fwww.facebook.com%2FCodecoolOfficial%2F&width=400&layout=standard&action=like&show_faces=true&share=true&height=80&appId" width="400" height="80" style="border:none;overflow:hidden" scrolling="no" frameborder="0" allowTransparency="true"></iframe>
+    </div>
 
-        <div style="text-align:center">
-            <form action="{{ url_for('applicant_form') }}" method='GET'>
-                <input type="submit" value="Registration" class="myButton">
-            </form>
-            <form action="/admin/login">
-                <input type="submit" value="Log in" class="myButton2">
-            </form>
-        </div>
+    <footer>
+    <div class="container text-center">
+        <div class="navbar navbar-fixed-bottom">© Codecool | Starfish 2016</div>
+    </div>
+    </footer>
 
-        {% with messages = get_flashed_messages() %}
-          {% if messages %}
-            {% for message in messages %}
-                <p>{{ message }}</p>
-            {% endfor %}
-          {% endif %}
-        {% endwith %}
+</body>
 
-    <div class="footer">© Codecool | Starfish 2016</div>
-    </body>
 </html>

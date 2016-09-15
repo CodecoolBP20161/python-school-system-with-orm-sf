@@ -1,37 +1,131 @@
 <!DOCTYPE html>
 <html lang="en">
 <head>
-    <title>{{title}}]</title>
+    <title>{{title}}</title>
+    <meta charset='UTF-8'>
+    <link rel="stylesheet" href="https://bootswatch.com/cerulean/bootstrap.min.css">
+    <link rel="stylesheet" href="/static/css/admin_style.css">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <script src="https://ajax.googleapis.com/ajax/libs/jquery/1.12.4/jquery.min.js"></script>
+    <script src="http://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/js/bootstrap.min.js"></script>
 </head>
+<body>
+    {% extends "admin.html" %}
+    {% block body %}
 
-{% extends "admin.html" %}
-{% block body %}
+    <div class="container-fluid">
+        <div class="col-md-2 col-md-offset-8">
+            <form action="{{ url_for('assign_school_all')}}" method="post">
+                <button name="assign_school_all" class="btn btn-primary navbar-btn btn-block btn-xs" data-toggle="tooltip"
+                        title="Assign school to all applicants (Be patient! It's so slow!)">Assign school to all
+                </button>
+            </form>
+        </div>
+        <div class="col-md-2">
+            <form action="{{ url_for('assign_interview_all')}}" method="post">
+                <button name="assign_interview_all" class="btn btn-primary navbar-btn btn-block btn-xs" data-toggle="tooltip"
+                        title="Assign interview to all applicants (Be patient! It's so slow!)">Assign interview to all
+                </button>
+            </form>
+        </div>
+    </div>
 
-<table border=3>
-    <form id="form" action= "{{ url_for('list_applicants') }}" method="post">
-    <tr>
-        <td>{{form.applicant_app_code(placeholder="App Code")}}</td>
-        <td>{{form.applicant_first_name(placeholder="First Name")}} {{form.applicant_last_name(placeholder="Last Name")}}</td>
-        <td>{{form.applicant_email(placeholder="Email")}}</td>
-        <td>{{form.applicant_city(placeholder="City")}}</td>
-        <td>{{form.applicant_school(placeholder="School")}}</td>
-        <td>{{form.applicant_interview(placeholder="Interview Time")}}</td>
-        <td>{{form.submit(value="Search")}}</td>
-    </tr>
-    <tr>
-        {% for title in titles %}
-        <td>{{title}}</td>
+    <div class="container-fluid">
+    <table class="table table-bordered table-striped table-hover">
+        <form id="form" action= "{{ url_for('list_applicants') }}" method="post">
+        <tr>
+            <td>{{form.applicant_app_code(placeholder="App Code", class="form-control")}}</td>
+            <td>
+                {{form.applicant_first_name(placeholder="First Name", class="form-control")}}
+                {{form.applicant_last_name(placeholder="Last Name", class="form-control")}}
+            </td>
+            <td>{{form.applicant_email(placeholder="Email", class="form-control")}}</td>
+            <td>{{form.applicant_city(placeholder="City", class="form-control")}}</td>
+            <td>{{form.applicant_school(placeholder="School", class="form-control")}}</td>
+            <td>{{form.applicant_interview(placeholder="Interview Time", class="form-control")}}</td>
+            <td>{{form.submit(class="btn btn-primary navbar-btn", value="Filter")}}</td>
+        </tr>
+        </form>
+        <thead>
+        <tr>
+            {% for title in titles %}
+            <th>{{title}}</th>
+            {% endfor %}
+        </tr>
+        </thead>
+        {% for entry in entries %}
+        <tr>
+            {% for column in entry[1:5] %}
+                <td>{{column}}</td>
+            {% endfor %}
+                {% for i in range(5, 7) %}
+                    {% if i == 5 %}
+                        <td>
+                            {% if entry[i] == "Not yet set" %}
+                            <form action="{{ url_for('add_school', id=entry[0])}}" method="post">
+                                <button name="add_school" class="btn btn-primary navbar-btn btn-block btn-xs" data-toggle="tooltip"
+                                        title="assign a school to the applicant">Add school
+                                </button>
+                            </form>
+                            {% else %}
+                                {{entry[i]}}
+                            {% endif %}
+                        </td>
+                    {% else %}
+                        <td>
+                                {% if entry[i] == "Not yet set" %}
+                                <form action="{{ url_for('add_interview', id=entry[0])}}" method="post">
+                                    <button name="add_interview" class="btn btn-primary navbar-btn btn-block btn-xs" data-toggle="tooltip"
+                                            title="assign an interview to the applicant">Add interview
+                                    </button>
+                                </form>
+                                {% else %}
+                                    {{entry[i]}}
+                                {% endif %}
+                         </td>
+                        <td>
+                              <button name="delete_applicant" class="btn btn-primary navbar-btn btn-block btn-xs"
+                                            data-toggle="modal" data-target="#DeleteModal{{ entry[0] }}" title="Remove applicant from database">
+                                  Remove
+                              </button>
+                              <div class="modal fade" id="DeleteModal{{ entry[0] }}" role="dialog">
+                                <div class="modal-dialog">
+                                  <div class="modal-content">
+                                    <div class="modal-header">
+                                      <button type="button" class="close" data-dismiss="modal">&times;</button>
+                                      <h4 class="modal-title">Confirmation</h4>
+                                    </div>
+                                    <div class="modal-body">
+                                      <p>Are sure want to remove this applicant?</p>
+                                    </div>
+                                    <div class="modal-footer">
+                                        <div class="row">
+                                            <div class="col-md-3 col-md-offset-3">
+                                                <form action="{{ url_for('delete_applicant', id=entry[0])}}" method="post">
+                                                    <button name="delete_applicant" class="btn btn-primary navbar-btn btn-block btn-xs">
+                                                        Yes
+                                                    </button>
+                                                </form>
+                                            </div>
+                                            <div class="col-md-3">
+                                                <button class="btn btn-primary navbar-btn btn-block btn-xs" data-dismiss="modal">
+                                                    No
+                                                </button>
+                                            </div>
+                                        </div>
+                                    </div>
+                                  </div>
+
+                                </div>
+                              </div>
+                         </td>
+                    {% endif %}
+                {% endfor %}
+        </tr>
         {% endfor %}
-    </tr>
-    {% for entry in entries %}
-    <tr>
-        {% for column in entry %}
-            <td>{{column}}</td>
-        {% endfor %}
-    </tr>
-    {% endfor %}
-</table>
-
-{% endblock %}
+    </table>
+    </div>
+    {% endblock %}
+</body>
 
 </html>

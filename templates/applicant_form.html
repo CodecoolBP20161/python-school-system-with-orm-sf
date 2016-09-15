@@ -4,42 +4,64 @@
     <head>
 
         <title>Applicant</title>
+        <link rel="stylesheet" href="https://bootswatch.com/cerulean/bootstrap.min.css">
         <link rel="stylesheet" href="/static/css/registration_style.css">
 
     </head>
 
+
     <body>
-        <div class="header"></div>
-        <br>
 
-        <div style="text-align:right">
-        <form action="{{ url_for('home') }}" method='GET'>
-        <input type="submit" value="Home" class="myButton">
-        </form>
-        </div>
+        <nav class="navbar navbar-fixed-top navbar-inverse">
+            <div class="container-fluid">
+                <div class="nav navbar-right" style="padding-right: 20px">
+                    <a href="{{ url_for('home') }}">{{ text|safe }}<button name="one" class="btn btn-primary navbar-btn">Home</button></a>
+                </div>
+            </div>
+        </nav>
 
-        <div class="one">
-            <h1 style="font-family:helvetica">Application form</h1>
-            <form id="form" action= "{{ url_for('submit_applicant') }}" method="post">
-            <p>First name</p>
-            <p>{{form.first_name(style="width: 400px",required="true")}}</p>
-            <p>Last name</p>
-            <p>{{form.last_name(style="width: 400px",required="true")}}</p>
-            <p>City</p>
-            <p>{{form.city(style="width: 400px",required="true")}}</p>
-            <p>Email</p>
-            <p>{{form.email(required="true")}}</p><br>
-            <p>{{form.submit(class_="myButton")}}</p>
-        </div>
+    <div class="row">
+        <div class="col-md-4"></div>
+         <div class="col-md-4">
+            <div class="container-fluid text-left" id="one">
+                <form id="form" action= "{{ url_for('submit_applicant') }}" method="post">
+                {% with messages = get_flashed_messages() %}
+                    {% if messages %}
+                        {% for message in messages %}
+                            <h5><span class="label label-warning">{{ message }}</span></h5>
+                        {% endfor %}
+                    {% endif %}
+                 {% endwith %}
+                    <h1>Application Form</h1>
+                    <div class="form-group">
+                        <label for="first_name">First name</label>
+                        {{form.first_name(id="first_name", required="true", placeholder="Enter here your first name", class="form-control")}}
+                    </div>
+                    <div class="form-group">
+                        <label for="last_name">Last name</label>
+                        {{form.last_name(id="last_name", required="true", placeholder="Enter here your last name", class="form-control")}}
+                    </div>
+                    <div class="form-group">
+                        <label for="city">City</label>
+                        {{form.city(id="city", required="true", placeholder="Enter here the city where you are living", class="form-control")}}
+                    </div>
+                    <div class="form-group">
+                        <label for="email">Email</label>
+                        {{form.email(id="email", required="true", placeholder="Your e-mail address",class="form-control")}}<br>
+                        {{form.submit(class_= "btn btn-primary navbar-btn")}}
+                    </div>
+                </form>
+                </div>
+            </div>
+        <div class="col-md-4"></div>
+    </div>
 
-        {% with messages = get_flashed_messages() %}
-          {% if messages %}
-            {% for message in messages %}
-                <p>{{ message }}</p>
-            {% endfor %}
-          {% endif %}
-        {% endwith %}
+    <footer>
+    <div class="container text-center">
+        <div class="navbar-fixed-bottom">© Codecool | Starfish 2016</div>
+    </div>
+    </footer>
 
-        <div class="footer">© Codecool | Starfish 2016</div>
     </body>
+
 </html>
