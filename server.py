@@ -4,7 +4,9 @@ from models import *
 from flask import session
 import hashlib
 import re
+import sys
 
+import model.query_functs
 
 app = Flask(__name__)
 app.secret_key = 'key'
@@ -20,6 +22,7 @@ def validate(name):
         return True
     else:
         return False
+
 
 def emailvalidate(mail):
     pattern = r"^[a-zA-Z0-9.!#$%&'*+/=?^_`{|}~-]+@[a-zA-Z0-9](?:[a-zA-Z0-9-]{0,61}[a-zA-Z0-9])?(?:\.[a-zA-Z0-9](?:[a-zA-Z0-9-]{0,61}[a-zA-Z0-9])?)*$"
@@ -138,11 +141,11 @@ def submit_applicant():
     if emailvalidate(form.email.data) is False or Applicant.select().where(Applicant.email == form.email.data).exists():
         flash('Invalid or registered email address!')
     print(form.validate())
-    if '_flashes' not in session :
-            Applicant.create(first_name=form.first_name.data, last_name=form.last_name.data,
+    if '_flashes' not in session:
+        Applicant.create(first_name=form.first_name.data, last_name=form.last_name.data,
                          city=form.city.data, email=form.email.data, status='new')
-            flash("Registration successful!")
-            return redirect(url_for('home'))
+        flash("Registration successful!")
+        return redirect(url_for('home'))
 
     return render_template('applicant_form.html', form=form)
 
@@ -157,15 +160,7 @@ def list_applicants():
             for interview in Interview.select():
                 if str(form.applicant_interview.data) in str(interview.start):
                     interview_ids.append(interview.id)
-
-            query = Applicant.select().join(School, JOIN.LEFT_OUTER).switch(Applicant).join(Interview, JOIN.LEFT_OUTER) \
-                .where(Applicant.first_name.contains(form.applicant_first_name.data),
-                       Applicant.last_name.contains(form.applicant_last_name.data),
-                       (Applicant.application_code.contains(form.applicant_app_code.data)),
-                       Applicant.email.contains(form.applicant_email.data),
-                       Applicant.city.contains(form.applicant_city.data),
-                       (School.location.contains(form.applicant_school.data)),
-                       (Interview.id << interview_ids))
+            query = model.query_functs.filter_applicants(form, interview_ids)
         else:
             form = MyForm()
             query = Applicant.select().join(School, JOIN.LEFT_OUTER).switch(Applicant).join(Interview, JOIN.LEFT_OUTER)
@@ -190,7 +185,8 @@ def list_applicants():
             entries.append(data_list)
 
         return render_template('applicant_filter.html', title="Applicants", entries=entries,
-                               titles=["Application Code", "Name", "Email", "City", "School", "Interview time"], form=form)
+                               titles=["Application Code", "Name", "Email", "City", "School", "Interview time"],
+                               form=form)
     return redirect(url_for('home'))
 
 

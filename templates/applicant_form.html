@@ -34,15 +34,21 @@
                  {% endwith %}
                     <h1>Application Form</h1>
                     <div class="form-group">
-                    <p>First name</p>
-                    {{form.first_name(required="true", placeholder="Enter here your first name",class="form-control")}}
-                    <p>Last name</p>
-                    {{form.last_name(required="true", placeholder="Enter here your last name",class="form-control")}}
-                    <p>City</p>
-                    {{form.city(required="true", placeholder="Enter here the city where you are living",class="form-control")}}
-                    <p>Email</p>
-                    {{form.email(required="true", placeholder="Your e-mail address",class="form-control")}}<br>
-                    {{form.submit(class_= "btn btn-primary navbar-btn")}}
+                        <label for="first_name">First name</label>
+                        {{form.first_name(id="first_name", required="true", placeholder="Enter here your first name", class="form-control")}}
+                    </div>
+                    <div class="form-group">
+                        <label for="last_name">Last name</label>
+                        {{form.last_name(id="last_name", required="true", placeholder="Enter here your last name", class="form-control")}}
+                    </div>
+                    <div class="form-group">
+                        <label for="city">City</label>
+                        {{form.city(id="city", required="true", placeholder="Enter here the city where you are living", class="form-control")}}
+                    </div>
+                    <div class="form-group">
+                        <label for="email">Email</label>
+                        {{form.email(id="email", required="true", placeholder="Your e-mail address",class="form-control")}}<br>
+                        {{form.submit(class_= "btn btn-primary navbar-btn")}}
                     </div>
                 </form>
                 </div>
