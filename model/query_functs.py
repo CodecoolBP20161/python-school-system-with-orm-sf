@@ -6,7 +6,6 @@ def filter_applicants(form, interview_ids):
     query = Applicant.select().join(School, JOIN.LEFT_OUTER).switch(Applicant).join(Interview, JOIN.LEFT_OUTER)
     if form.applicant_app_code.data != "":
         query = query.where(Applicant.application_code.contains(form.applicant_app_code.data))
-    print(form.applicant_first_name.data)
     if form.applicant_first_name.data != "":
         query = query.where(Applicant.first_name.startswith(form.applicant_first_name.data))
     if form.applicant_last_name.data != "":
